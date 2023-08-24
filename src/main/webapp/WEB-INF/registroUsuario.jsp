@@ -11,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Registro - Usuario</title>
                 <link rel="stylesheet" href="css/styleRegistro.css">
-                
+
             </head>
 
             <body>
@@ -23,33 +23,58 @@
                     <div class="container text-center">
                         <div class="d-flex justify-content-center">
                             <form:form action="/registro" method="post" modelAttribute="usuario">
-                                
+
+                                <p>
                                     <form:label path="name">Nombre</form:label>
-                                    <form:input type="text" path="name" class="form-control" placeholder="Ingrese su nombre" />
-                              
-                              
+                                    <form:input type="text" path="name" class="form-control"
+                                        placeholder="Ingrese su nombre" />
+                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
+                                    <strong>
+                                        <form:errors path="name" />
+                                    </strong>
+                                </div>
+                                </p>
+                                <p>
                                     <form:label path="email">Email</form:label>
-                                    <form:input type="email" path="email" class="form-control" placeholder="Ingrese su Email" />
-                             
+                                    <form:input type="email" path="email" class="form-control"
+                                        placeholder="Ingrese su Email" />
+                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
+                                    <strong>
+                                        <form:errors path="email" />
+                                    </strong>
+                                </div>
+                                </p>
+                                <p>
                                     <form:label path="password">Contraseña</form:label>
-                                    <form:input type="password" path="password" class="form-control" placeholder="Ingrese su Clave" />
-                               
+                                    <form:input type="password" path="password" class="form-control"
+                                        placeholder="Ingrese su Clave" />
+                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
+                                    <strong>
+                                        <form:errors path="password" />
+                                    </strong>
+                                </div>
+                                </p>
+                                <p>
                                     <form:label path="passwordConfirmation">Confirme su clave</form:label>
                                     <form:input path="passwordConfirmation" class="form-control" type="password"
                                         placeholder="Confirme Su Clave" />
-                                
+                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
+                                    <strong>
+                                        <form:errors path="passwordConfirmation" />
+                                    </strong>
+                                </div>
+                                </p>
+
                                 <div class="d-flex justify-content-around mt-4 mb-2">
                                     <a href="/" class="badge text-success p-3">Principal</a>
                                     <button class="btn btn-success p-2" type="submit">Registrar</button>
                                 </div>
-                
+
                             </form:form>
                         </div>
                     </div>
                 </div>
-                <p id="errors" class="container mt-2 text-center bg-danger text-warning ">
-                    <form:errors path="usuario.*" />
-                </p>
+
             </body>
 
             </html>
