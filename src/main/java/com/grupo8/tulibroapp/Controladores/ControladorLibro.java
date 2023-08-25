@@ -18,6 +18,7 @@ import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibro;
 import com.grupo8.tulibroapp.validaciones.FormLibroValidator;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -42,7 +43,11 @@ public class ControladorLibro {
     }
 
     @GetMapping("/anexar")
-    public String anexarLibroAutorGenero(@ModelAttribute("formLibro") FormLibro formLibro) {
+    public String anexarLibroAutorGenero(@ModelAttribute("formLibro") FormLibro formLibro, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/login";
+        }
         return "registroLibros.jsp";
     }
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
@@ -17,15 +18,17 @@ public class ControladorListaDeseo {
     private ServicioUsuario servicioUsuario;
 
     @GetMapping("/lista_deseos/{usuarioId}")
-    public String mostrarUsuario(Model model, HttpSession session) {
+    public String mostrarUsuario(@PathVariable("usuarioId") Long id, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId != null) {
-            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        if (usuarioId == null) {
+            return "redirect:/login";
+        } else if (id != usuarioId) {
+            return "redirect:/lista_deseos/" + usuarioId;
+        } else {
+            Usuario usuarioEmail = servicioUsuario.findById(id);
             model.addAttribute("usuarioEmail", usuarioEmail);
             return "mostrarListaDeseo.jsp";
-        } else {
-            return "redirect:/lista_deseos/" + usuarioId;
         }
-     }
+    }
 
 }
