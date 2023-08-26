@@ -9,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,11 +37,11 @@ public class Libro extends ModeloBase {
     @JoinTable(name = "detalle_orden_compra", joinColumns = @JoinColumn(name = "libro_id"), inverseJoinColumns = @JoinColumn(name = "orden_id"))
     private List<Orden> ordenes;
 
-    @OneToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="autor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id")
     private Autor autor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="genero_id")
+    @JoinColumn(name = "genero_id")
     private Genero genero;
 }

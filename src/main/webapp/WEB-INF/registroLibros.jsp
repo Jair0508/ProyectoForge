@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
             <!DOCTYPE html>
             <html lang="en">
 
@@ -10,92 +9,138 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Registro - Libros</title>
                 <link rel="stylesheet" href="/css/styleRegistro.css">
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+                    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+                    crossorigin="anonymous">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                    crossorigin="anonymous"></script>
             </head>
 
             <body>
                 <div>
-                    <%@ include file="nav.jsp" %>
+
                 </div>
-                <div id="formularioLibros" class="border border-5">
-                    <h1 class="text-center mb-2 bg-success">Anexar Libros</h1>
-                    <div class="container text-center">
-                        <div class="d-flex justify-content-center">
-                            <form:form action="/libros/anexar/libro" method="post" modelAttribute="formLibro">
-                                <p>
-                                    <form:label path="nombreLibro">Nombre Libro</form:label>
-                                    <form:input type="text" path="nombreLibro" class="form-control"
-                                        placeholder="Ingrese el nombre del libro" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="nombreLibro" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="descripcionLibro">Descripcion</form:label>
-                                    <form:textarea type="text" path="descripcionLibro"
-                                        placeholder="Ingrese la descripcion del libro" class="form-control" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="descripcionLibro" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="precioLibro">Precio</form:label>
-                                    <form:input type="text" path="precioLibro" class="form-control"
-                                        placeholder="Ingrese el precio del libro" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="precioLibro" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="cantidadLibro">cantidad</form:label>
-                                    <form:input type="text" class="form-control" path="cantidadLibro"
-                                        placeholder="Stock disponible del libro" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="cantidadLibro" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="nombreGenero">Genero</form:label>
-                                    <form:input type="text" path="nombreGenero" class="form-control"
-                                        placeholder="Ingrese Genero del libro" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="nombreGenero" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="nombreAutor">Nombre Autor</form:label>
-                                    <form:input type="text" path="nombreAutor" class="form-control"
-                                        placeholder="Ingrese el nombre de el autor" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="nombreAutor" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="descripcionAutor">Biografia</form:label>
-                                    <form:textarea type="text" path="descripcionAutor"
-                                        placeholder="Ingrese la biografia de el autor" class="form-control" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="descripcionAutor" />
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="fraseAutor">Frase Celebre</form:label>
-                                    <form:textarea type="text" path="fraseAutor"
-                                        placeholder="Ingrese una frase de el autor" class="form-control" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <form:errors path="fraseAutor" />
-                                </div>
-                                </p>
-                                <div class="d-flex justify-content-around mt-4 mb-2">
-                                    <a href="" class="badge text-success p-3">Regresar</a>
-                                    <button class="btn btn-success p-2" type="submit">Anexar</button>
-                                </div>
-                                <p class="container mt-2 text-center bg-success text-warning">
-                                    <c:out value="${realizado}" />
-                                </p>
-                            </form:form>
-                        </div>
+                <form:form action="/libros/anexar/libro" method="post" modelAttribute="libro">
+                    <p>
+                        <form:label path="nombre">Nombre</form:label>
+                        <form:input type="text" path="nombre" placeholder="Ingrese su nombre" />
+                        <form:errors path="nombre" />
+                    </p>
+                    <p>
+                        <form:label path="descripcion">descripcion</form:label>
+                        <form:input type="text" path="descripcion" />
+                        <form:errors path="descripcion" />
+                    </p>
+                    <p>
+                        <form:label path="precio">precio</form:label>
+                        <form:input type="text" path="precio" />
+                        <form:errors path="precio" />
+                    </p>
+                    <p>
+                        <form:label path="cantidad">cantidad</form:label>
+                        <form:input type="text" path="cantidad" />
+                        <form:errors path="cantidad" />
+                    </p>
+                    <p>
+                        <label>genero del libro</label>
+                        <select name="genero">
+                            <option value="">selecione</option>
+                            <c:forEach var="generos" items="${listaGeneros}">
+                                <option value="${generos.id}">${generos.nombre}</option>
+
+                            </c:forEach>
+                        </select>
+                    </p>
+                    <p>
+                        <label>autor</label>
+                        <select name="autor">
+                            <option value="">selecione</option>
+                            <c:forEach var="autores" items="${listaAutores}">
+                                <option value="${autores.id}">${autores.nombre}</option>
+
+                            </c:forEach>
+                        </select>
+
+                    </p>
+                    <div class="d-flex justify-content-around mt-4 mb-2">
+                        <a href="" class="badge text-success p-3">Regresar</a>
+                        <button class="btn btn-success p-2" type="submit">Anexar</button>
                     </div>
+                    <p class="container mt-2 text-center bg-success text-warning">
+                        <c:out value="${realizado}" />
+                    </p>
+                </form:form>
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        agragar autor
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="border border-5">
+                            <h1 class="text-center fs-6 mb-2 bg-success">Inicio Sesion</h1>
+                            <div class="container text-center">
+                                <div class="d-flex justify-content-center">
+                                    <form action="/anexar/autor" method="post">
+                                        <p class="mb-2 ">
+                                            <label name="nombre">Nombre</label>
+                                            <input type="text" name="nombre" class="form-control"
+                                                placeholder="Ingrese Email" />
+                                        </p>
+                                        <br>
+                                        <p class="mb-2">
+                                            <label name="descripcion">descripcion</label>
+                                            <textarea type="text" name="descripcion" class="form-control"></textarea>
+
+                                        </p>
+                                        <p class="mb-2">
+                                            <label name="frase">frase</label>
+                                            <input type="text" name="frase" class="form-control">
+                                        </p>
+
+                                        <div class="d-flex justify-content-around mt-4">
+                                            <button class="btn btn-success p-2" type="submit">agregar autor</button>
+                                        </div>
+                                        <p id="errors" class="mt-2 bg-danger text-warning">
+                                            <c:out value="${error}" />
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
                 </div>
+                <div class="btn-group dropend">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        agragar genero
+                    </button>
+                    <ul class="dropdown-menu">
+                        <div class="border border-5">
+                            <h1 class="text-center fs-6 mb-2 bg-success">crear genero</h1>
+                            <div class="container text-center">
+                                <div class="d-flex justify-content-center">
+                                    <form action="/anexar/genero" method="post">
+                                        <p class="mb-2 ">
+                                            <label name="nombre">Nombre</label>
+                                            <input type="text" name="nombre" class="form-control" />
+                                        </p>
+
+                                        <div class="d-flex justify-content-around mt-4">
+                                            <button class="btn btn-success p-2" type="submit">agregar genero</button>
+                                        </div>
+
+                                        <p id="errors" class="mt-2 bg-danger text-warning">
+                                            <c:out value="${error}" />
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+
             </body>
+
 
             </html>
