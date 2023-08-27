@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 public class Util {
 
     public static void validarSoloTexto(String campo, String textoaValidar, Errors errors) {
-        if (!textoaValidar.matches("^[a-zA-Z\\s]*$")) {
+        if (!textoaValidar.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ,.\\s]*$")) {
             errors.rejectValue(campo, "SoloTexto");
         }
     }
@@ -13,6 +13,12 @@ public class Util {
     public static void validarNoNUll(String campo, String textoaValidar, Errors errors) {
         String cadena = textoaValidar;
         if (cadena == null || cadena.trim().isEmpty()) {
+            errors.rejectValue(campo, "Notnull");
+        }
+    }
+
+    public static void validarNoNUll(String campo, Object obj, Errors errors) {
+        if (obj == null) {
             errors.rejectValue(campo, "Notnull");
         }
     }

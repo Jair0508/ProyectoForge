@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,14 +17,18 @@ import com.grupo8.tulibroapp.Modelos.Libro;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibro;
+import com.grupo8.tulibroapp.validaciones.LibroValidator;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class ControladorLibro {
 
     @Autowired
     private ServicioLibro servicioLibro;
+    @Autowired
+    private LibroValidator libroValidator;
 
     @Autowired
     private ServicioAutor servicioAutor;
@@ -31,7 +36,7 @@ public class ControladorLibro {
     @Autowired
     private ServicioGenero servicioGenero;
 
-    @GetMapping("")
+    @GetMapping("libros")
     public String venta() {
         return "libros.jsp";
     }
@@ -70,15 +75,16 @@ public class ControladorLibro {
         return "redirect:/libros/anexar";
     }
 
-    @PostMapping("libros/anexar/libro")
-    public String anexarLibro(@ModelAttribute("libro") Libro libro, @RequestParam("genero") Long generoId,
-            @RequestParam("autor") Long autorId) {
-
-        Genero genero = servicioGenero.findById(generoId);
-        Autor autor = servicioAutor.findById(autorId);
-
-        libro.setGenero(genero);
-        libro.setAutor(autor);
+    @PostMapping("libros/anexar")
+    public String anexarLibro(@Valid @ModelAttribute("libro") Libro libro, BindingResult result, Model model) {
+        List<Genero> listaGeneros = servicioGenero.findAll();
+        List<Autor> listaAutores = servicioAutor.findAll();
+        libroValidator.validate(libro, result);
+        if (result.hasErrors()) {
+            model.addAttribute("listaGeneros", listaGeneros);
+            model.addAttribute("listaAutores", listaAutores);
+            return "registroLibros.jsp";
+        }
         servicioLibro.save(libro);
         return "redirect:/principal";
     }

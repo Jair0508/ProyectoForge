@@ -21,7 +21,7 @@
                 <div>
 
                 </div>
-                <form:form action="/libros/anexar/libro" method="post" modelAttribute="libro">
+                <form:form action="" method="post" modelAttribute="libro">
                     <p>
                         <form:label path="nombre">Nombre</form:label>
                         <form:input type="text" path="nombre" placeholder="Ingrese su nombre" />
@@ -43,25 +43,26 @@
                         <form:errors path="cantidad" />
                     </p>
                     <p>
-                        <label>genero del libro</label>
-                        <select name="genero">
-                            <option value="">selecione</option>
+                        <form:label path="genero">genero del libro</form:label>
+                        <form:select path="genero">
+                            <form:option value="">selecione</form:option>
                             <c:forEach var="generos" items="${listaGeneros}">
-                                <option value="${generos.id}">${generos.nombre}</option>
+                                <form:option value="${generos}">${generos.nombre}</form:option>
 
                             </c:forEach>
-                        </select>
+                        </form:select>
+                        <form:errors path="genero" />
                     </p>
                     <p>
-                        <label>autor</label>
-                        <select name="autor">
-                            <option value="">selecione</option>
+                        <form:label path="autor">autor</form:label>
+                        <form:select path="autor">
+                            <form:option value="">selecione</form:option>
                             <c:forEach var="autores" items="${listaAutores}">
-                                <option value="${autores.id}">${autores.nombre}</option>
+                                <form:option value="${autores}">${autores.nombre}</form:option>
 
                             </c:forEach>
-                        </select>
-
+                        </form:select>
+                        <form:errors path="autor" />
                     </p>
                     <div class="d-flex justify-content-around mt-4 mb-2">
                         <a href="" class="badge text-success p-3">Regresar</a>

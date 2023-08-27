@@ -21,6 +21,8 @@ public class LibroValidator implements Validator {
         Util.validarNoNUll("descripcion", libro.getDescripcion(), errors);
         Util.validarNoNUll("precio", libro.getPrecio(), errors);
         Util.validarNoNUll("cantidad", libro.getCantidad(), errors);
+        // Util.validarNoNUll("autor", libro.getAutor(), errors);
+        // Util.validarNoNUll("genero", libro.getGenero(), errors);
         Util.validarSoloTexto("nombre", libro.getNombre(), errors);
         Util.validarSoloTexto("descripcion", libro.getDescripcion(), errors);
         Util.validarSoloDecimales("precio", libro.getPrecio(), errors);
