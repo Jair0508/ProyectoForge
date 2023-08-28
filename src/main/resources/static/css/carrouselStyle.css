@@ -1,0 +1,51 @@
+.slider-container {
+  /* background-image: linear-gradient(to top, #fcfcf6, #d5ddc6, #a6c19c, #70a67b, #248b63); */
+  /* background-image: linear-gradient(to left bottom, #248b63, #609f74, #8cb38b, #b3c8a6, #d5ddc6, #d5e1cc, #d5e5d2, #d5e9d9, #addcd1, #85ccd5, #6ab9dc, #6fa2dd); */
+  /* background-image: linear-gradient(to right top, #c4c4c4, #d3d1d2, #e3dfde, #f1ede9, #fcfcf6); */
+  background-image: linear-gradient(to right top, #6fa2dd, #94c6d7, #d5e9d9, #d5e9d9, #fcfcf6);
+  padding-block: 40px;
+  padding-inline: 50px;
+  margin-inline: 25%;
+  border-radius: 50px;
+  margin-block: 30px;
+  box-shadow: 0px 0px 15px #000000ca;
+}
+
+.slider-frame {
+  width: 320px;
+  height: 530px;
+  margin: 0px auto 0px;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider-list {
+  display: flex;
+  list-style: none;
+  /* Ancho ajustado para el número de imágenes */
+  width: 300%; 
+  animation: slide 16s infinite ease-in-out;
+}
+
+.slider-item {
+  /* Ancho dividido en partes iguales para cada imagen */
+  flex: 0 0 33.33%; 
+}
+
+.slider-item img {
+  width: 100%;
+}
+
+@keyframes slide {
+  0% {margin-left: 0%;}
+  20% {margin-left: 0%;}
+
+  25% {margin-left: -100%;}
+  45% {margin-left: -100%;}
+
+  50% {margin-left: -200%;}
+  70% {margin-left: -200%;}
+
+  75% {margin-left: -300%;}
+  95% {margin-left: -300%;}
+}
