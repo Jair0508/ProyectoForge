@@ -1,8 +1,6 @@
 package com.grupo8.tulibroapp.Modelos;
 
-
 import java.util.List;
-
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,17 +20,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @Table(name = "usuarios")
-public class Usuario extends ModeloBase{
-
-
+public class Usuario extends ModeloBase {
 
     private String name;
-    
+
     @Email
     @Column(name = "email", unique = true)
     private String email;
 
-    
     private String password;
 
     @Transient
@@ -41,4 +36,8 @@ public class Usuario extends ModeloBase{
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "libro_id"))
     private List<Libro> libros;
+
+    public void agregarLibro(Libro libro) {
+        libros.add(libro);
+    }
 }

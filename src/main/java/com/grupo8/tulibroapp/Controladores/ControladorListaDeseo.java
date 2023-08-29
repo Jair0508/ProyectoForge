@@ -1,12 +1,17 @@
 package com.grupo8.tulibroapp.Controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.grupo8.tulibroapp.Modelos.Libro;
 import com.grupo8.tulibroapp.Modelos.Usuario;
+import com.grupo8.tulibroapp.Servicio.ServicioLibro;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
@@ -16,6 +21,9 @@ public class ControladorListaDeseo {
 
     @Autowired
     private ServicioUsuario servicioUsuario;
+
+    @Autowired
+    private ServicioLibro servicioLibro;
 
     @GetMapping("/lista_deseos/{usuarioId}")
     public String mostrarUsuario(@PathVariable("usuarioId") Long id, Model model, HttpSession session) {
@@ -31,4 +39,15 @@ public class ControladorListaDeseo {
         }
     }
 
+    @PostMapping("/lista_deseos/anexar_libro/{libroId}")
+    public String agregarLibro_ListaDeseos(@PathVariable("libroId") Long LibroId,
+            HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuario = servicioUsuario.findById(usuarioId);
+
+        Libro libro = servicioLibro.findById(LibroId);
+        usuario.agregarLibro(libro);
+        servicioLibro.save(libro);
+        return "redirect:/lista_deseos/" + usuarioId;
+    }
 }
