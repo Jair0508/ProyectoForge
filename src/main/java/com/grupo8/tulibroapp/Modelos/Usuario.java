@@ -40,4 +40,8 @@ public class Usuario extends ModeloBase {
     public void agregarLibro(Libro libro) {
         libros.add(libro);
     }
+
+    public void quitarLibro(Libro libro) {
+        libros.remove(libro);
+    }
 }

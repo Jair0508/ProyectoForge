@@ -50,4 +50,17 @@ public class ControladorListaDeseo {
         servicioLibro.save(libro);
         return "redirect:/lista_deseos/" + usuarioId;
     }
+
+    @PostMapping("/lista_deseos/quitarLibro/{libroId}")
+    public String quitarLibro_ListaDeseos(@PathVariable("libroId") Long LibroId,
+            HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuario = servicioUsuario.findById(usuarioId);
+
+        Libro libro = servicioLibro.findById(LibroId);
+        usuario.quitarLibro(libro);
+        servicioLibro.save(libro);
+
+        return "redirect:/lista_deseos/" + usuarioId;
+    }
 }

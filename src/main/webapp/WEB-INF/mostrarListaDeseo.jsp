@@ -34,6 +34,9 @@
                                 <h2>${lista_deseos.nombre}</h2>
                                 <p>${lista_deseos.descripcion}</p>
                                 <div>${lista_deseos.precio}</div>
+                                <form action="/lista_deseos/quitarLibro/${lista_deseos.id}" method="post">
+                                    <button type="submit">quitar libro </button>
+                                </form>
                             </div>
                         </c:forEach>
                     </div>
