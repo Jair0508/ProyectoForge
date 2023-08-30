@@ -33,3 +33,73 @@
     transform: translateX(-100%);
   }
 }
+
+#middle-title {
+  background-color: #fcfcf6a5;
+  padding-block: 10px;
+  font-family: 'Comfortaa';
+  color: #6fa2dd;
+  font-size: 2em;
+  margin-block: 20px;
+  text-align: center;
+
+  & span {
+    color: #248b63;
+  }
+}
+
+.cards-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.book-card {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 20px 10px;
+  width: 220px;
+  border-radius: 50px;
+  background-color: #fcfcf6;
+  box-shadow: 0px 0px 15px #000000ca;
+  min-height: 300px;
+
+
+  & h3 {
+    color: #248b63;
+    margin-bottom: 10px;
+    text-decoration-line: underline;
+  }
+  & p {
+    margin-bottom: 10px;
+  }
+  /* & a {
+    text-decoration: none;
+    color: #94c0a0;
+    font-weight: bold;
+    border-radius: 50px;
+    padding-inline: 8px;
+  }
+  
+  & a:hover{
+    background-color: #6fa2dd;
+    font-size: 1.2em;
+  } */
+
+  & form {
+    margin-top: 10px;
+    
+    & button {
+      background-color: transparent;
+      color: #94c0a0;
+      font-weight: bold;
+      border-radius: 50px;
+      padding-inline: 8px;
+      font-size: 1em;
+    }
+
+    & button:hover {
+      background-color: #6fa2dd;
+    }
+  }
+}
