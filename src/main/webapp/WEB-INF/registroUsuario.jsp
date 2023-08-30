@@ -1,80 +1,75 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-        <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-            <!DOCTYPE html>
-            <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Registro - Usuario</title>
-                <link rel="stylesheet" href="css/styleRegistro.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/baseStyles.css">
 
-            </head>
+  <title>Registro - Usuario</title>
+</head>
 
-            <body>
-                <div>
-                    <%@ include file="nav.jsp" %>
-                </div>
-                <div id="formularioLibros" class="border border-5">
-                    <h1 class="text-center mb-2 bg-success">Bienvenido, puede Registrarse</h1>
-                    <div class="container text-center">
-                        <div class="d-flex justify-content-center">
-                            <form:form action="/registro" method="post" modelAttribute="usuario">
+<body>
+  <div>
+    <%@ include file="nav.jsp" %>
+  </div>
+  <div id="formularioLibros">
+    <h1>Bienvenido, puede Registrar</h1>
+    <div>
+      <div>
+        <form:form action="/registro" method="post" modelAttribute="usuario">
 
-                                <p>
-                                    <form:label path="name">Nombre</form:label>
-                                    <form:input type="text" path="name" class="form-control"
-                                        placeholder="Ingrese su nombre" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <strong>
-                                        <form:errors path="name" />
-                                    </strong>
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="email">Email</form:label>
-                                    <form:input type="email" path="email" class="form-control"
-                                        placeholder="Ingrese su Email" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <strong>
-                                        <form:errors path="email" />
-                                    </strong>
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="password">Contraseña</form:label>
-                                    <form:input type="password" path="password" class="form-control"
-                                        placeholder="Ingrese su Clave" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <strong>
-                                        <form:errors path="password" />
-                                    </strong>
-                                </div>
-                                </p>
-                                <p>
-                                    <form:label path="passwordConfirmation">Confirme su clave</form:label>
-                                    <form:input path="passwordConfirmation" class="form-control" type="password"
-                                        placeholder="Confirme Su Clave" />
-                                <div id="errors" class="container mt-2 text-center bg-danger text-warning">
-                                    <strong>
-                                        <form:errors path="passwordConfirmation" />
-                                    </strong>
-                                </div>
-                                </p>
+          <p>
+            <form:label path="name">Nombre</form:label>
+            <form:input type="text" path="name" placeholder="Ingrese su nombre" />
+          <div>
+            <strong>
+              <form:errors path="name" />
+            </strong>
+          </div>
+          </p>
+          <p>
+            <form:label path="email">Email</form:label>
+            <form:input type="email" path="email" placeholder="Ingrese su Email" />
+          <div>
+            <strong>
+              <form:errors path="email" />
+            </strong>
+          </div>
+          </p>
+          <p>
+            <form:label path="password">Contraseña</form:label>
+            <form:input type="password" path="password" placeholder="Ingrese su Clave" />
+          <div>
+            <strong>
+              <form:errors path="password" />
+            </strong>
+          </div>
+          </p>
+          <p>
+            <form:label path="passwordConfirmation">Confirme su clave</form:label>
+            <form:input path="passwordConfirmation" type="password" placeholder="Confirme Su Clave" />
+          <div>
+            <strong>
+              <form:errors path="passwordConfirmation" />
+            </strong>
+          </div>
+          </p>
 
-                                <div class="d-flex justify-content-around mt-4 mb-2">
-                                    <a href="/" class="badge text-success p-3">Principal</a>
-                                    <button class="btn btn-success p-2" type="submit">Registrar</button>
-                                </div>
+          <div>
+            <a href="/">Principal</a>
+            <button type="submit">Registrar</button>
+          </div>
 
-                            </form:form>
-                        </div>
-                    </div>
-                </div>
+        </form:form>
+      </div>
+    </div>
+  </div>
+</body>
 
-            </body>
-
-            </html>
+</html>
