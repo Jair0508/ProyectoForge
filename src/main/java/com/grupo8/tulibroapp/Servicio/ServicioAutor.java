@@ -12,5 +12,8 @@ public class ServicioAutor extends ServicioBase<Autor>{
     @Autowired
     private RepositorioAutor repositorioAutor;
 
-    
+    public Autor findByNombre(String autor){
+        Autor autorNombre = repositorioAutor.findByNombre(autor);
+        return autorNombre;
+    }
 }

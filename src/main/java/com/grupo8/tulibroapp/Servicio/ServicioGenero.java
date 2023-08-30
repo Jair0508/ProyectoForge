@@ -11,4 +11,9 @@ public class ServicioGenero extends ServicioBase<Genero>{
     
     @Autowired 
     private RepositorioGenero repositorioGenero;
+
+    public Genero findByNombre(String nombre){
+        Genero nombreGenero = repositorioGenero.findByNombre(nombre);
+        return nombreGenero;
+    }
 }
