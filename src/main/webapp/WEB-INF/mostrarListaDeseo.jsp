@@ -37,6 +37,7 @@
                                 <form action="/lista_deseos/quitarLibro/${lista_deseos.id}" method="post">
                                     <button type="submit">quitar libro </button>
                                 </form>
+                                <a href="/orden/confrimar/${lista_deseos.id}">comprar ahora</a>
                             </div>
                         </c:forEach>
                     </div>
