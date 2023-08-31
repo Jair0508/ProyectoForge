@@ -16,6 +16,14 @@ import lombok.Setter;
 @Table(name = "detalle_orden_compra")
 public class DetalleOrden extends ModeloBase {
 
+    private String nombre;
+
+    private String departamento;
+
+    private String municipio;
+
+    private String direccion;
+
     private String detalle;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,7 +31,7 @@ public class DetalleOrden extends ModeloBase {
     private Libro libro;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orden_id")
-    private Orden orden;
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
 }
