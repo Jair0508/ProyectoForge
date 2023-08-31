@@ -1,6 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,9 +14,9 @@
 </head>
 
 <body>
-  <div>
-    <%@ include file="nav.jsp" %>
-  </div>
+
+  <%@ include file="nav.jsp" %>
+
   <div class="formulario">
     <h1 class="form-title">Agregar Libro</h1>
     <form:form action="/libros/anexar" method="post" modelAttribute="libro">
