@@ -20,5 +20,9 @@ body {
 .errors {
   color: #ffffff;
   background-color: #fd8585;
+  max-width: 80%;
+  margin: 0 auto;
+  display: block;
+  padding-inline: 8px;
   border-radius: 50px;
 }
