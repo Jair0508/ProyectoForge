@@ -24,7 +24,7 @@ public class DetalleOrden extends ModeloBase {
 
     private String direccion;
 
-    private String detalle;
+    private String detalle; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "libro_id")

@@ -4,9 +4,9 @@
 
 <link rel="stylesheet" href="/css/styleNav.css">
 
-<!--* header Container  -->
+
 <header>
-  <!--* Logo  -->
+  
   <a href="/" id="logo">
     <svg viewBox="2 0 24 24" width="50" fill="none">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -19,7 +19,7 @@
   </a>
 
   <div class="middleHeader">
-    <!--* Busqueda  -->
+   
     <form role="search">
       <input type="search" placeholder="Search" aria-label="Search"/>
       <button type="submit">
@@ -27,7 +27,7 @@
       </button>
     </form>
   
-    <!--* Navigator -->
+    
     <div class="navbar">
       <a href="/principal">Inicio</a>
 

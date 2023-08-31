@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grupo8.tulibroapp.Modelos.DetalleOrden;
 import com.grupo8.tulibroapp.Modelos.Libro;
@@ -21,6 +22,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
+@RequestMapping("/orden")
 public class ControladorDetalleOrden {
 
     @Autowired
@@ -32,20 +34,20 @@ public class ControladorDetalleOrden {
     @Autowired
     private ServicioUsuario servicioUsuario;
 
-    @GetMapping("/orden/confrimar/{libro}")
+    @GetMapping("/confirmar/{libro}")
     public String showConfirmarCompra(@PathVariable("libro") Long libroId, Model model) {
         Libro libro = servicioLibro.findById(libroId);
         model.addAttribute("libro", libro);
-        return "confrimarCompra.jsp";
+        return "confirmarCompra.jsp";
     }
 
-    @GetMapping("/orden/compra/{libroId}")
+    @GetMapping("/compra/{libroId}")
     public String crudDestalleOrden(@ModelAttribute("detalleOrden") DetalleOrden orden,
             @PathVariable("libroId") Long libroId, Model model) {
-        return "crudDetalleOrden.jsp";
+        return "registroDetalleOrden.jsp";
     }
 
-    @PostMapping("/orden/compra/{libroId}")
+    @PostMapping("/compra/{libroId}")
     public String comprarProducto(@Valid @ModelAttribute("detalleOrden") DetalleOrden orden,
             @PathVariable("libroId") Long libroId, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
@@ -60,7 +62,7 @@ public class ControladorDetalleOrden {
         return "redirect:/principal";
     }
 
-    @GetMapping("/orden/lista")
+    @GetMapping("/lista")
     public String historial_ordenes(HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
         List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(usuarioId);
@@ -68,7 +70,7 @@ public class ControladorDetalleOrden {
         return "historialDeOrdenes.jsp";
     }
 
-    @PostMapping("/orden/cancelar/{libroId}")
+    @PostMapping("/cancelar/{libroId}")
     public String cancelarProducto(@PathVariable("libroId") Long libroId, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuario = servicioUsuario.findById(usuarioId);

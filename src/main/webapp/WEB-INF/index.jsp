@@ -13,10 +13,10 @@
 </head>
 
 <body>
-  <!-- header -->
+ 
   <%@ include file="nav.jsp" %>
 
-  <!-- carrousel -->
+ 
   <%@ include file="carrusel.jsp" %>
 
   <div class="main-content">
@@ -33,7 +33,7 @@
           <div>
             <h3><c:out value="${libro.nombre}" /></h3>
             <p><c:out value="${libro.descripcion}" /></p>
-            <!-- <a href="#">Ver mas...</a> -->
+           
             <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
               <button type="submit">agregar a lista de deseos </button>
             </form>

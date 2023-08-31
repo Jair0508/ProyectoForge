@@ -28,7 +28,7 @@ public class Libro extends ModeloBase {
     private String descripcion;
 
     private String precio;
-
+    
     private String cantidad;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -26,7 +26,7 @@
       <form:errors class="errors" path="nombre" />
 
       <form:label class="input-label" path="descripcion">descripcion</form:label>
-      <form:input class="input-content" type="text" path="descripcion" placeholder="Ingrese descripcion del libro" />
+      <form:textarea class="input-content" type="text" path="descripcion" placeholder="Ingrese descripcion del libro" />
       <form:errors path="descripcion" />
 
       <form:label class="input-label" path="precio">precio</form:label>
@@ -44,15 +44,17 @@
           <form:option value="${autores}">${autores.nombre}</form:option>
         </c:forEach>
       </form:select>
-
-      <form:label class="input-label" path="genero">genero del libro</form:label>
-      <form:select class="input-content" path="genero">
-        <form:option value="">selecione</form:option>
-        <c:forEach var="generos" items="${listaGeneros}">
-          <form:option value="${generos}">${generos.nombre}</form:option>
-        </c:forEach>
-      </form:select>
-
+      <a href="/libros/anexar/autor">Agregar Autor</a>
+      <p>
+        <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
+        <form:input class="input-content" type="text" path="genero.nombreGenero" placeholder="Ingrese genero del libro" list="genero" />
+        <datalist id="genero">
+            <c:forEach var="genero" items="${listaGeneros}">
+            <option><c:out value="${genero.nombreGenero}" /></option>
+            </c:forEach>
+          </datalist>
+        <form:errors path="genero.nombreGenero" /> 
+    </p>
       <div>
         <a href="">Regresar</a>
         <button type="submit">Anexar</button>
@@ -62,62 +64,6 @@
       </p>
     </form:form>
 
-    <div>
-      <div>
-        <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Agregar Autor
-        </button>
-        <ul>
-          <form:form action="/libros/anexar/autor" method="post" modelAttribute="autor">
-
-              <form:label class="input-label" path="nombre">Nombre</form:label>
-              <form:input class="input-content" type="text" path="nombre" placeholder="Ingrese su nombre" />
-              <form:errors class="errors" path="nombre" />
-              <c:out value="${repetidoAutor}" />
-
-              <form:label class="input-label" path="descripcion">Biografia</form:label>
-              <form:input class="input-content" type="text" path="descripcion" placeholder="Ingrese biografia de el autor" />
-              <form:errors class="errors" path="descripcion" />
-
-              <form:label class="input-label" path="frase">Frase</form:label>
-              <form:input class="input-content" type="text" path="frase" placeholder="Ingrese alguna frase de el autor" />
-              <form:errors class="errors" path="frase" />
-
-            <div>
-              <a href="">Regresar</a>
-              <button type="submit">Anexar</button>
-            </div>
-              <c:out value="${realizado}" />
-          </form:form>
-        </ul>
-      </div>
-
-
-      <div>
-        <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Agregar Genero
-        </button>
-        <ul>
-          <form:form action="/libros/anexar/genero" method="post" modelAttribute="genero">
-            <p>
-              <form:label class="input-label" path="nombre">Genero</form:label>
-              <form:input class="input-content" type="text" path="nombre" placeholder="Ingrese genero " />
-            <p>
-              <c:out value="${repetidoGenero}" />
-            </p>
-
-            <div>
-              <a href="">Regresar</a>
-              <button type="submit">Anexar</button>
-            </div>
-            <p>
-              <c:out value="${realizado}" />
-            </p>
-          </form:form>
-        </ul>
-      </div>
-    </div>
-  </div>
 </body>
 
 
