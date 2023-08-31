@@ -16,9 +16,9 @@
 </head>
 
 <body>
-  <div>
-    <%@ include file="nav.jsp" %>
-  </div>
+
+  <%@ include file="nav.jsp" %>
+
   <div class="formulario">
     <h1 class="form-title">Bienvenido, llene sus datos</h1>
 
