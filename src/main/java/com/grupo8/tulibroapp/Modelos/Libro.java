@@ -27,9 +27,9 @@ public class Libro extends ModeloBase {
 
     private String descripcion;
 
-    private String precio;
-    
-    private String cantidad;
+    private Double precio;
+
+    private Integer cantidad;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "libro_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))

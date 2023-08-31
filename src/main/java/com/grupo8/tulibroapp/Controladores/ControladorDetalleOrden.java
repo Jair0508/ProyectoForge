@@ -55,9 +55,18 @@ public class ControladorDetalleOrden {
 
         Libro libro = servicioLibro.findById(libroId);
 
+        orden.setDetalle_De_orden(
+                "Nombre Del Usuario:" + usuario.getName() + "\n" + "Id Del Usuario: " + usuario.getId() + "\n"
+                        + "Titulo Del Libro: " + libro.getNombre() + "\n" + "Autor"
+                        + libro.getAutor().getNombre() + "\n" + "Genero: " + libro.getGenero().getNombreGenero()
+                        + "\n" + "Cantidad: " + orden.getCantidad() + "\n" + "Precio Total: "
+                        + (orden.getCantidad() * libro.getPrecio()));
         orden.setLibro(libro);
         orden.setUsuario(usuario);
 
+        libro.setCantidad(libro.getCantidad() - orden.getCantidad());
+
+        servicioLibro.save(libro);
         servicioDetalleOrden.save(orden);
         return "redirect:/principal";
     }

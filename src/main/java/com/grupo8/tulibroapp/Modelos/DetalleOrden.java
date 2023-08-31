@@ -24,7 +24,11 @@ public class DetalleOrden extends ModeloBase {
 
     private String direccion;
 
-    private String detalle; 
+    private Integer cantidad;
+
+    private String detalle;
+
+    private String detalle_De_orden;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "libro_id")
