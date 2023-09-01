@@ -2,7 +2,7 @@ package com.grupo8.tulibroapp.Modelos;
 
 import java.util.List;
 
-import jakarta.persistence.Column;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -20,7 +20,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Autor extends ModeloBase {
 
-    @Column(name = "nombre", unique = true)
     @NotBlank(message = "Campo no debe estar vacio")
     @NotNull
     private String nombre;
@@ -34,5 +33,8 @@ public class Autor extends ModeloBase {
     private String frase;
 
     @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
-    private List<Libro> libros;
+    private List<LibroVenta> libroVentas;
+
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
+    private List<LibroIntercambio> libroIntercambios;
 }

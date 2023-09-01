@@ -30,3 +30,17 @@
 .input-label {
   font-weight: bold;
 }
+
+#icon{
+  display: flex;
+  justify-content:unset;
+  
+}
+
+.tooltip {
+  text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}

@@ -31,8 +31,8 @@ public class DetalleOrden extends ModeloBase {
     private String detalle_De_orden;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "libro_id")
-    private Libro libro;
+    @JoinColumn(name = "libro_venta_id")
+    private LibroVenta libroVenta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")

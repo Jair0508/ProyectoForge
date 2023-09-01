@@ -26,7 +26,7 @@
                     </div>
                     <div>
                         <h1>Lista de deseos</h1>
-                        <c:forEach var="lista_deseos" items="${usuarioEmail.libros}">
+                        <c:forEach var="lista_deseos" items="${usuarioEmail.libroVenta}">
                             <br>
                             <br>
                             <br>

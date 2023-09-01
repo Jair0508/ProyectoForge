@@ -34,7 +34,7 @@
       <div class="dropdown">
         <button class="dropbtn">Categorias</button>
         <div class="dropdown-content">
-          <a href="#">Lo nuevo en la libreria</a>
+          <a href="/libros">Lo nuevo en la libreria</a>
           <a href="#">Generos</a>
           <a href="#">Autores</a>
         </div>

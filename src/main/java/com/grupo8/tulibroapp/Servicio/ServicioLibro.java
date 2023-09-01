@@ -9,13 +9,11 @@ import com.grupo8.tulibroapp.Modelos.Libro;
 import com.grupo8.tulibroapp.Repositorio.RepositorioLibro;
 
 @Service
-public class ServicioLibro extends ServicioBase<Libro> {
+public abstract class ServicioLibro extends ServicioBase<Libro> {
 
     @Autowired
     private RepositorioLibro repositorioLibro;
 
-    public Page<Libro> findAll(Pageable pageable){
-        Page<Libro> pagesLibro = repositorioLibro.findAll(pageable);
-        return pagesLibro;
-    }
+    
 }
+

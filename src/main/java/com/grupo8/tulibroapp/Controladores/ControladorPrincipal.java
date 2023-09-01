@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.grupo8.tulibroapp.Modelos.Libro;
+import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioLibro;
+import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +20,7 @@ import jakarta.servlet.http.HttpSession;
 public class ControladorPrincipal {
 
     @Autowired
-    private ServicioLibro servicioLibro;
+    private ServicioLibroVenta servicioLibroVenta;
 
     @Autowired ServicioUsuario servicioUsuario;
 
@@ -29,13 +31,13 @@ public class ControladorPrincipal {
 
     @GetMapping("/principal")
     public String principal(Model model, HttpSession session) {
-        List<Libro> libro = servicioLibro.findAll();
+        List<LibroVenta> libro = servicioLibroVenta.findAll();
         model.addAttribute("listaLibros", libro);
         
         Long usuarioId = (Long) session.getAttribute("userId");
         if(usuarioId == null){
             return "redirect:/login";
-        } else {
+        } else { 
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
         return "index.jsp";

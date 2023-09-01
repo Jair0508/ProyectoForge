@@ -25,5 +25,8 @@ public class Genero extends ModeloBase{
     private String nombreGenero;
 
     @OneToMany(mappedBy="genero", fetch = FetchType.LAZY)
-    private List<Libro> libro;
+    private List<LibroVenta> libroVentas;
+
+    @OneToMany(mappedBy="genero", fetch = FetchType.LAZY)
+    private List<LibroIntercambio> libroIntercambios;
 }

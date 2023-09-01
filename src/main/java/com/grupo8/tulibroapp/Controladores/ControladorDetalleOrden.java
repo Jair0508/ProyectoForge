@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.grupo8.tulibroapp.Modelos.DetalleOrden;
-import com.grupo8.tulibroapp.Modelos.Libro;
+import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioDetalleOrden;
-import com.grupo8.tulibroapp.Servicio.ServicioLibro;
+import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,14 +29,14 @@ public class ControladorDetalleOrden {
     private ServicioDetalleOrden servicioDetalleOrden;
 
     @Autowired
-    private ServicioLibro servicioLibro;
+    private ServicioLibroVenta servicioLibroVenta;
 
     @Autowired
     private ServicioUsuario servicioUsuario;
 
     @GetMapping("/confirmar/{libro}")
     public String showConfirmarCompra(@PathVariable("libro") Long libroId, Model model) {
-        Libro libro = servicioLibro.findById(libroId);
+        LibroVenta libro = servicioLibroVenta.findById(libroId);
         model.addAttribute("libro", libro);
         return "confirmarCompra.jsp";
     }
@@ -53,7 +53,7 @@ public class ControladorDetalleOrden {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuario = servicioUsuario.findById(usuarioId);
 
-        Libro libro = servicioLibro.findById(libroId);
+        LibroVenta libro = servicioLibroVenta.findById(libroId);
 
         orden.setDetalle_De_orden(
                 "Nombre Del Usuario:" + usuario.getName() + "\n" + "Id Del Usuario: " + usuario.getId() + "\n"
@@ -61,12 +61,12 @@ public class ControladorDetalleOrden {
                         + libro.getAutor().getNombre() + "\n" + "Genero: " + libro.getGenero().getNombreGenero()
                         + "\n" + "Cantidad: " + orden.getCantidad() + "\n" + "Precio Total: "
                         + (orden.getCantidad() * libro.getPrecio()));
-        orden.setLibro(libro);
+        orden.setLibroVenta(libro);
         orden.setUsuario(usuario);
 
         libro.setCantidad(libro.getCantidad() - orden.getCantidad());
 
-        servicioLibro.save(libro);
+        servicioLibroVenta.save(libro);
         servicioDetalleOrden.save(orden);
         return "redirect:/principal";
     }
@@ -83,7 +83,7 @@ public class ControladorDetalleOrden {
     public String cancelarProducto(@PathVariable("libroId") Long libroId, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuario = servicioUsuario.findById(usuarioId);
-        Libro libro = servicioLibro.findById(libroId);
+        LibroVenta libro = servicioLibroVenta.findById(libroId);
         usuario.getLibrosOrdenes().remove(libro);
         return "redirect:/principal";
     }
