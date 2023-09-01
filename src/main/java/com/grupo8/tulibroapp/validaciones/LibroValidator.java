@@ -19,8 +19,8 @@ public class LibroValidator implements Validator {
         Libro libro = (Libro) target;
         Util.validarNoNUll("nombre", libro.getNombre(), errors);
         Util.validarNoNUll("descripcion", libro.getDescripcion(), errors);
-        Util.validarNoNUll("precio", libro.getPrecio(), errors);
-        Util.validarNoNUll("cantidad", libro.getCantidad(), errors);
+        Util.validarNoNUll("precio", libro.getPrecio().toString(), errors);
+        Util.validarNoNUll("cantidad", libro.getCantidad().toString(), errors);
         // Util.validarNoNUll("autor", libro.getAutor(), errors);
         // Util.validarNoNUll("genero", libro.getGenero(), errors);
         Util.validarSoloTexto("nombre", libro.getNombre(), errors);

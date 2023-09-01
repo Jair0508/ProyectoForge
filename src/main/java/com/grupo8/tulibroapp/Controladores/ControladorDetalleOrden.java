@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioDetalleOrden;
 import com.grupo8.tulibroapp.Servicio.ServicioLibro;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
+import com.grupo8.tulibroapp.validaciones.DetalleOrdenVlidator;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -27,6 +29,9 @@ public class ControladorDetalleOrden {
 
     @Autowired
     private ServicioDetalleOrden servicioDetalleOrden;
+
+    @Autowired
+    private DetalleOrdenVlidator detalleOrdenVlidator;
 
     @Autowired
     private ServicioLibro servicioLibro;
@@ -49,7 +54,11 @@ public class ControladorDetalleOrden {
 
     @PostMapping("/compra/{libroId}")
     public String comprarProducto(@Valid @ModelAttribute("detalleOrden") DetalleOrden orden,
-            @PathVariable("libroId") Long libroId, HttpSession session) {
+            @PathVariable("libroId") Long libroId, BindingResult result, HttpSession session) {
+        detalleOrdenVlidator.validate(orden, result);
+        if (result.hasErrors()) {
+            return "registroDetalleOrden.jsp";
+        }
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuario = servicioUsuario.findById(usuarioId);
 

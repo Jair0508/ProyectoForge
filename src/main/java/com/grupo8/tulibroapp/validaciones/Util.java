@@ -17,8 +17,8 @@ public class Util {
         }
     }
 
-    public static void validarNoNUll(String campo, Object obj, Errors errors) {
-        if (obj == null) {
+    public static void validarNoNUll(String campo, Integer number, Errors errors) {
+        if (number == null || number == 0) {
             errors.rejectValue(campo, "Notnull");
         }
     }
