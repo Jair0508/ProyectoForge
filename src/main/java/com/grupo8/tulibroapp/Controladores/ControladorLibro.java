@@ -38,16 +38,14 @@ public class ControladorLibro {
     @Autowired
     private ServicioGenero servicioGenero;
 
-
     @GetMapping("/{pageNumber}")
     public String venta(Model model, @PathVariable("pageNumber") int pageNumber, HttpSession session) {
         Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber - 1);
-        
-        
+
         int totalPages = paginaLibros.getTotalPages();
         // Long usuarioId = (Long) session.getAttribute("userId");
         // if(usuarioId != null){
-        //     return "redirect:/libros/" + pageNumber;
+        // return "redirect:/libros/" + pageNumber;
         // }
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaLibros", paginaLibros);
@@ -135,6 +133,13 @@ public class ControladorLibro {
         redirectAttributes.addFlashAttribute("realizado", "Autor guardado");
         servicioAutor.save(autor);
         return "redirect:/libros/anexar/autor";
+    }
+
+    @GetMapping("/libro/{libroId}")
+    public String showLibro(@PathVariable("libroId") Long libroId, Model model) {
+        LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
+        model.addAttribute("libro", libroVenta);
+        return "libroPorId.jsp";
     }
 
 }

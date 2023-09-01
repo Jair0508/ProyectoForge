@@ -34,15 +34,17 @@ public abstract class Libro extends ModeloBase {
 
     @NotBlank(message = "No debe tener espacios en blanco")
     @NotNull
-    @Size(min=5, max=70, message="Solo se aceptan 5 caracteres minimos y 70 caracteres maximos")
+    @Size(min = 5, max = 500, message = "Solo se aceptan 5 caracteres minimos y 500 caracteres maximos")
     private String descripcion;
 
     // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "libro_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    // @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name =
+    // "libro_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     // private Set<Usuario> usuarios;
 
     // @ManyToMany(fetch = FetchType.LAZY)
-    // @JoinTable(name = "detalle_orden_compra", joinColumns = @JoinColumn(name = "libro_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
+    // @JoinTable(name = "detalle_orden_compra", joinColumns = @JoinColumn(name =
+    // "libro_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))
     // private List<Usuario> usuariosOrdenes;
 
     // @Valid

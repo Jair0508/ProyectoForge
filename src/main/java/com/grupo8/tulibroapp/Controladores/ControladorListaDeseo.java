@@ -1,13 +1,11 @@
 package com.grupo8.tulibroapp.Controladores;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
@@ -43,8 +41,8 @@ public class ControladorListaDeseo {
     public String agregarLibro_ListaDeseos(@PathVariable("libroId") Long LibroId,
             HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        if(usuarioId == null){
-            
+        if (usuarioId == null) {
+            return "redirect:/registro";
         }
         Usuario usuario = servicioUsuario.findById(usuarioId);
 

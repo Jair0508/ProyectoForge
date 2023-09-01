@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -23,14 +24,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class LibroVenta extends Libro{
+public class LibroVenta extends Libro {
 
-    
     @NotNull
-    private double precio; 
+    @Min(value = 1, message = "La cantidad mínima permitida es 1")
+    private double precio;
 
-    
     @NotNull
+    @Min(value = 1, message = "La cantidad mínima permitida es 1")
     private int cantidad;
 
     @ManyToMany(fetch = FetchType.LAZY)

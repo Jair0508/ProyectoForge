@@ -26,7 +26,7 @@ import lombok.Setter;
 @Table(name = "usuarios")
 public class Usuario extends ModeloBase {
 
-    @Size(min = 2, max = 15, message = "No debe ser mayor a 15 caracteres ni menor a 2 caracteres")
+    @Size(min = 2, max = 50, message = "No debe ser mayor a 50 caracteres ni menor a 2 caracteres")
     @NotBlank(message = "No debe tener espacios en blanco")
     @NotNull
     private String name;

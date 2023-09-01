@@ -19,7 +19,6 @@ import com.grupo8.tulibroapp.Servicio.ServicioDetalleOrden;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
-
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -37,7 +36,11 @@ public class ControladorDetalleOrden {
     private ServicioUsuario servicioUsuario;
 
     @GetMapping("/confirmar/{libro}")
-    public String showConfirmarCompra(@PathVariable("libro") Long libroId, Model model) {
+    public String showConfirmarCompra(@PathVariable("libro") Long libroId, HttpSession session, Model model) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/registro";
+        }
         LibroVenta libro = servicioLibroVenta.findById(libroId);
         model.addAttribute("libro", libro);
         return "confirmarCompra.jsp";
@@ -45,7 +48,11 @@ public class ControladorDetalleOrden {
 
     @GetMapping("/compra/{libroId}")
     public String crudDestalleOrden(@ModelAttribute("detalleOrden") DetalleOrden orden,
-            @PathVariable("libroId") Long libroId, Model model) {
+            @PathVariable("libroId") Long libroId, HttpSession session, Model model) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/registro";
+        }
         return "registroDetalleOrden.jsp";
     }
 
@@ -60,12 +67,8 @@ public class ControladorDetalleOrden {
 
         LibroVenta libro = servicioLibroVenta.findById(libroId);
 
-        orden.setDetalle_De_orden(
-                "Nombre Del Usuario:" + usuario.getName() + "\n" + "Id Del Usuario: " + usuario.getId() + "\n"
-                        + "Titulo Del Libro: " + libro.getNombre() + "\n" + "Autor"
-                        + libro.getAutor().getNombre() + "\n" + "Genero: " + libro.getGenero().getNombreGenero()
-                        + "\n" + "Cantidad: " + orden.getCantidad() + "\n" + "Precio Total: "
-                        + (orden.getCantidad() * libro.getPrecio()));
+        orden.setPrecioUnitario(libro.getPrecio());
+        orden.setPrecioTotal(orden.getCantidad() * libro.getPrecio());
         orden.setLibroVenta(libro);
         orden.setUsuario(usuario);
 
