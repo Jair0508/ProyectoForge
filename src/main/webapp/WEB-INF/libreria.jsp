@@ -54,14 +54,8 @@
                     </form>
                   </c:if>
                   <c:if test="${usuarioEmail == null}">
-                  <button onclick="mostrarAlert()">agregar a lista de deseos </button>
-
-                  <script>
-                    function mostrarAlert() {
-                      alert("Debe iniciar sesion.");
-                    }
-                  </script>
-                </c:if>
+                    <button onclick="mostrarAlert()">agregar a lista de deseos </button>
+                  </c:if>
                 </div>
               </div>
             </c:forEach>
@@ -75,6 +69,7 @@
         <div>
           <%@ include file="footer.jsp" %>
         </div>
+        <script src="/javaScript/alerts.js"></script>
     </body>
 
     </html>

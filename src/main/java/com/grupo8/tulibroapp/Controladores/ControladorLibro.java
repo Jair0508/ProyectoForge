@@ -146,8 +146,10 @@ public class ControladorLibro {
     }
 
     @GetMapping("/{libroId}/libro")
-    public String showLibro(@PathVariable("libroId") Long libroId, Model model) {
+    public String showLibro(@PathVariable("libroId") Long libroId, HttpSession session, Model model) {
+        Long usuarioId = (Long) session.getAttribute("userId");
         LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
+        model.addAttribute("usuarioId", usuarioId);
         model.addAttribute("libro", libroVenta);
         return "libro.jsp";
     }

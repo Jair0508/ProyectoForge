@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grupo8.tulibroapp.Modelos.DetalleOrden;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
@@ -48,9 +49,11 @@ public class ControladorDetalleOrden {
 
     @GetMapping("/compra/{libroId}")
     public String crudDestalleOrden(@ModelAttribute("detalleOrden") DetalleOrden orden,
-            @PathVariable("libroId") Long libroId, HttpSession session, Model model) {
+            @PathVariable("libroId") Long libroId, HttpSession session, RedirectAttributes redirectAttributes,
+            Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
+
             return "redirect:/registro";
         }
         return "registroDetalleOrden.jsp";
