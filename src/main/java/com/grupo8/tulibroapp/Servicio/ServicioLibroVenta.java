@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Repositorio.RepositorioLibroVenta;
 

@@ -9,6 +9,7 @@ import com.grupo8.tulibroapp.Repositorio.RepositorioLibroIntercambio;
 @Service
 public class ServicioLibroIntercambio  extends ServicioBase<LibroIntercambio>{
     
-    @Autowired private RepositorioLibroIntercambio repositorioLibroIntercambio;
+    @Autowired
+    RepositorioLibroIntercambio repositorioLibroIntercambio;
 
 }

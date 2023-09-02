@@ -10,6 +10,6 @@ import com.grupo8.tulibroapp.Repositorio.RepositorioListaDeseo;
 public class ServicioListaDeseo extends ServicioBase<ListaDeseo> {
 
     @Autowired
-    private RepositorioListaDeseo repositorioListaDeseo;
+    RepositorioListaDeseo repositorioListaDeseo;
 
 }

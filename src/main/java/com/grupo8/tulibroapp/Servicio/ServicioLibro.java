@@ -10,7 +10,7 @@ import com.grupo8.tulibroapp.Repositorio.RepositorioLibro;
 public abstract class ServicioLibro extends ServicioBase<Libro> {
 
     @Autowired
-    private RepositorioLibro repositorioLibro;
+    RepositorioLibro repositorioLibro;
 
     
 }
