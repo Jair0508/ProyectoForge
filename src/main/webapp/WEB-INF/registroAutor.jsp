@@ -34,8 +34,10 @@
             <form:errors class="errors" path="frase" />
         
         
-            <a href="/libros/anexar" >Regresar</a>
-            <button  type="submit">Anexar</button>
+            <div class="buttons-container">
+              <a class="button-link" href="/libros/anexar" >Cancelar</a>
+              <button class="button-link"  type="submit">Agregar</button>
+            </div>
         
             <c:out value="${realizado}" />
        

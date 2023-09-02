@@ -28,17 +28,17 @@
               <form:label class="input-label" path="descripcion">descripcion</form:label>
               <form:textarea class="input-content" type="text" path="descripcion"
                 placeholder="Ingrese descripcion del libro" />
-              <form:errors class="errors" path="descripcion" />
+              <form:errors path="descripcion" />
 
               <form:label class="input-label" path="precio">precio</form:label>
-              <form:input class="input-content" type="number" min="0.00" step="0.01" path="precio"
+              <form:input class="input-content" type="number" step="0.01" path="precio"
                 placeholder="Ingrese precio del libro" />
-              <form:errors class="errors" path="precio" />
+              <form:errors path="precio" />
 
               <form:label class="input-label" path="cantidad">cantidad</form:label>
-              <form:input class="input-content" type="number" min="0" path="cantidad"
+              <form:input class="input-content" type="number" path="cantidad"
                 placeholder="Ingrese cantidad de libros" />
-              <form:errors class="errors" path="cantidad" />
+              <form:errors path="cantidad" />
 
               <form:label class="input-label" path="autor">autor</form:label>
               <form:select class="input-content" path="autor">
@@ -47,24 +47,24 @@
                   <form:option value="${autores}">${autores.nombre}</form:option>
                 </c:forEach>
               </form:select>
-              <form:errors class="errors" path="autor" />
-              <a href="/libros/anexar/autor">Agregar Autor</a>
-              <p>
-                <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
-                <form:input class="input-content" type="text" path="genero.nombreGenero"
-                  placeholder="Ingrese genero del libro" list="genero" />
-                <datalist id="genero">
-                  <c:forEach var="genero" items="${listaGeneros}">
-                    <option>
-                      <c:out value="${genero.nombreGenero}" />
-                    </option>
-                  </c:forEach>
-                </datalist>
-                <form:errors class="errors" path="genero.nombreGenero" />
-              </p>
-              <div>
-                <a href="">Regresar</a>
-                <button type="submit">Anexar</button>
+              <div class="buttons-container">
+                <a class="button-link" href="/libros/anexar/autor">Agregar Autor</a>
+              </div>
+              
+              <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
+              <form:input class="input-content" type="text" path="genero.nombreGenero" placeholder="Ingrese genero del libro" list="genero" />
+              <datalist id="genero">
+                <c:forEach var="genero" items="${listaGeneros}">
+                  <option>
+                    <c:out value="${genero.nombreGenero}" />
+                  </option>
+                </c:forEach>
+              </datalist>
+              <form:errors path="genero.nombreGenero" />
+              
+              <div class="buttons-container">
+                <a class="button-link" href="">Regresar</a>
+                <button class="button-link" type="submit">Anexar</button>
               </div>
               <p>
                 <c:out value="${realizado}" />
