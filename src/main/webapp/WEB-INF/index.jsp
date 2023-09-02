@@ -49,17 +49,11 @@
                       </g>
                     </svg>
                     <div>
-                      <h3>
-                        <c:out value="${libro.nombre}" />
-                      </h3>
-                      <h4>Genero:</h4>
-                      <p>
-                        <c:out value="${libro.genero.nombreGenero}" />
-                      </p>
-                      <h4>Autor:</h4>
-                      <p>
-                        <c:out value="${libro.autor.nombre}" />
-                      </p>
+                      <h3 class="card-content"><c:out value="${libro.nombre}" /></h3>
+                      <h4 class="card-content">Genero:</h4>
+                      <p class="card-content"><c:out value="${libro.genero.nombreGenero}" /></p>
+                      <h4 class="card-content">Autor:</h4>
+                      <p class="card-content"><c:out value="${libro.autor.nombre}" /></p>
                       <c:if test="${not empty usuarioEmail}">
                         <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                           <button type="submit">agregar a lista de deseos </button>
