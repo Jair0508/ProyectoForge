@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grupo8.tulibroapp.Modelos.Autor;
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
+import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
+import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -28,6 +31,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/libros")
 public class ControladorLibro {
+
+    @Autowired
+    private ServicioUsuario servicioUsuario;
 
     @Autowired
     private ServicioLibroVenta servicioLibroVenta;
@@ -40,17 +46,21 @@ public class ControladorLibro {
 
     @GetMapping("/{pageNumber}")
     public String venta(Model model, @PathVariable("pageNumber") int pageNumber, HttpSession session) {
-        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber - 1);
+        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber);
 
         int totalPages = paginaLibros.getTotalPages();
-        // Long usuarioId = (Long) session.getAttribute("userId");
-        // if(usuarioId != null){
-        // return "redirect:/libros/" + pageNumber;
-        // }
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("paginaLibros", paginaLibros);
-
-        return "libros.jsp";
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("paginaLibros", paginaLibros);
+            return "libreria.jsp";
+        } else {
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("paginaLibros", paginaLibros);
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "libreria.jsp";
+        }
     }
 
     @GetMapping("/anexar")
@@ -135,11 +145,37 @@ public class ControladorLibro {
         return "redirect:/libros/anexar/autor";
     }
 
-    @GetMapping("/libro/{libroId}")
+    @GetMapping("/{libroId}/libro")
     public String showLibro(@PathVariable("libroId") Long libroId, Model model) {
         LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
         model.addAttribute("libro", libroVenta);
-        return "libroPorId.jsp";
+        return "libro.jsp";
     }
 
+    @PostMapping("/buscar")
+    public String buscar(@RequestParam(value = "search", required = false) String search, Model model,
+            RedirectAttributes redirectAttributes, HttpSession session) {
+        LibroVenta libro = servicioLibroVenta.findByNombreContainingIgnoreCase(search);
+        if (libro == null) {
+            Long usuarioId = (Long) session.getAttribute("userId");
+            model.addAttribute("usuarioEmail", usuarioId);
+            redirectAttributes.addFlashAttribute("noPresente", "No presente");
+            return "redirect:/libros/" + 1;
+        } else {
+            model.addAttribute("libro", libro);
+            return "libro.jsp";
+        }
+
+        // Por implementar
+        // // List<String> listaLibroGenero =
+        // servicioLibroVenta.findGeneroNombreByGenero(search);
+        // // if(listaLibroGenero.isEmpty()){
+        // // redirectAttributes.addFlashAttribute("noPresente", "No presente");
+        // // } else {
+        // // model.addAttribute("listaLibroGenero", listaLibroGenero);
+        // // return "libroGenero.jsp";
+        // // }
+
+        // return "redirect:/principal";
+    }
 }

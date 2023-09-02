@@ -6,11 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import com.grupo8.tulibroapp.Modelos.Libro;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
-import com.grupo8.tulibroapp.Servicio.ServicioLibro;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
@@ -36,7 +33,7 @@ public class ControladorPrincipal {
         
         Long usuarioId = (Long) session.getAttribute("userId");
         if(usuarioId == null){
-            return "redirect:/login";
+            return "index.jsp";
         } else { 
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);

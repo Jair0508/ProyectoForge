@@ -1,11 +1,16 @@
 package com.grupo8.tulibroapp.Servicio;
 
 
+
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Repositorio.RepositorioLibroVenta;
 
@@ -27,5 +32,15 @@ public class ServicioLibroVenta extends ServicioBase<LibroVenta>{
         PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE);
         Page<LibroVenta> libroVenta = repositorioLibroVenta.findAll(pageRequest);
         return libroVenta;
+    }
+
+    public LibroVenta findByNombreContainingIgnoreCase(String nombre){
+        LibroVenta libro = repositorioLibroVenta.findByNombreContainingIgnoreCase(nombre);
+        return libro;
+    }
+
+    public List<String> findGeneroNombreByGenero(String genero) {
+        List<String> listaLibroGenero = repositorioLibroVenta.findGeneroNombreByGenero(genero);
+        return listaLibroGenero;
     }
 }

@@ -18,7 +18,7 @@
       <%@ include file="nav.jsp" %>
 
         <div class="main-content">
-          <h3 id="middle-title">NUESTRA <span>LIBRERIA</span></h3>
+          <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
           <div class="cards-container">
             <c:forEach var="libro" items="${paginaLibros.content}" begin="0" end="4">
               <div class="book-card">

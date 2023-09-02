@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -50,19 +49,20 @@ public class ControladorUsuario {
             return "registroUsuario.jsp";
         }
 
-        //Verifica las contraseñas sean la misma
+        // Verifica las contraseñas sean la misma
         if (!usuario.getPassword().contentEquals(usuario.getPasswordConfirmation())) {
-            FieldError error = new FieldError("passwordConfirmation", "passwordConfirmation", "Contraseñas no coinciden.");
+            FieldError error = new FieldError("passwordConfirmation", "passwordConfirmation",
+                    "Contraseñas no coinciden.");
             result.addError(error);
             return "registroUsuario.jsp";
         }
 
-        //Validaciones Jakarta
+        // Validaciones Jakarta
         if (result.hasErrors()) {
             return "registroUsuario.jsp";
         }
 
-        //Registro y anexacion de ID
+        // Registro y anexacion de ID
         servicioUsuario.registerUser(usuario);
         Long userId = usuario.getId();
         session.setAttribute("userId", userId);
@@ -82,6 +82,7 @@ public class ControladorUsuario {
             @RequestParam("password") String password,
             Model model,
             HttpSession session,
+            HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
         boolean autenticado = servicioUsuario.authenticateUser(email, password);
@@ -90,16 +91,22 @@ public class ControladorUsuario {
             Long userId = usuarioEmail.getId();
             session.setAttribute("userId", userId);
             model.addAttribute("usuarioEmail", usuarioEmail);
-            return "redirect:/principal";
+
+            // Me trae la URl de donde se envio la peticion.
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
         } else {
             redirectAttributes.addFlashAttribute("error", "correo o contraseña inválidos");
-            return "redirect:/login";
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
         }
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
+    public String logout(HttpSession session,
+            HttpServletRequest request) {
         session.removeAttribute("userId");
-        return "redirect:/principal";
+        String referer = request.getHeader("referer");
+        return "redirect:" + referer;
     }
 }
