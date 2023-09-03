@@ -46,7 +46,9 @@ public class ControladorLibro {
 
     @GetMapping("/{pageNumber}")
     public String venta(Model model, @PathVariable("pageNumber") int pageNumber, HttpSession session) {
-        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber);
+        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber - 1);
+        // el -1 resta un pagina al tamaño del totalpage, lo cual qiota el que se
+        // muestra vacio
 
         int totalPages = paginaLibros.getTotalPages();
         Long usuarioId = (Long) session.getAttribute("userId");
@@ -117,6 +119,25 @@ public class ControladorLibro {
         servicioGenero.save(libro.getGenero());
         return "redirect:/libros/anexar";
     }
+
+    @GetMapping("/genero/{pageNumber}")
+    public String listGenero(@PathVariable("pageNumber") int pageNumber, Model model) {
+        Page<Genero> paginaGenero = servicioGenero.generoPorPage(pageNumber);
+
+        int totalPages = paginaGenero.getTotalPages();
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("paginaGenero", paginaGenero);
+        return "listaGenero.jsp";
+    }
+
+    // @GetMapping("/genero/{genero}")
+    // public String mostrarListaDeLibrosPorGenero(@PathVariable("genero") String
+    // nombreGenero, Model model) {
+    // Genero genero = servicioGenero.findByNombreGenero(nombreGenero);
+    // List<LibroVenta> listaLibrosPorGenero = genero.getLibroVentas();
+    // model.addAttribute("listaLibros", listaLibrosPorGenero);
+    // return "libreriaGenero.jsp";
+    // }
 
     @GetMapping("/anexar/autor")
     public String formAutor(@ModelAttribute("autor") Autor autor) {

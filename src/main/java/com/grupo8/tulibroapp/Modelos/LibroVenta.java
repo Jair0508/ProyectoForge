@@ -27,11 +27,11 @@ public class LibroVenta extends Libro {
 
     @NotNull
     @Min(value = 1, message = "La cantidad mínima permitida es 1")
-    private double precio;
+    private Double precio;
 
     @NotNull
     @Min(value = 1, message = "La cantidad mínima permitida es 1")
-    private int cantidad;
+    private Integer cantidad;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "libro_venta_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))

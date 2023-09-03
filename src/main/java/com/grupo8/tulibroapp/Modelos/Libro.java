@@ -18,7 +18,7 @@ public abstract class Libro extends ModeloBase {
     @Size(min = 2, max = 25, message = "No debe ser mayor a 25 caracteres ni menor a 2 caracteres")
     @NotBlank(message = "No debe tener espacios en blanco")
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Solo expresiones numericas o letras")
+    @Pattern(regexp = "^[a-zA-Z0-9áéíóúÁÉÍÓÚ,\\s]*$", message = "Solo expresiones numericas o letras")
     private String nombre;
 
     @NotBlank(message = "No debe tener espacios en blanco")
