@@ -30,7 +30,7 @@ import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/libros")
-public class ControladorLibro {
+public class ControladorLibroVenta {
 
     @Autowired
     private ServicioUsuario servicioUsuario;
@@ -46,7 +46,10 @@ public class ControladorLibro {
 
     @GetMapping("/{pageNumber}")
     public String venta(Model model, @PathVariable("pageNumber") int pageNumber, HttpSession session) {
-        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber);
+        Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber - 1);
+        // el -1 resta un pagina al tamaño del totalpage, lo cual qiota el que se
+        // muestra vacio
+
         int totalPages = paginaLibros.getTotalPages();
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaLibros", paginaLibros);
@@ -65,14 +68,22 @@ public class ControladorLibro {
     public String formLibroGenero(@ModelAttribute("libro") LibroVenta libro,
             @ModelAttribute("genero") Genero genero, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        List<Genero> listaGeneros = servicioGenero.findAll();
+        List<Autor> listaAutores = servicioAutor.findAll();
+
+        if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        }
+
         if (usuarioId == null) {
             return "redirect:/login";
         }
-        List<Genero> listaGeneros = servicioGenero.findAll();
-        List<Autor> listaAutores = servicioAutor.findAll();
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("listaGeneros", listaGeneros);
         model.addAttribute("listaAutores", listaAutores);
+        model.addAttribute("usuarioEmail", usuarioEmail);
         return "registroLibros.jsp";
+
     }
 
     @PostMapping("/anexar")
@@ -94,7 +105,7 @@ public class ControladorLibro {
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
         }
-        
+
         LibroVenta unicoLibro = servicioLibroVenta.findByNombre(libro.getNombre());
         if (unicoLibro != null) {
             FieldError error = new FieldError("nombre", "nombre",
@@ -115,6 +126,7 @@ public class ControladorLibro {
         servicioGenero.save(libro.getGenero());
         return "redirect:/libros/anexar";
     }
+
 
     @GetMapping("/anexar/autor")
     public String formAutor(@ModelAttribute("autor") Autor autor) {
@@ -155,12 +167,19 @@ public class ControladorLibro {
     @PostMapping("/buscar")
     public String buscar(@RequestParam(value = "search", required = false) String search, Model model,
             RedirectAttributes redirectAttributes, HttpSession session) {
-        LibroVenta libro = servicioLibroVenta.findByNombreContainingIgnoreCase(search);
-        if (libro == null) {
-            Long usuarioId = (Long) session.getAttribute("userId");
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (search.isBlank()) {
             model.addAttribute("usuarioEmail", usuarioId);
             redirectAttributes.addFlashAttribute("noPresente", "No presente");
-            return "redirect:/libros/" + 1;
+            return "redirect:/principal";
+        }
+
+        LibroVenta libro = servicioLibroVenta.findByNombreContainingIgnoreCase(search);
+        if (libro == null) {
+            model.addAttribute("usuarioEmail", usuarioId);
+            redirectAttributes.addFlashAttribute("noPresente", "No presente");
+            return "redirect:/principal";
         } else {
             model.addAttribute("libro", libro);
             return "libro.jsp";

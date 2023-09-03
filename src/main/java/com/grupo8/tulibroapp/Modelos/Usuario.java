@@ -2,12 +2,14 @@ package com.grupo8.tulibroapp.Modelos;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -38,6 +40,7 @@ public class Usuario extends ModeloBase {
     private String email;
 
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d).{8,}$", message = "Solo 8 caracteres que contenga letras y numeros")
+    @Size(min = 8, message = "Solo 8 caracteres que contenga letras y numeros")
     private String password;
 
     @Transient
@@ -50,6 +53,10 @@ public class Usuario extends ModeloBase {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "libro_venta_id"))
     private List<LibroVenta> libroVenta;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
 
     public void agregarLibro(LibroVenta libro) {
         libroVenta.add(libro);

@@ -7,7 +7,7 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Libros</title>
+      <title>Libros de genero <c:out value="${generos.nombreGenero}" /></title>
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/indexStyle.css">
       <link rel="stylesheet" href="/css/paginacionStyle.css">
@@ -20,7 +20,7 @@
         <div class="main-content">
           <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
           <div class="cards-container">
-            <c:forEach var="libro" items="${paginaLibros.content}" begin="0" end="4">
+            <c:forEach items="${paginaLibrosPorGenero.content}" var="libro" begin="0" end="4">
               <div class="book-card">
                 <svg viewBox="0 0 24 24" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -62,8 +62,8 @@
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
-                      <a href="/libross/${libro.id}/editar">Editar</a>
-                      <a href="/libross/${libro.id}/borrar">Borrar</a>
+                      <a href="/libros/${libro.id}/editar">Editar</a>
+                      <a href="/libros/${libro.id}/borrar">Borrar</a>
                     </div>
                   </c:if>
                 </div>
@@ -72,9 +72,20 @@
           </div>
         </div>
         <div class="pagination">
-          <c:forEach begin="1" end="${totalPages}" var="index">
-            <a href="/libros/${index}">${index}</a>
-          </c:forEach>
+            <c:choose>
+                <c:when test="${paginaLibrosPorGenero.totalPages > 1}">
+                    <c:forEach begin="1" end="${paginaLibrosPorGenero.totalPages}" var="i">
+                        <c:choose>
+                            <c:when test="${i == paginaLibrosPorGenero.number + 1}">
+                                <span>${i}</span>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="/generos/${genero.id}/libros?page=${i - 1}">${i}</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </c:when>
+            </c:choose>
         </div>
         <div>
           <%@ include file="footer.jsp" %>

@@ -9,6 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/indexStyle.css">
+      <script src="/javaScript/alerts.js"></script>
       <title>TuLibro - Principal</title>
     </head>
 
@@ -59,12 +60,20 @@
                       <p>
                         <a href=""><c:out value="${libro.autor.nombre}" /></a>
                       </p>
-                      <c:if test="${not empty usuarioEmail}">
+                      <c:if test="${usuarioEmail.id >= 2}">
                         <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                           <button type="submit">agregar a lista de deseos </button>
                         </form>
                       </c:if>
-
+                      <c:if test="${usuarioEmail == null}">
+                    <button onclick="mostrarAlert()">agregar a lista de deseos </button>
+                  </c:if>
+                  <c:if test="${usuarioEmail.id == 1}">
+                    <div>
+                      <a href="/libross/${libro.id}/editar">Editar</a>
+                      <a href="/libross/${libro.id}/borrar">Borrar</a>
+                    </div>
+                  </c:if>
                     </div>
                   </div>
               </c:forEach>

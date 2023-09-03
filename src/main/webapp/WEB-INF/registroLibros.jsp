@@ -28,7 +28,7 @@
               <form:label class="input-label" path="descripcion">descripcion</form:label>
               <form:textarea class="input-content" type="text"  path="descripcion"
                 placeholder="Ingrese descripcion del libro" />
-              <form:errors path="descripcion" />
+              <form:errors class="errors" path="descripcion" />
 
               <form:label class="input-label" path="precio">precio</form:label>
               <form:input class="input-content" type="number" min="1" step="0.01" path="precio"
@@ -61,7 +61,7 @@
                   </option>
                 </c:forEach>
               </datalist>
-              <form:errors path="genero.nombreGenero" />
+              <form:errors class="errors" path="genero.nombreGenero" />
               
               <div class="buttons-container">
                 <a class="button-link" href="">Regresar</a>

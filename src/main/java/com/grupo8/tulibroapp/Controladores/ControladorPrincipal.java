@@ -19,25 +19,26 @@ public class ControladorPrincipal {
     @Autowired
     private ServicioLibroVenta servicioLibroVenta;
 
-    @Autowired ServicioUsuario servicioUsuario;
+    @Autowired
+    ServicioUsuario servicioUsuario;
 
     @GetMapping("/")
-    public String raiz(){
+    public String raiz() {
         return "redirect:/principal";
     }
 
     @GetMapping("/principal")
     public String principal(Model model, HttpSession session) {
-        List<LibroVenta> libro = servicioLibroVenta.findAll();
+        List<LibroVenta> libro = servicioLibroVenta.findAllRandomOrder();
         model.addAttribute("listaLibros", libro);
-        
         Long usuarioId = (Long) session.getAttribute("userId");
-        if(usuarioId == null){
+
+        if (usuarioId == null) {
             return "index.jsp";
-        } else { 
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-        return "index.jsp";
+        } else {
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "index.jsp";
         }
     }
 }

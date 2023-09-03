@@ -70,10 +70,19 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/login")
-    public String showLogin(@ModelAttribute("usuario") Usuario usuario, Model model) {
+    public String showLogin(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
         List<LibroVenta> libro = servicioLibroVenta.findAll();
         model.addAttribute("listaLibros", libro);
-        return "index.jsp";
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId == null) {
+            return "index.jsp";
+        } 
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "index.jsp";
+        
+        
     }
 
     @PostMapping("/login")
