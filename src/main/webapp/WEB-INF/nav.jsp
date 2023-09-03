@@ -49,7 +49,7 @@
               <div class="dropdown-content">
                 <a href="/libros/1">Lo nuevo en la libreria</a>
                 <a href="/generos/1">Generos</a>
-                <a href="#">Autores</a>
+                <a href="/autores/1">Autores</a>
               </div>
             </div>
 

@@ -7,7 +7,9 @@
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Libros de genero <c:out value="${generos.nombreGenero}" /></title>
+      <title>Libros de genero
+        <c:out value="${genero.nombreGenero}" />
+      </title>
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/indexStyle.css">
       <link rel="stylesheet" href="/css/paginacionStyle.css">
@@ -42,15 +44,21 @@
                 </svg>
                 <div>
                   <h3>
-                    <a href="/libros/${libro.id}/libro"><c:out value="${libro.nombre}" /></a>
+                    <a href="/libros/${libro.id}/libro">
+                      <c:out value="${libro.nombre}" />
+                    </a>
                   </h3>
                   <h4>Genero:</h4>
                   <p>
-                   <a href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
+                    <a href="">
+                      <c:out value="${libro.genero.nombreGenero}" />
+                    </a>
                   </p>
                   <h4>Autor:</h4>
                   <p>
-                    <a href=""><c:out value="${libro.autor.nombre}" /></a>
+                    <a href="">
+                      <c:out value="${libro.autor.nombre}" />
+                    </a>
                   </p>
                   <c:if test="${usuarioEmail.id >= 2}">
                     <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
@@ -72,20 +80,20 @@
           </div>
         </div>
         <div class="pagination">
-            <c:choose>
-                <c:when test="${paginaLibrosPorGenero.totalPages > 1}">
-                    <c:forEach begin="1" end="${paginaLibrosPorGenero.totalPages}" var="i">
-                        <c:choose>
-                            <c:when test="${i == paginaLibrosPorGenero.number + 1}">
-                                <span>${i}</span>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="/generos/${genero.id}/libros?page=${i - 1}">${i}</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                </c:when>
-            </c:choose>
+          <c:choose>
+            <c:when test="${paginaLibrosPorGenero.totalPages > 1}">
+              <c:forEach begin="1" end="${paginaLibrosPorGenero.totalPages}" var="i">
+                <c:choose>
+                  <c:when test="${i == paginaLibrosPorGenero.number + 1}">
+                    <span>${i}</span>
+                  </c:when>
+                  <c:otherwise>
+                    <a href="/generos/${genero.id}/libros?page=${i - 1}">${i}</a>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>
+            </c:when>
+          </c:choose>
         </div>
         <div>
           <%@ include file="footer.jsp" %>

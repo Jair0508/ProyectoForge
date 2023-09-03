@@ -45,4 +45,9 @@ public class ServicioLibroVenta extends ServicioBase<LibroVenta> {
         PageRequest pageable = PageRequest.of(pageNumber, pageSize);
         return repositorioLibroVenta.findByGeneroId(generoId, pageable);
     }
+
+    public Page<LibroVenta> obtenerLibroPorAutor(Long autorId, int pageNumber, int pageSize) {
+        PageRequest pageable = PageRequest.of(pageNumber, pageSize);
+        return repositorioLibroVenta.findByAutorId(autorId, pageable);
+    }
 }
