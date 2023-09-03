@@ -16,4 +16,5 @@ public class ServicioGenero extends ServicioBase<Genero>{
         Genero nombre = repositorioGenero.findByNombreGenero(nombreGenero);
         return nombre;
     }
+
 }

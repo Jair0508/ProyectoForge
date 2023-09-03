@@ -25,13 +25,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LibroVenta extends Libro {
 
-    @NotNull
-    @Min(value = 1, message = "La cantidad mínima permitida es 1")
-    private double precio;
+    @NotNull(message = "No debe estar vacio")
+    @Min(value = 1, message = "Precio mínimo permitida es 1")
+    private Double precio;
 
-    @NotNull
+    @NotNull(message = "No debe estar vacio")
     @Min(value = 1, message = "La cantidad mínima permitida es 1")
-    private int cantidad;
+    private Integer cantidad;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "lista_deseo", joinColumns = @JoinColumn(name = "libro_venta_id"), inverseJoinColumns = @JoinColumn(name = "usuario_id"))

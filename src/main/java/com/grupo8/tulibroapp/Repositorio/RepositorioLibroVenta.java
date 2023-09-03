@@ -17,4 +17,5 @@ public interface RepositorioLibroVenta extends RepositorioBase<LibroVenta>{
     @Query("SELECT lv.genero.nombreGenero FROM LibroVenta lv WHERE lv.genero = :genero")
     List<String> findGeneroNombreByGenero(@Param("genero") String genero);
 
+
 }

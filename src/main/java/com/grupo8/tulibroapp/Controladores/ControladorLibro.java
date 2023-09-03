@@ -47,16 +47,14 @@ public class ControladorLibro {
     @GetMapping("/{pageNumber}")
     public String venta(Model model, @PathVariable("pageNumber") int pageNumber, HttpSession session) {
         Page<LibroVenta> paginaLibros = servicioLibroVenta.libroVentaPerPage(pageNumber);
-
         int totalPages = paginaLibros.getTotalPages();
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("paginaLibros", paginaLibros);
+
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("paginaLibros", paginaLibros);
             return "libreria.jsp";
         } else {
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("paginaLibros", paginaLibros);
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("usuarioEmail", usuarioEmail);
             return "libreria.jsp";
@@ -80,31 +78,31 @@ public class ControladorLibro {
     @PostMapping("/anexar")
     public String anexarLibro(@Valid @ModelAttribute("libro") LibroVenta libro, BindingResult result, Model model,
             RedirectAttributes redirectAttributes) {
+        List<Genero> listaGeneros = servicioGenero.findAll();
+        List<Autor> listaAutores = servicioAutor.findAll();
 
         if (libro.getAutor() == null || libro.getAutor().getId() == null) {
-            FieldError error = new FieldError("libro", "autor", "Debe seleccionar un autor.");
+            FieldError error = new FieldError("autor", "autor", "Debe seleccionar un autor.");
             result.addError(error);
-            List<Genero> listaGeneros = servicioGenero.findAll();
-            List<Autor> listaAutores = servicioAutor.findAll();
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
         }
 
         if (result.hasErrors()) {
-            List<Genero> listaGeneros = servicioGenero.findAll();
-            List<Autor> listaAutores = servicioAutor.findAll();
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
         }
-
+        
         LibroVenta unicoLibro = servicioLibroVenta.findByNombre(libro.getNombre());
         if (unicoLibro != null) {
-            FieldError error = new FieldError("libro", "libro",
-                    libro.getNombre() + " ya se encuentra registrado en la base de datos.");
+            FieldError error = new FieldError("nombre", "nombre",
+                    libro.getNombre() + " ya se encuentra registrado.");
             result.addError(error);
-            return "registroLibro.jsp";
+            model.addAttribute("listaGeneros", listaGeneros);
+            model.addAttribute("listaAutores", listaAutores);
+            return "registroLibros.jsp";
         }
 
         Genero unicoGenero = servicioGenero.findByNombreGenero(libro.getGenero().getNombreGenero());
@@ -135,7 +133,7 @@ public class ControladorLibro {
         Autor unico = servicioAutor.findByNombre(autor.getNombre());
         if (unico != null) {
             FieldError error = new FieldError("nombre", "nombre",
-                    autor.getNombre() + " ya se encuentra registrado en la base de datos.");
+                    autor.getNombre() + " ya se encuentra registrado.");
             result.addError(error);
             return "registroAutor.jsp";
         }

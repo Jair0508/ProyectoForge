@@ -42,12 +42,16 @@
                 </svg>
                 <div>
                   <h3>
-                    <c:out value="${libro.nombre}" />
+                    <a href="/libros/${libro.id}/libro"><c:out value="${libro.nombre}" /></a>
                   </h3>
+                  <h4>Genero:</h4>
                   <p>
-                    <c:out value="${libro.descripcion}" />
+                   <a href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
                   </p>
-
+                  <h4>Autor:</h4>
+                  <p>
+                    <a href=""><c:out value="${libro.autor.nombre}" /></a>
+                  </p>
                   <c:if test="${not empty usuarioEmail}">
                     <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                       <button type="submit">agregar a lista de deseos </button>

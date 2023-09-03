@@ -28,7 +28,6 @@
             <h3 id="middle-title">NUESTRA <span>LIBRERIA</span></h3>
             <div class="cards-container">
               <c:forEach var="libro" items="${listaLibros}" begin="0" end="3">
-                <a href="/libros/${libro.id}/libro">
                   <div class="book-card">
                     <svg viewBox="0 0 24 24" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -50,15 +49,15 @@
                     </svg>
                     <div>
                       <h3>
-                        <c:out value="${libro.nombre}" />
+                        <a href="/libros/${libro.id}/libro"><c:out value="${libro.nombre}" /></a>
                       </h3>
                       <h4>Genero:</h4>
                       <p>
-                        <c:out value="${libro.genero.nombreGenero}" />
+                       <a href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
                       </p>
                       <h4>Autor:</h4>
                       <p>
-                        <c:out value="${libro.autor.nombre}" />
+                        <a href=""><c:out value="${libro.autor.nombre}" /></a>
                       </p>
                       <c:if test="${not empty usuarioEmail}">
                         <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
@@ -68,7 +67,6 @@
 
                     </div>
                   </div>
-                </a>
               </c:forEach>
             </div>
           </div>
