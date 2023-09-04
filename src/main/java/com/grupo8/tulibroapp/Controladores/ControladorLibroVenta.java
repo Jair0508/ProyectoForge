@@ -129,7 +129,16 @@ public class ControladorLibroVenta {
 
 
     @GetMapping("/anexar/autor")
-    public String formAutor(@ModelAttribute("autor") Autor autor) {
+    public String formAutor(@ModelAttribute("autor") Autor autor, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        }
+
+        if (usuarioId == null) {
+            return "redirect:/login";
+        }
 
         return "registroAutor.jsp";
     }

@@ -11,10 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/baseStyles.css">
         <link rel="stylesheet" href="/css/formStyle.css">
-        <link rel="stylesheet" href="/css/ojoIcono.css">
-
+        <link rel="stylesheet" href="/css/VerPasswordStyle.css">
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+        
         <title>Registro - Usuario</title>
       </head>
 
@@ -23,7 +23,7 @@
         <%@ include file="nav.jsp" %>
 
           <div class="formulario">
-            <h1 class="form-title">Bienvenido, llene sus datos</h1>
+            <h1 class="form-title">Bienvenido, registre sus datos</h1>
 
             <form:form action="/registro" method="post" modelAttribute="usuario">
 
@@ -36,9 +36,11 @@
               <form:input class="input-content" type="email" path="email" placeholder="Ingrese su Email" />
               <form:errors class="errors" path="email" />
 
-              <div id="icon" class="input-group">
-                <form:label class="input-label" path="password">Contraseña</form:label>
-                <div class="input-group-prepend">
+              <div id="info" class="input-group">
+                <div class="Info">
+                  <form:label class="input-label" path="password">Contraseña</form:label>
+                </div>
+                <div class="Info input-group-prepend">
                   <span class="input-group-text">
                     <i class="fa fa-info-circle icon-info" id="password-tooltip-icon"></i>
                   </span>
@@ -57,8 +59,10 @@
 
 
               <form:label class="input-label" path="passwordConfirmation">Confirme su Contraseña</form:label>
+              <div class="icon">
               <form:input class="input-content" path="passwordConfirmation" type="password" id="passwordInput"
                 placeholder="Confirme Su Contraseña" />
+              </div>
               <form:errors class="errors" path="passwordConfirmation" />
 
               <div class="buttons-container">
@@ -68,25 +72,8 @@
 
             </form:form>
           </div>
-          <script>
-            document.getElementById('password-tooltip-icon').addEventListener('mouseover', function () {
-              var tooltip = document.createElement('div');
-              tooltip.className = 'tooltip';
-              tooltip.innerHTML = 'Ingrese solo 8 caracteres entre letras y números';
-
-
-              var iconPosition = this.getBoundingClientRect();
-              tooltip.style.top = (iconPosition.top - 30) + 'px';
-              tooltip.style.left = (iconPosition.left + 30) + 'px';
-
-              document.body.appendChild(tooltip);
-
-              this.addEventListener('mouseout', function () {
-                document.body.removeChild(tooltip);
-              });
-            });
-          </script>
-          <script src="/javaScript/showPassword.js"></script>
+          <script src="/JavaScript/showPassword.js"></script>
+          <script src="/JavaScript/funcionalidadInfo.js"></script>
       </body>
 
       </html>

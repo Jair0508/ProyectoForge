@@ -17,6 +17,7 @@ import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -40,7 +41,7 @@ public class ControladorGenero {
         if (usuarioId == null) {
             model.addAttribute("totalPages", totalPages);
             model.addAttribute("paginaGenero", paginaGenero);
-            return "redirect:/login";
+            return "listaGenero.jsp";
         }
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
@@ -56,7 +57,8 @@ public class ControladorGenero {
             @PathVariable("generoId") Long generoId,
             @RequestParam(name = "page", defaultValue = "0") int pageNumber,
             Model model, HttpSession session,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request) {
 
         Page<LibroVenta> paginaLibrosPorGenero = servicioLibroVenta.obtenerLibrosPorGenero(generoId, pageNumber, 2);
         Long usuarioId = (Long) session.getAttribute("userId");
@@ -64,7 +66,8 @@ public class ControladorGenero {
         if (usuarioId == null) {
             model.addAttribute("paginaLibrosPorGenero", paginaLibrosPorGenero);
             model.addAttribute("genero", genero);
-            return "redirect:/login";
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
         } else {
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("usuarioEmail", usuarioEmail);
