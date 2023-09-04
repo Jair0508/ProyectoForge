@@ -1,13 +1,13 @@
 .pagination {
     text-align: center; 
-    margin-top: 20px; 
-  }
+    margin-top: 2em;
+  margin-bottom: 1em;}
 
   .pagination a {
     display: inline-block; 
     padding: 5px 10px; 
     margin: 0 5px;
-    background-color: #007bff; 
+    background-color: #6fa2dd; 
     color: #fff; 
     text-decoration: none; 
     border-radius: 3px; 

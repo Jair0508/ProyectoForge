@@ -99,3 +99,24 @@
 h4 {
   color: #868686;
 }
+
+
+
+
+.gender-card {
+  box-sizing: border-box;
+  text-align: center;
+  padding: 1.5em 2em;
+  border-radius: 50px;
+  background-color: #fcfcf6;
+  box-shadow: 0px 0px 15px #000000ca;
+}
+
+.gender-card a {
+  font-family: 'Comfortaa';
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #6fa2dd;
+  font-size: 1em;
+  text-decoration: none;
+}
