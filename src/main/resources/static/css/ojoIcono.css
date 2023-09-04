@@ -1,0 +1,14 @@
+/* Estilo para el icono de ojo */
+.icon-eye {
+    cursor: pointer;
+  }
+
+  /* Estilo para el icono de ojo cuando la contraseña está visible */
+  .icon-eye-slash {
+    cursor: pointer;
+  }
+
+  /* Estilo para el campo de contraseña cuando está visible */
+  #passwordInput[type="text"] {
+    border: 1px solid #ccc; /* Añade un borde al campo */
+  }
