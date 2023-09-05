@@ -42,15 +42,15 @@
                 </svg>
                 <div>
                   <h3>
-                    <a href="/libros/${libro.id}/libro"><c:out value="${libro.nombre}" /></a>
+                    <a class="links" href="/libros/${libro.id}/libro"><c:out value="${libro.nombre}" /></a>
                   </h3>
                   <h4>Genero:</h4>
                   <p>
-                   <a href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
+                   <a class="links" href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
                   </p>
                   <h4>Autor:</h4>
                   <p>
-                    <a href=""><c:out value="${libro.autor.nombre}" /></a>
+                    <a class="links" href=""><c:out value="${libro.autor.nombre}" /></a>
                   </p>
                   <c:if test="${usuarioEmail.id >= 2}">
                     <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
@@ -58,7 +58,7 @@
                     </form>
                   </c:if>
                   <c:if test="${usuarioEmail == null}">
-                    <button onclick="mostrarAlert()">agregar a lista de deseos </button>
+                    <button class="button" onclick="mostrarAlert()">agregar a lista de deseos </button>
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
