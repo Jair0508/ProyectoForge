@@ -10,13 +10,13 @@
   <title>Libro - ${libro.nombre}</title>
   <link rel="stylesheet" href="/css/baseStyles.css">
   <link rel="stylesheet" href="/css/indexStyle.css">
+  <link rel="stylesheet" href="/css/bookStyle.css">
 </head>
 
 <body>
   <%@ include file="nav.jsp" %>
 
-
-    <div>
+    <div class="book-container">
       <div>
         <h1>${libro.nombre}</h1>
         <div>
@@ -28,7 +28,7 @@
           <p>${libro.autor.nombre}</p>
         </div>
         <div>
-          <span>Descripcion:</span>
+          <span>Descripción:</span>
           <p>${libro.descripcion}</p>
         </div>
       </div>
@@ -38,18 +38,18 @@
           <span>Stock disponible:</span>
           <p>${libro.cantidad}</p>
         </div>
-        <div>
 
+        <div>
           <c:if test="${not empty usuarioId}">
-            <a href="/orden/confirmar/${libro.id}">comprar ahora</a>
+            <a class="button" href="/orden/confirmar/${libro.id}">comprar ahora</a>
             <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
-              <button type="submit">agregar a lista de deseos </button>
+              <button class="button" type="submit">agregar a lista de deseos </button>
             </form>
           </c:if>
           <c:if test="${usuarioId == null}">
             <a onclick="mostrarAlert()" href="">comprar ahora</a>
             <form action="">
-              <button onclick="mostrarAlert()">agregar a lista de deseos </button>
+              <button class="button" onclick="mostrarAlert()">agregar a lista de deseos </button>
             </form>
           </c:if>
 

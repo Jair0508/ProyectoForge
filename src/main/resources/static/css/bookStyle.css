@@ -1,0 +1,22 @@
+.book-container {
+  margin-inline: 5em;
+  margin-block: 1.5em;
+  text-align: center;
+}
+
+.book-container h1{
+  font-family: 'Satisfy', cursive;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #6fa2dd;
+}
+
+.book-container span {
+  font-size: 1.3em;
+  color: #6fa2dd;
+  margin-top: 5em;
+}
+
+.book-container p {
+
+}
