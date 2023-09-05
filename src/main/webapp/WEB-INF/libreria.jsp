@@ -54,7 +54,7 @@
                   </p>
                   <c:if test="${usuarioEmail.id >= 2}">
                     <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
-                      <button type="submit">agregar a lista de deseos </button>
+                      <button class="button" type="submit">agregar a lista de deseos </button>
                     </form>
                   </c:if>
                   <c:if test="${usuarioEmail == null}">
@@ -62,8 +62,8 @@
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
-                      <a href="/libross/${libro.id}/editar">Editar</a>
-                      <a href="/libross/${libro.id}/borrar">Borrar</a>
+                      <a class="button" href="/libross/${libro.id}/editar">Editar</a>
+                      <a class="button" href="/libross/${libro.id}/borrar">Borrar</a>
                     </div>
                   </c:if>
                 </div>
