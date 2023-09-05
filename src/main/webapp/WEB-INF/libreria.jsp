@@ -46,11 +46,11 @@
                   </h3>
                   <h4>Genero:</h4>
                   <p>
-                   <a class="links" href=""><c:out value="${libro.genero.nombreGenero}" /></a> 
+                   <c:out value="${libro.genero.nombreGenero}" />
                   </p>
                   <h4>Autor:</h4>
                   <p>
-                    <a class="links" href=""><c:out value="${libro.autor.nombre}" /></a>
+                    <c:out value="${libro.autor.nombre}" />
                   </p>
                   <c:if test="${usuarioEmail.id >= 2}">
                     <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
@@ -62,8 +62,8 @@
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
-                      <a class="button" href="/libross/${libro.id}/editar">Editar</a>
-                      <a class="button" href="/libross/${libro.id}/borrar">Borrar</a>
+                      <a class="button" href="/libros/${libro.id}/editar">Editar</a>
+                      <a class="button" href="/libros/${libro.id}/borrar">Borrar</a>
                     </div>
                   </c:if>
                 </div>

@@ -26,7 +26,7 @@
               <form:errors class="errors" path="nombre" />
 
               <form:label class="input-label" path="descripcion">descripcion</form:label>
-              <form:textarea class="input-content" type="text"  path="descripcion"
+              <form:textarea class="input-content" type="text" path="descripcion"
                 placeholder="Ingrese descripcion del libro" />
               <form:errors class="errors" path="descripcion" />
 
@@ -49,11 +49,12 @@
               </form:select>
               <form:errors path="autor" />
               <div class="buttons-container">
-                <a class="button-link" href="/libros/anexar/autor">Agregar Autor</a>
+                <a class="button-link" href="/autores/anexar/autor">Agregar Autor</a>
               </div>
-              
+
               <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
-              <form:input class="input-content" type="text" path="genero.nombreGenero" placeholder="Ingrese genero del libro" list="genero" />
+              <form:input class="input-content" type="text" path="genero.nombreGenero"
+                placeholder="Ingrese genero del libro" list="genero" />
               <datalist id="genero">
                 <c:forEach var="genero" items="${listaGeneros}">
                   <option>
@@ -62,15 +63,16 @@
                 </c:forEach>
               </datalist>
               <form:errors class="errors" path="genero.nombreGenero" />
-              
+
               <div class="buttons-container">
-                <a class="button-link" href="">Regresar</a>
+                <a class="button-link" href="javascript:history.back()">Cancelar</a>
                 <button class="button-link" type="submit">Anexar</button>
               </div>
               <p>
                 <c:out value="${realizado}" />
               </p>
             </form:form>
+          </div>
 
       </body>
 

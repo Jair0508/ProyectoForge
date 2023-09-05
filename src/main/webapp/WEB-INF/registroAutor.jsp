@@ -19,7 +19,7 @@
       </div>
       <div class="formulario">
         <h1 class="form-title">Agregar Autor</h1>
-    <form:form action="/libros/anexar/autor" method="post" modelAttribute="autor">
+    <form:form action="/autores/anexar/autor" method="post" modelAttribute="autor">
         
             <form:label class="input-label" path="nombre">Nombre Autor</form:label>
             <form:input  class="input-content" type="text" path="nombre" placeholder="Ingrese nombre de el autor" />
@@ -35,7 +35,7 @@
         
         
             <div class="buttons-container">
-              <a class="button-link" href="/libros/anexar" >Cancelar</a>
+              <a class="button-link" href="javascript:history.back()" >Cancelar</a>
               <button class="button-link"  type="submit">Agregar</button>
             </div>
         

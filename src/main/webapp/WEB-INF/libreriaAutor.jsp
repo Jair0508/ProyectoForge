@@ -7,7 +7,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Libros del autor
+            <title>Libros de
                 <c:out value="${autor.nombre}" />
             </title>
             <link rel="stylesheet" href="/css/baseStyles.css">
@@ -20,9 +20,9 @@
             <%@ include file="nav.jsp" %>
 
                 <div class="main-content">
-                    <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
+                    <h3 id="middle-title">Libros de <span> <c:out value="${autor.nombre}" /></span></h3>
                     <div class="cards-container">
-                        <c:forEach items="${paginaLibrosPorAutor.content}" var="libro" begin="0" end="4">
+                        <c:forEach items="${paginaLibrosPorAutor.content}" var="libro">
                             <div class="book-card">
                                 <svg viewBox="0 0 24 24" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -50,15 +50,11 @@
                                     </h3>
                                     <h4>Genero:</h4>
                                     <p>
-                                        <a href="">
                                             <c:out value="${libro.genero.nombreGenero}" />
-                                        </a>
                                     </p>
                                     <h4>Autor:</h4>
                                     <p>
-                                        <a href="">
                                             <c:out value="${libro.autor.nombre}" />
-                                        </a>
                                     </p>
                                     <c:if test="${usuarioEmail.id >= 2}">
                                         <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
@@ -82,16 +78,24 @@
                 <div class="pagination">
                     <c:choose>
                         <c:when test="${paginaLibrosPorAutor.totalPages > 1}">
+                            <c:if test="${paginaLibrosPorAutor.number > 0}">
+                                <a class="prev" href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number - 1}">&#8249; Anterior</a>
+                            </c:if>
+                            
                             <c:forEach begin="1" end="${paginaLibrosPorAutor.totalPages}" var="i">
                                 <c:choose>
                                     <c:when test="${i == paginaLibrosPorAutor.number + 1}">
-                                        <span>${i}</span>
+                                        <a class="active" href="#">${i}</a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="/autores/${autor.id}/libros?page=${i - 1}">${i}</a>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
+                
+                            <c:if test="${paginaLibrosPorAutor.number < paginaLibrosPorAutor.totalPages - 1}">
+                                <a class="next" href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number + 1}">Siguiente &#8250;</a>
+                            </c:if>
                         </c:when>
                     </c:choose>
                 </div>

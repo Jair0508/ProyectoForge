@@ -50,13 +50,11 @@
                   </h3>
                   <h4>Genero:</h4>
                   <p>
-                    <a href="">
                       <c:out value="${libro.genero.nombreGenero}" />
                     </a>
                   </p>
                   <h4>Autor:</h4>
                   <p>
-                    <a href="">
                       <c:out value="${libro.autor.nombre}" />
                     </a>
                   </p>
@@ -81,20 +79,28 @@
         </div>
         <div class="pagination">
           <c:choose>
-            <c:when test="${paginaLibrosPorGenero.totalPages > 1}">
-              <c:forEach begin="1" end="${paginaLibrosPorGenero.totalPages}" var="i">
-                <c:choose>
-                  <c:when test="${i == paginaLibrosPorGenero.number + 1}">
-                    <span>${i}</span>
-                  </c:when>
-                  <c:otherwise>
-                    <a href="/generos/${genero.id}/libros?page=${i - 1}">${i}</a>
-                  </c:otherwise>
-                </c:choose>
-              </c:forEach>
-            </c:when>
+              <c:when test="${paginaLibrosPorGenero.totalPages > 1}">
+                  <c:if test="${paginaLibrosPorGenero.number > 0}">
+                      <a class="prev" href="/generos/${genero.id}/libros?page=${paginaLibrosPorGenero.number - 1}">&#8249; Anterior</a>
+                  </c:if>
+                  
+                  <c:forEach begin="1" end="${paginaLibrosPorGenero.totalPages}" var="i">
+                      <c:choose>
+                          <c:when test="${i == paginaLibrosPorGenero.number + 1}">
+                              <a class="active" href="#">${i}</a>
+                          </c:when>
+                          <c:otherwise>
+                              <a href="/generos/${genero.id}/libros?page=${i - 1}">${i}</a>
+                          </c:otherwise>
+                      </c:choose>
+                  </c:forEach>
+      
+                  <c:if test="${paginaLibrosPorGenero.number < paginaLibrosPorGenero.totalPages - 1}">
+                      <a class="next" href="/generos/${genero.id}/libros?page=${paginaLibrosPorGenero.number + 1}">Siguiente &#8250;</a>
+                  </c:if>
+              </c:when>
           </c:choose>
-        </div>
+      </div>
         <div>
           <%@ include file="footer.jsp" %>
         </div>

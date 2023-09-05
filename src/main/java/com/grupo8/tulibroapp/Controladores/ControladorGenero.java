@@ -17,7 +17,7 @@ import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
-import jakarta.servlet.http.HttpServletRequest;
+
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -38,43 +38,39 @@ public class ControladorGenero {
         Page<Genero> paginaGenero = servicioGenero.generoPorPage(pageNumber - 1);
         Long usuarioId = (Long) session.getAttribute("userId");
         int totalPages = paginaGenero.getTotalPages();
-        if (usuarioId == null) {
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("paginaGenero", paginaGenero);
-            return "listaGenero.jsp";
-        }
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaGenero", paginaGenero);
+
+        if (usuarioId != null) {
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "listaGenero.jsp";
+        }
+
         return "listaGenero.jsp";
     }
 
-
-    //Tuve que aplicar algo distinto al Coding Dojo para traer los Libros por genero.
+    
     @GetMapping("/{generoId}/libros")
     public String mostrarListaDeLibrosPorGenero(
             @PathVariable("generoId") Long generoId,
             @RequestParam(name = "page", defaultValue = "0") int pageNumber,
             Model model, HttpSession session,
-            RedirectAttributes redirectAttributes,
-            HttpServletRequest request) {
+            RedirectAttributes redirectAttributes) {
 
         Page<LibroVenta> paginaLibrosPorGenero = servicioLibroVenta.obtenerLibrosPorGenero(generoId, pageNumber, 2);
         Long usuarioId = (Long) session.getAttribute("userId");
         Genero genero = servicioGenero.findById(generoId);
-        if (usuarioId == null) {
-            model.addAttribute("paginaLibrosPorGenero", paginaLibrosPorGenero);
-            model.addAttribute("genero", genero);
-            String referer = request.getHeader("referer");
-            return "redirect:" + referer;
-        } else {
+        model.addAttribute("paginaLibrosPorGenero", paginaLibrosPorGenero);
+        model.addAttribute("genero", genero);
+
+        if (usuarioId != null) {
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("usuarioEmail", usuarioEmail);
-            model.addAttribute("genero", genero);
-            model.addAttribute("paginaLibrosPorGenero", paginaLibrosPorGenero);
             return "libreriaGenero.jsp";
         }
+
+        return "libreriaGenero.jsp";
 
     }
 

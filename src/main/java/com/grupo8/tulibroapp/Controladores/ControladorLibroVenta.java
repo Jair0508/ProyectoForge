@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -127,48 +128,12 @@ public class ControladorLibroVenta {
         return "redirect:/libros/anexar";
     }
 
-
-    @GetMapping("/anexar/autor")
-    public String formAutor(@ModelAttribute("autor") Autor autor, HttpSession session) {
-        Long usuarioId = (Long) session.getAttribute("userId");
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
-
-        if (usuarioId == null) {
-            return "redirect:/login";
-        }
-
-        return "registroAutor.jsp";
-    }
-
-    @PostMapping("/anexar/autor")
-    public String anexarAutor(@Valid @ModelAttribute("autor") Autor autor, BindingResult result, Model model,
-            RedirectAttributes redirectAttributes) {
-
-        if (result.hasErrors()) {
-            return "registroAutor.jsp";
-        }
-
-        Autor unico = servicioAutor.findByNombre(autor.getNombre());
-        if (unico != null) {
-            FieldError error = new FieldError("nombre", "nombre",
-                    autor.getNombre() + " ya se encuentra registrado.");
-            result.addError(error);
-            return "registroAutor.jsp";
-        }
-
-        redirectAttributes.addFlashAttribute("realizado", "Autor guardado");
-        servicioAutor.save(autor);
-        return "redirect:/libros/anexar/autor";
-    }
-
     @GetMapping("/{libroId}/libro")
     public String showLibro(@PathVariable("libroId") Long libroId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
-        model.addAttribute("usuarioId", usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("libro", libroVenta);
         return "libro.jsp";
     }
@@ -194,16 +159,87 @@ public class ControladorLibroVenta {
             return "libro.jsp";
         }
 
-        // Por implementar
-        // // List<String> listaLibroGenero =
-        // servicioLibroVenta.findGeneroNombreByGenero(search);
-        // // if(listaLibroGenero.isEmpty()){
-        // // redirectAttributes.addFlashAttribute("noPresente", "No presente");
-        // // } else {
-        // // model.addAttribute("listaLibroGenero", listaLibroGenero);
-        // // return "libroGenero.jsp";
-        // // }
+    }
 
-        // return "redirect:/principal";
+    @GetMapping("/{libroId}/editar")
+    public String libroEditar(@PathVariable("libroId") Long libroId, Model model, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        LibroVenta libro = servicioLibroVenta.findById(libroId);
+        Autor autor = servicioAutor.findById(libro.getAutor().getId());
+        Genero genero = servicioGenero.findById(libro.getGenero().getId());
+        List<Autor> listaAutor = servicioAutor.findAll();
+
+        if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        }
+
+        if (usuarioId == null) {
+            return "redirect:/login";
+        }
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        List<Genero> listaGenero = servicioGenero.findAll();
+        model.addAttribute("listaAutor", listaAutor);
+        model.addAttribute("listaGenero", listaGenero);
+        model.addAttribute("libro", libro);
+        model.addAttribute("autor", autor);
+        model.addAttribute("genero", genero);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        return "editarLibro.jsp";
+    }
+
+    @PutMapping("/{libroId}/editado/libro")
+    public String libroEdicion(@Valid @ModelAttribute("libro") LibroVenta libro, BindingResult result,
+            @PathVariable("libroId") Long libroId, @RequestParam("autorId") Long autorId, RedirectAttributes redirectAttributes, Model model, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        LibroVenta editarLibro = servicioLibroVenta.findById(libroId);
+
+        List<Autor> listaAutor = servicioAutor.findAll();
+        List<Genero> listaGenero = servicioGenero.findAll();
+        if (result.hasErrors()) {
+            model.addAttribute("listaAutor", listaAutor);
+            model.addAttribute("listaGenero", listaGenero);
+            model.addAttribute("libro", libro);
+            return "editarLibro.jsp";
+        } 
+
+         if (libro.getAutor() == null || libro.getAutor().getId() == null) {
+            FieldError error = new FieldError("autor", "autor", "Debe seleccionar un autor.");
+            result.addError(error);
+            model.addAttribute("listaGenero", listaGenero);
+            model.addAttribute("listaAutor", listaAutor);
+            return "editarLibro.jsp";
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("listaGenero", listaGenero);
+            model.addAttribute("listaAutor", listaAutor);
+            return "editarLibro.jsp";
+        }
+
+        LibroVenta unicoLibro = servicioLibroVenta.findByNombre(libro.getNombre());
+        if (unicoLibro != null) {
+            unicoLibro.setNombre(libro.getNombre());
+        }
+
+        Genero unicoGenero = servicioGenero.findByNombreGenero(libro.getGenero().getNombreGenero());
+        if (unicoGenero != null) {
+            libro.setGenero(unicoGenero);
+        }
+        
+        if (editarLibro != null) {
+            
+            editarLibro.setNombre(libro.getNombre());
+            editarLibro.setDescripcion(libro.getDescripcion());
+            editarLibro.setPrecio(libro.getPrecio());
+            editarLibro.setCantidad(libro.getCantidad());
+            editarLibro.getGenero().setNombreGenero(libro.getGenero().getNombreGenero());
+            servicioAutor.update(editarLibro.getAutor());
+            servicioGenero.update(editarLibro.getGenero());
+            servicioLibroVenta.update(editarLibro);
+        }
+        redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
+        return "redirect:/libros/{libroId}/editar";
     }
 }
