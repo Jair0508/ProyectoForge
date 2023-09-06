@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -90,12 +91,9 @@ public class ControladorDetalleOrden {
         return "historialDeOrdenes.jsp";
     }
 
-    @PostMapping("/cancelar/{libroId}")
-    public String cancelarProducto(@PathVariable("libroId") Long libroId, HttpSession session) {
-        Long usuarioId = (Long) session.getAttribute("userId");
-        Usuario usuario = servicioUsuario.findById(usuarioId);
-        LibroVenta libro = servicioLibroVenta.findById(libroId);
-        usuario.getLibrosOrdenes().remove(libro);
+    @DeleteMapping("/cancelar/{ordenId}")
+    public String cancelarProducto(@PathVariable("ordenId") Long ordenId) {
+        servicioDetalleOrden.delete(ordenId);
         return "redirect:/principal";
     }
 

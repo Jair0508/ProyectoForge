@@ -11,7 +11,18 @@
     <body>
         <c:forEach var="ordenes" items="${listOrdenes}">
             <div>
-                <p>${ordenes.detalle_De_orden}</p>
+                <h2>${ordenes.libroVenta.nombre}</h2>
+                <p>Genero: ${ordenes.libroVenta.genero.nombreGenero}</p>
+                <p>Autor: ${ordenes.libroVenta.autor.nombre}</p>
+                <p>cantidad: ${ordenes.cantidad}</p>
+                <p>direccion: ${ordenes.departamento}/${ordenes.municipio}, ${ordenes.direccion}</p>
+                <p>precio total: ${ordenes.precioTotal}</p>
+                <div>
+                    <form action="/orden/cancelar/${ordenes.id}" method="post">
+                        <input type="hidden" name="_method" value="delete" />
+                        <input type="submit" value="Delete" />
+                    </form>
+                </div>
             </div>
         </c:forEach>
     </body>
