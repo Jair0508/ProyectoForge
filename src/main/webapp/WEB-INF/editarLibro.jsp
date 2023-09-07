@@ -22,7 +22,7 @@
                         <h1 class="form-title">Editar Libro:
                             <c:out value="${libro.nombre}" />
                         </h1>
-                        <form:form action="/libros/${libro.id}/editado/libro" method="post" modelAttribute="libro">
+                        <form:form action="/libros/${libro.id}/editar" method="post" modelAttribute="libro">
                             <input type="hidden" name="_method" value="put">
 
                             <form:label class="input-label" path="nombre">Nombre</form:label>
@@ -44,40 +44,26 @@
                             <form:input class="input-content" type="number" min="1" path="cantidad"
                                 placeholder="Ingrese cantidad de libros" />
                             <form:errors path="cantidad" />
-
-                            <form:label class="input-label" path="autor">autor</form:label>
-                            <form:select class="input-content" path="autor">
-                                <form:option value="">selecione</form:option>
-                                <c:forEach var="autores" items="${listaAutor}">
-                                    <form:option value="${autores}">${autores.nombre}</form:option>
-                                </c:forEach>
-                            </form:select>
-                            <form:errors path="autor" />
-
-                            <div class="buttons-container">
-                                <a class="button-link" href="/autores/${libro.autor.id}/editar">Editar Autor</a>
-                              </div>
-
-                            <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
-                            <form:input class="input-content" type="text" path="genero.nombreGenero"
-                                placeholder="Ingrese genero del libro" list="genero" />
-                            <datalist id="genero">
-                                <c:forEach var="genero" items="${listaGenero}">
-                                    <option>
-                                        <c:out value="${genero.nombreGenero}" />
-                                    </option>
-                                </c:forEach>
-                            </datalist>
-                            <form:errors class="errors" path="genero.nombreGenero" />
-
-                            <div class="buttons-container">
-                                <a class="button-link" href="javascript:history.back()">Cancelar</a>
-                                <button class="button-link" type="submit">Anexar</button>
-                            </div>
                             <p>
                                 <c:out value="${realizado}" />
                             </p>
+                            <div class="buttons-container">
+                                <a class="button-link" href="/usuario/administrador">Cancelar</a>
+                                <button class="button-link" type="submit">Anexar</button>
+                            </div>
                         </form:form>
+                        <div>
+                            <p>
+                                <c:out value="${libro.autor.nombre}" />
+                            </p>
+                            <a href="/autores/${autor.id}/editar">Editar Autor</a>
+                        </div>
+                        <div>
+                            <p>
+                                <c:out value="${libro.genero.nombreGenero}" />
+                            </p>
+                            <a href="/generos/${genero.id}/editar">Editar Genero</a>
+                        </div>
                         <a href="/libros/anexar">Agregar mas Libros</a>
                     </div>
                     <div>

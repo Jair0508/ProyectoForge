@@ -72,8 +72,7 @@
                       </c:if>
                       <c:if test="${usuarioEmail.id == 1}">
                         <div>
-                          <a class="button" href="/libros/${libro.id}/editar">Editar</a>
-                          <a class="button" href="/libross/${libro.id}/borrar">Borrar</a>
+                          <a class="button" href="/usuario/administrador">Administrar</a>
                         </div>
                       </c:if>
                     </div>

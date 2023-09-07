@@ -35,12 +35,9 @@
         
         
             <div class="buttons-container">
-              <a class="button-link" href="javascript:history.back()" >Cancelar</a>
+                <a class="button-link" href="javascript:history.back()" >Cancelar</a>
               <button class="button-link"  type="submit">Agregar</button>
             </div>
-        
-            <c:out value="${realizado}" />
-       
     </form:form>
 </div>
 </body>

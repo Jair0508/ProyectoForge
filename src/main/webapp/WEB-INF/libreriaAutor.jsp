@@ -20,7 +20,16 @@
             <%@ include file="nav.jsp" %>
 
                 <div class="main-content">
-                    <h3 id="middle-title">Libros de <span> <c:out value="${autor.nombre}" /></span></h3>
+                    <h3 id="middle-title"><span> <c:out value="${autor.nombre}" /></span></h3>
+                    <div>
+                        <img src="" alt="Autor">
+                        <div>
+                            <h4>Biografia:</h4>
+                            <p>
+                                <c:out value="${autor.descripcion}" />
+                            </p>
+                        </div>
+                    </div>
                     <div class="cards-container">
                         <c:forEach items="${paginaLibrosPorAutor.content}" var="libro">
                             <div class="book-card">
@@ -66,10 +75,10 @@
                                     </c:if>
                                     <c:if test="${usuarioEmail.id == 1}">
                                         <div>
-                                            <a href="/libros/${libro.id}/editar">Editar</a>
-                                            <a href="/libros/${libro.id}/borrar">Borrar</a>
+                                            <a class="button" href="/usuario/administrador">Administrar</a>
                                         </div>
                                     </c:if>
+                                    <c:out value="${realizado}" />
                                 </div>
                             </div>
                         </c:forEach>

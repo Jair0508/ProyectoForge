@@ -68,10 +68,10 @@
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
-                      <a href="/libros/${libro.id}/editar">Editar</a>
-                      <a href="/libros/${libro.id}/borrar">Borrar</a>
+                      <a class="button" href="/usuario/administrador">Administrar</a>
                     </div>
                   </c:if>
+                  <c:out value="${realizado}" />
                 </div>
               </div>
             </c:forEach>

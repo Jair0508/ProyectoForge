@@ -77,7 +77,7 @@ public class ControladorLibroVenta {
         }
 
         if (usuarioId == null) {
-            return "redirect:/login";
+            return "redirect:/usuario/login";
         }
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("listaGeneros", listaGeneros);
@@ -174,7 +174,7 @@ public class ControladorLibroVenta {
         }
 
         if (usuarioId == null) {
-            return "redirect:/login";
+            return "redirect:/usuario/login";
         }
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<Genero> listaGenero = servicioGenero.findAll();
@@ -187,45 +187,23 @@ public class ControladorLibroVenta {
         return "editarLibro.jsp";
     }
 
-    @PutMapping("/{libroId}/editado/libro")
+    @PutMapping("/{libroId}/editar")
     public String libroEdicion(@Valid @ModelAttribute("libro") LibroVenta libro, BindingResult result,
-            @PathVariable("libroId") Long libroId, @RequestParam("autorId") Long autorId, RedirectAttributes redirectAttributes, Model model, HttpSession session) {
+            @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
         LibroVenta editarLibro = servicioLibroVenta.findById(libroId);
 
-        List<Autor> listaAutor = servicioAutor.findAll();
-        List<Genero> listaGenero = servicioGenero.findAll();
+    
         if (result.hasErrors()) {
-            model.addAttribute("listaAutor", listaAutor);
-            model.addAttribute("listaGenero", listaGenero);
             model.addAttribute("libro", libro);
             return "editarLibro.jsp";
         } 
 
-         if (libro.getAutor() == null || libro.getAutor().getId() == null) {
-            FieldError error = new FieldError("autor", "autor", "Debe seleccionar un autor.");
-            result.addError(error);
-            model.addAttribute("listaGenero", listaGenero);
-            model.addAttribute("listaAutor", listaAutor);
-            return "editarLibro.jsp";
-        }
-
-        if (result.hasErrors()) {
-            model.addAttribute("listaGenero", listaGenero);
-            model.addAttribute("listaAutor", listaAutor);
-            return "editarLibro.jsp";
-        }
-
         LibroVenta unicoLibro = servicioLibroVenta.findByNombre(libro.getNombre());
         if (unicoLibro != null) {
             unicoLibro.setNombre(libro.getNombre());
-        }
-
-        Genero unicoGenero = servicioGenero.findByNombreGenero(libro.getGenero().getNombreGenero());
-        if (unicoGenero != null) {
-            libro.setGenero(unicoGenero);
         }
         
         if (editarLibro != null) {
@@ -234,12 +212,29 @@ public class ControladorLibroVenta {
             editarLibro.setDescripcion(libro.getDescripcion());
             editarLibro.setPrecio(libro.getPrecio());
             editarLibro.setCantidad(libro.getCantidad());
-            editarLibro.getGenero().setNombreGenero(libro.getGenero().getNombreGenero());
-            servicioAutor.update(editarLibro.getAutor());
-            servicioGenero.update(editarLibro.getGenero());
             servicioLibroVenta.update(editarLibro);
         }
         redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
-        return "redirect:/libros/{libroId}/editar";
+        return "redirect:/libros/"+ libroId +"/editar";
+    }
+
+    @GetMapping("/lista/autores-generos")
+    public String anexarAutorYGenero(Model model, HttpSession session){
+        Long usuarioId = (Long) session.getAttribute("userId");
+        List<Autor> listaAutores = servicioAutor.findAll();
+        List<Genero> listaGeneros = servicioGenero.findAll();
+
+        if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        }
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        }
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        model.addAttribute("listaAutores", listaAutores);
+        model.addAttribute("listaGeneros", listaGeneros);
+        return "tablaAutoresYGenero.jsp";
     }
 }

@@ -27,7 +27,7 @@ public class ControladorListaDeseo {
     public String mostrarUsuario(@PathVariable("usuarioId") Long id, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
-            return "redirect:/login";
+            return "redirect:/usuario/login";
         } else if (id != usuarioId) {
             return "redirect:/lista_deseos/" + usuarioId;
         } else {
@@ -42,7 +42,7 @@ public class ControladorListaDeseo {
             HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
-            return "redirect:/registro";
+            return "redirect:/usuario/login";
         }
         Usuario usuario = servicioUsuario.findById(usuarioId);
 

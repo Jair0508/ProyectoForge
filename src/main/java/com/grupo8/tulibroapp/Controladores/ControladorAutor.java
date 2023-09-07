@@ -1,5 +1,7 @@
 package com.grupo8.tulibroapp.Controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -115,27 +117,86 @@ public class ControladorAutor {
     }
 
     @GetMapping("/{autorId}/editar")
-    public String editarAutor(@PathVariable("autorId") Long autorId,Model model, HttpSession session){
+    public String editarAutor(@PathVariable("autorId") Long autorId,Model model, HttpSession session, RedirectAttributes redirectAttributes){
         Long usuarioId = (Long) session.getAttribute("userId");
         Autor autor = servicioAutor.findById(autorId);
         model.addAttribute("autor", autor);
+        List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
+        List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
 
          if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         }
 
         if (usuarioId == null) {
-            return "redirect:/login";
+            return "redirect:/usuario/login";
         } else {
-            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("libroNoNull", libroNoNull);
+            model.addAttribute("libroNull", libroNull);
             model.addAttribute("usuarioEmail", usuarioEmail);
             return "editarAutor.jsp";
         }
     }
 
-    @PutMapping("/{autorId}/editado/autor")
-    public String auttorEditado(){
+    @PutMapping("/{autorId}/editar")
+    public String auttorEditado(@Valid @ModelAttribute("autor") Autor autor, BindingResult result,
+    @PathVariable("autorId") Long autorId, RedirectAttributes redirectAttributes, Model model, HttpSession session){
+        Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        
+        
+        Autor unicoAutor = servicioAutor.findByNombre(autor.getNombre());
+        if(unicoAutor != null){
+            unicoAutor.setNombre(autor.getNombre());
+        }
+        
+        if(result.hasErrors()){
+            List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
+            List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            model.addAttribute("libroNoNull", libroNoNull);
+            model.addAttribute("libroNull", libroNull);
+            model.addAttribute("autor", autor);
+            return "editarAutor.jsp";
+        }
+        
+        
+        Autor editarAutor = servicioAutor.findById(autorId);
+        if(editarAutor != null){
+            editarAutor.setNombre(autor.getNombre());
+            editarAutor.setDescripcion(autor.getDescripcion());
+            editarAutor.setFrase(autor.getFrase());
+            servicioAutor.update(editarAutor);
+        }
 
-        return "";
+
+
+        redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
+        return "redirect:/autores/" + autorId + "/editar";
+    }
+
+    @PostMapping("/{autorId}/remover/{libroId}")
+    public String remover(@PathVariable("autorId") Long autorId, @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes){
+        LibroVenta removerLibro = servicioLibroVenta.findById(libroId);
+        removerLibro.setAutor(null);
+        servicioLibroVenta.save(removerLibro);
+        redirectAttributes.addFlashAttribute("removido", "Se removio del Autor");
+        return "redirect:/autores/" + autorId + "/editar";
+    }
+
+    @PostMapping("/{autorId}/agregar")
+    public String agregar(@PathVariable("autorId") Long autorId, @RequestParam("libroId") Long libroId, RedirectAttributes redirectAttributes){
+        Autor agregueAutor = servicioAutor.findById(autorId);
+        LibroVenta agregueLibro = servicioLibroVenta.findById(libroId);
+        List<LibroVenta> libroList = agregueAutor.getLibroVentas();
+
+        libroList.add(agregueLibro);
+        agregueAutor.setLibroVentas(libroList);
+        agregueLibro.setAutor(agregueAutor);
+        servicioAutor.save(agregueAutor);
+        redirectAttributes.addFlashAttribute("agregado", "Se agrego al autor");
+        return "redirect:/autores/" + autorId + "/editar";
     }
 }

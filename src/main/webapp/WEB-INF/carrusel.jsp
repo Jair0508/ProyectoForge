@@ -11,10 +11,10 @@
   <div class="slider-container">
     <div class="slider-frame">
       <ul class="slider-list">
-        <li class="slider-item"><a href=""><img src="imagenes/mundo-perdido.jpg" alt="img"></a></li>
-        <li class="slider-item"><a href=""><img src="imagenes/evangelio-esenios.jpg" alt="img"></a></li>
-        <li class="slider-item"><a href=""><img src="imagenes/mundo-perdido.jpg" alt="img"></a></li>
-        <li class="slider-item"><a href=""><img src="imagenes/evangelio-esenios.jpg" alt="img"></a></li>
+        <li class="slider-item"><a href=""><img src="/imagenes/mundo-perdido.jpg" alt="img"></a></li>
+        <li class="slider-item"><a href=""><img src="/imagenes/evangelio-esenios.jpg" alt="img"></a></li>
+        <li class="slider-item"><a href=""><img src="/imagenes/mundo-perdido.jpg" alt="img"></a></li>
+        <li class="slider-item"><a href=""><img src="/imagenes/evangelio-esenios.jpg" alt="img"></a></li>
       </ul>
     </div>
 

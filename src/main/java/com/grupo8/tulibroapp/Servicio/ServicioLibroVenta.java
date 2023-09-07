@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import com.grupo8.tulibroapp.Modelos.Autor;
+import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Repositorio.RepositorioLibroVenta;
 
@@ -23,7 +26,7 @@ public class ServicioLibroVenta extends ServicioBase<LibroVenta> {
         return nombreLibro;
     }
 
-    private static final int PAGE_SIZE = 3; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
+    private static final int PAGE_SIZE = 15; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
 
     public Page<LibroVenta> libroVentaPerPage(int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE);
@@ -49,5 +52,21 @@ public class ServicioLibroVenta extends ServicioBase<LibroVenta> {
     public Page<LibroVenta> obtenerLibroPorAutor(Long autorId, int pageNumber, int pageSize) {
         PageRequest pageable = PageRequest.of(pageNumber, pageSize);
         return repositorioLibroVenta.findByAutorId(autorId, pageable);
+    }
+
+    public List<LibroVenta> findByAutorIsNull() {
+        return repositorioLibroVenta.findByAutorIsNull();
+    }
+
+    public List<LibroVenta> findByAutor(Autor autor) {
+        return repositorioLibroVenta.findByAutor(autor);
+    }
+
+    public List<LibroVenta> findByGeneroIsNull() {
+        return repositorioLibroVenta.findByGeneroIsNull();
+    }
+
+    public List<LibroVenta> findByGenero(Genero genero) {
+        return repositorioLibroVenta.findByGenero(genero);
     }
 }

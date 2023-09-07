@@ -2,6 +2,7 @@ package com.grupo8.tulibroapp.Modelos;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -33,7 +34,7 @@ public class Autor extends ModeloBase {
     @NotNull
     private String frase;
 
-    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
     private List<LibroVenta> libroVentas;
 
     @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)

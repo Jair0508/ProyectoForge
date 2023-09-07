@@ -20,7 +20,7 @@
         <div class="main-content">
           <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
           <div class="cards-container">
-            <c:forEach var="libro" items="${paginaLibros.content}" begin="0" end="4">
+            <c:forEach var="libro" items="${paginaLibros.content}">
               <div class="book-card">
                 <svg viewBox="0 0 24 24" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -62,10 +62,10 @@
                   </c:if>
                   <c:if test="${usuarioEmail.id == 1}">
                     <div>
-                      <a class="button" href="/libros/${libro.id}/editar">Editar</a>
-                      <a class="button" href="/libros/${libro.id}/borrar">Borrar</a>
+                      <a class="button" href="/usuario/administrador">Administrar</a>
                     </div>
                   </c:if>
+                  <c:out value="${realizado}" />
                 </div>
               </div>
             </c:forEach>

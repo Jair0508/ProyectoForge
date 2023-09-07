@@ -19,7 +19,7 @@ public class ServicioAutor extends ServicioBase<Autor> {
         return autorNombre;
     }
 
-    private static final int PAGE_SIZE = 1; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
+    private static final int PAGE_SIZE = 15; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
 
     public Page<Autor> autorPorPage(int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE);

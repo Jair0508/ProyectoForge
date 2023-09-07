@@ -80,7 +80,7 @@
           <c:if test="${usuarioEmail == null}">
             <div class="dropdown-content userDropdown">
               <h3>Iniciar Sesion</h3>
-              <form action="/login" method="post">
+              <form action="/usuario/login" method="post">
                 <table>
                   <tr>
                     <td>
@@ -123,7 +123,7 @@
                   </tr>
                 </table>
                 <div class="userLinks">
-                  <a href="/registro">
+                  <a href="/usuario/registro">
                     <svg fill="#6fa2dd" viewBox="0 0 36 36" width="24" version="1.1" preserveAspectRatio="xMidYMid meet"
                       xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
@@ -209,7 +209,7 @@
               <div class="userLinks">
                 <c:choose>
                   <c:when test="${usuarioEmail.id == 1}">
-                    <a href="/administracion">
+                    <a href="/usuario/administrador">
                       <svg fill="#248b63" width="25" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg" stroke="#248b63"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M983.727 5.421 1723.04 353.62c19.765 9.374 32.414 29.252 32.414 51.162v601.525c0 489.6-424.207 719.774-733.779 887.943l-34.899 18.975c-8.47 4.517-17.731 6.889-27.105 6.889-9.262 0-18.523-2.372-26.993-6.89l-34.9-18.974C588.095 1726.08 164 1495.906 164 1006.306V404.78c0-21.91 12.65-41.788 32.414-51.162L935.727 5.42c15.134-7.228 32.866-7.228 48 0ZM757.088 383.322c-176.075 0-319.285 143.323-319.285 319.398 0 176.075 143.21 319.285 319.285 319.285 1.92 0 3.84 0 5.76-.113l58.504 58.503h83.689v116.781h116.781v83.803l91.595 91.482h313.412V1059.05l-350.57-350.682c.114-1.807.114-3.727.114-5.647 0-176.075-143.21-319.398-319.285-319.398Zm0 112.942c113.732 0 206.344 92.724 205.327 216.62l-3.953 37.271 355.426 355.652v153.713h-153.713l-25.412-25.299v-149.986h-116.78v-116.78H868.108l-63.812-63.7-47.209 5.309c-113.732 0-206.344-92.5-206.344-206.344 0-113.732 92.612-206.456 206.344-206.456Zm4.98 124.98c-46.757 0-84.705 37.948-84.705 84.706s37.948 84.706 84.706 84.706c46.757 0 84.706-37.948 84.706-84.706s-37.949-84.706-84.706-84.706Z" fill-rule="evenodd"></path> </g></svg>
                       Administración
                     </a>
@@ -235,7 +235,7 @@
                     </a>
                   </c:when>
                 </c:choose>
-                <a href="/logout">
+                <a href="/usuario/logout">
                   <svg width="25px" version="1.1" id="Layer_1" xmlns:xlink="http://www.w3.org/1999/xlink"
                     viewBox="-51.2 -51.2 614.40 614.40" xml:space="preserve" fill="#157347" stroke="#157347"
                     stroke-width="0.00512" transform="matrix(-1, 0, 0, 1, 0, 0)rotate(0)">
