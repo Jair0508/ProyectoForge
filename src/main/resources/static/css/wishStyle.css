@@ -1,0 +1,17 @@
+.main-content {
+  padding: 2em 4em;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  background-color: #bbe0d26b;
+  padding: 0.5em 2em;
+  border-radius: 50px;
+  box-shadow: 0px 0px 8px #00000089;
+
+  & span {
+    color: #6fa2dd;
+    font-style: italic;
+  }
+}
