@@ -27,3 +27,13 @@ body {
   padding-inline: 8px;
   border-radius: 50px;
 }
+
+.checked {
+  color: #ffffff;
+  background-color: #59d03e;
+  max-width: 80%;
+  margin: 0 auto;
+  display: block;
+  padding-inline: 8px;
+  border-radius: 50px;
+}

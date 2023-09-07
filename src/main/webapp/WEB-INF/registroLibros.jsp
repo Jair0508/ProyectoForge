@@ -68,7 +68,7 @@
                 <a class="button-link" href="javascript:history.back()">Cancelar</a>
                 <button class="button-link" type="submit">Anexar</button>
               </div>
-              <p>
+              <p class="checked">
                 <c:out value="${realizado}" />
               </p>
             </form:form>
