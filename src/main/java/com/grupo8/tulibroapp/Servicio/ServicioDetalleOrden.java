@@ -23,18 +23,4 @@ public class ServicioDetalleOrden extends ServicioBase<DetalleOrden> {
         return repositorioDetalleOrden.findAllByUsuarioId(usuarioId);
     }
 
-    public void eliminarDetalleOrden(Long ordenId) {
-        DetalleOrden detalleOrden = repositorioDetalleOrden.findById(ordenId).orElse(null);
-        if (detalleOrden != null) {
-            LibroVenta libroVenta = detalleOrden.getLibroVenta();
-            Usuario usuario = detalleOrden.getUsuario();
-
-            // Eliminar la referencia en LibroVenta
-            // libroVenta.getUsuariosOrdenes().remove(usuario);
-            // servicioLibroVenta.save(libroVenta);
-
-            // Finalmente, eliminar el DetalleOrden
-            repositorioDetalleOrden.delete(detalleOrden);
-        }
-    }
 }

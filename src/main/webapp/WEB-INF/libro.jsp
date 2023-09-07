@@ -45,6 +45,9 @@
                 <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                   <button class="button" type="submit">agregar a lista de deseos </button>
                 </form>
+                <p class="errors">
+                  <c:out value="${agragadoInvalido}" />
+                </p>
               </c:if>
               <c:if test="${usuarioEmail == null}">
                 <a onclick="mostrarAlert()" href="">comprar ahora</a>

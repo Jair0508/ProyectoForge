@@ -79,12 +79,10 @@ public class ControladorUsuario {
 
         if (usuarioId == null) {
             return "index.jsp";
-        } 
-            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-            model.addAttribute("usuarioEmail", usuarioEmail);
-            return "index.jsp";
-        
-        
+        }
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        return "index.jsp";
     }
 
     @PostMapping("/login")
@@ -122,11 +120,11 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/administrador")
-    public String administrador(Model model, HttpSession session){
+    public String administrador(Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
-        
+
         if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         }

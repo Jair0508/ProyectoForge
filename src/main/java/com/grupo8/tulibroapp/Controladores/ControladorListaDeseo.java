@@ -6,12 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -39,17 +41,22 @@ public class ControladorListaDeseo {
 
     @PostMapping("/lista_deseos/anexar_libro/{libroId}")
     public String agregarLibro_ListaDeseos(@PathVariable("libroId") Long LibroId,
-            HttpSession session) {
+            HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
             return "redirect:/usuario/login";
         }
         Usuario usuario = servicioUsuario.findById(usuarioId);
-
         LibroVenta libro = servicioLibroVenta.findById(LibroId);
-        usuario.agregarLibro(libro);
-        servicioLibroVenta.save(libro);
-        return "redirect:/lista_deseos/" + usuarioId;
+        if (usuario.getLibroVenta().contains(libro)) {
+            redirectAttributes.addFlashAttribute("agragadoInvalido", "este libro ya se encuentra en su carrito");
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
+        } else {
+            usuario.agregarLibro(libro);
+            servicioLibroVenta.save(libro);
+            return "redirect:/lista_deseos/" + usuarioId;
+        }
     }
 
     @PostMapping("/lista_deseos/quitarLibro/{libroId}")
