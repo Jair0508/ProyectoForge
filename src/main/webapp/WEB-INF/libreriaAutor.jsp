@@ -20,7 +20,9 @@
             <%@ include file="nav.jsp" %>
 
                 <div class="main-content">
-                    <h3 id="middle-title"><span> <c:out value="${autor.nombre}" /></span></h3>
+                    <h3 id="middle-title"><span>
+                            <c:out value="${autor.nombre}" />
+                        </span></h3>
                     <div>
                         <img src="" alt="Autor">
                         <div>
@@ -59,16 +61,19 @@
                                     </h3>
                                     <h4>Genero:</h4>
                                     <p>
-                                            <c:out value="${libro.genero.nombreGenero}" />
+                                        <c:out value="${libro.genero.nombreGenero}" />
                                     </p>
                                     <h4>Autor:</h4>
                                     <p>
-                                            <c:out value="${libro.autor.nombre}" />
+                                        <c:out value="${libro.autor.nombre}" />
                                     </p>
                                     <c:if test="${usuarioEmail.id >= 2}">
                                         <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                                             <button type="submit">agregar a lista de deseos </button>
                                         </form>
+                                        <p class="errors">
+                                            <c:out value="${agragadoInvalido}" />
+                                        </p>
                                     </c:if>
                                     <c:if test="${usuarioEmail == null}">
                                         <button onclick="mostrarAlert()">agregar a lista de deseos </button>
@@ -88,9 +93,11 @@
                     <c:choose>
                         <c:when test="${paginaLibrosPorAutor.totalPages > 1}">
                             <c:if test="${paginaLibrosPorAutor.number > 0}">
-                                <a class="prev" href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number - 1}">&#8249; Anterior</a>
+                                <a class="prev"
+                                    href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number - 1}">&#8249;
+                                    Anterior</a>
                             </c:if>
-                            
+
                             <c:forEach begin="1" end="${paginaLibrosPorAutor.totalPages}" var="i">
                                 <c:choose>
                                     <c:when test="${i == paginaLibrosPorAutor.number + 1}">
@@ -101,9 +108,11 @@
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
-                
+
                             <c:if test="${paginaLibrosPorAutor.number < paginaLibrosPorAutor.totalPages - 1}">
-                                <a class="next" href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number + 1}">Siguiente &#8250;</a>
+                                <a class="next"
+                                    href="/autores/${autor.id}/libros?page=${paginaLibrosPorAutor.number + 1}">Siguiente
+                                    &#8250;</a>
                             </c:if>
                         </c:when>
                     </c:choose>
