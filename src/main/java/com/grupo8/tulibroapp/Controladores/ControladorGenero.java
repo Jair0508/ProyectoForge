@@ -87,12 +87,12 @@ public class ControladorGenero {
         List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
         List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
 
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
-
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+
         } else {
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("libroNoNull", libroNoNull);

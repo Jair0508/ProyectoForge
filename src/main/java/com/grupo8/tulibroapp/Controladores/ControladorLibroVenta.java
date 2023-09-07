@@ -189,25 +189,25 @@ public class ControladorLibroVenta {
 
     @PutMapping("/{libroId}/editar")
     public String libroEdicion(@Valid @ModelAttribute("libro") LibroVenta libro, BindingResult result,
-            @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes, Model model, HttpSession session) {
+            @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes, Model model,
+            HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
         LibroVenta editarLibro = servicioLibroVenta.findById(libroId);
 
-    
         if (result.hasErrors()) {
             model.addAttribute("libro", libro);
             return "editarLibro.jsp";
-        } 
+        }
 
         LibroVenta unicoLibro = servicioLibroVenta.findByNombre(libro.getNombre());
         if (unicoLibro != null) {
             unicoLibro.setNombre(libro.getNombre());
         }
-        
+
         if (editarLibro != null) {
-            
+
             editarLibro.setNombre(libro.getNombre());
             editarLibro.setDescripcion(libro.getDescripcion());
             editarLibro.setPrecio(libro.getPrecio());
@@ -215,11 +215,11 @@ public class ControladorLibroVenta {
             servicioLibroVenta.update(editarLibro);
         }
         redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
-        return "redirect:/libros/"+ libroId +"/editar";
+        return "redirect:/libros/" + libroId + "/editar";
     }
 
     @GetMapping("/lista/autores-generos")
-    public String anexarAutorYGenero(Model model, HttpSession session){
+    public String anexarAutorYGenero(Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         List<Autor> listaAutores = servicioAutor.findAll();
         List<Genero> listaGeneros = servicioGenero.findAll();

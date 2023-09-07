@@ -12,9 +12,9 @@
         <link rel="stylesheet" href="/css/baseStyles.css">
         <link rel="stylesheet" href="/css/formStyle.css">
         <link rel="stylesheet" href="/css/VerPasswordStyle.css">
-        
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        
+
         <title>Registro - Usuario</title>
       </head>
 
@@ -25,7 +25,7 @@
           <div class="formulario">
             <h1 class="form-title">Bienvenido, registre sus datos</h1>
 
-            <form:form action="/registro" method="post" modelAttribute="usuario">
+            <form:form action="/usuario/registro" method="post" modelAttribute="usuario">
 
               <form:label class="input-label" path="name">Nombre</form:label>
               <form:input class="input-content" type="text" path="name" placeholder="Ingrese su nombre" />
@@ -60,8 +60,8 @@
 
               <form:label class="input-label" path="passwordConfirmation">Confirme su Contraseña</form:label>
               <div class="icon">
-              <form:input class="input-content" path="passwordConfirmation" type="password" id="passwordInput"
-                placeholder="Confirme Su Contraseña" />
+                <form:input class="input-content" path="passwordConfirmation" type="password" id="passwordInput"
+                  placeholder="Confirme Su Contraseña" />
               </div>
               <form:errors class="errors" path="passwordConfirmation" />
 

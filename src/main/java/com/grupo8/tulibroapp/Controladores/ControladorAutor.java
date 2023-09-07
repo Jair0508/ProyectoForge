@@ -61,7 +61,7 @@ public class ControladorAutor {
             @RequestParam(name = "page", defaultValue = "0") int pageNumber,
             Model model, HttpSession session,
             RedirectAttributes redirectAttributes) {
-                
+
         Page<LibroVenta> paginaLibrosPorAutor = servicioLibroVenta.obtenerLibroPorAutor(autorId, pageNumber, 2);
         Long usuarioId = (Long) session.getAttribute("userId");
         Autor autor = servicioAutor.findById(autorId);
@@ -77,7 +77,7 @@ public class ControladorAutor {
         return "libreriaAutor.jsp";
     }
 
-     @GetMapping("/anexar/autor")
+    @GetMapping("/anexar/autor")
     public String formAutor(@ModelAttribute("autor") Autor autor, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
@@ -117,7 +117,8 @@ public class ControladorAutor {
     }
 
     @GetMapping("/{autorId}/editar")
-    public String editarAutor(@PathVariable("autorId") Long autorId,Model model, HttpSession session, RedirectAttributes redirectAttributes){
+    public String editarAutor(@PathVariable("autorId") Long autorId, Model model, HttpSession session,
+            RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Autor autor = servicioAutor.findById(autorId);
         model.addAttribute("autor", autor);
@@ -125,12 +126,11 @@ public class ControladorAutor {
         List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
 
-         if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
-
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
         } else {
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);
@@ -141,18 +141,18 @@ public class ControladorAutor {
 
     @PutMapping("/{autorId}/editar")
     public String auttorEditado(@Valid @ModelAttribute("autor") Autor autor, BindingResult result,
-    @PathVariable("autorId") Long autorId, RedirectAttributes redirectAttributes, Model model, HttpSession session){
+            @PathVariable("autorId") Long autorId, RedirectAttributes redirectAttributes, Model model,
+            HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
-        
-        
+
         Autor unicoAutor = servicioAutor.findByNombre(autor.getNombre());
-        if(unicoAutor != null){
+        if (unicoAutor != null) {
             unicoAutor.setNombre(autor.getNombre());
         }
-        
-        if(result.hasErrors()){
+
+        if (result.hasErrors()) {
             List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
             List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
             model.addAttribute("usuarioEmail", usuarioEmail);
@@ -161,24 +161,22 @@ public class ControladorAutor {
             model.addAttribute("autor", autor);
             return "editarAutor.jsp";
         }
-        
-        
+
         Autor editarAutor = servicioAutor.findById(autorId);
-        if(editarAutor != null){
+        if (editarAutor != null) {
             editarAutor.setNombre(autor.getNombre());
             editarAutor.setDescripcion(autor.getDescripcion());
             editarAutor.setFrase(autor.getFrase());
             servicioAutor.update(editarAutor);
         }
 
-
-
         redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
         return "redirect:/autores/" + autorId + "/editar";
     }
 
     @PostMapping("/{autorId}/remover/{libroId}")
-    public String remover(@PathVariable("autorId") Long autorId, @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes){
+    public String remover(@PathVariable("autorId") Long autorId, @PathVariable("libroId") Long libroId,
+            RedirectAttributes redirectAttributes) {
         LibroVenta removerLibro = servicioLibroVenta.findById(libroId);
         removerLibro.setAutor(null);
         servicioLibroVenta.save(removerLibro);
@@ -187,7 +185,8 @@ public class ControladorAutor {
     }
 
     @PostMapping("/{autorId}/agregar")
-    public String agregar(@PathVariable("autorId") Long autorId, @RequestParam("libroId") Long libroId, RedirectAttributes redirectAttributes){
+    public String agregar(@PathVariable("autorId") Long autorId, @RequestParam("libroId") Long libroId,
+            RedirectAttributes redirectAttributes) {
         Autor agregueAutor = servicioAutor.findById(autorId);
         LibroVenta agregueLibro = servicioLibroVenta.findById(libroId);
         List<LibroVenta> libroList = agregueAutor.getLibroVentas();

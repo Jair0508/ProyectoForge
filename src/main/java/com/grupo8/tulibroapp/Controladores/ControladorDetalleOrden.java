@@ -86,7 +86,9 @@ public class ControladorDetalleOrden {
     @GetMapping("/lista")
     public String historial_ordenes(HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("listOrdenes", listOrdenes);
         return "historialDeOrdenes.jsp";
     }
