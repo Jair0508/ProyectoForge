@@ -61,8 +61,8 @@ public class ControladorDetalleOrden {
     }
 
     @PostMapping("/compra/{libroId}")
-    public String comprarProducto(@Valid @ModelAttribute("detalleOrden") DetalleOrden orden,
-            @PathVariable("libroId") Long libroId, BindingResult result, HttpSession session) {
+    public String comprarProducto(@Valid @ModelAttribute("detalleOrden") DetalleOrden orden, BindingResult result,
+            @PathVariable("libroId") Long libroId, HttpSession session) {
         if (result.hasErrors()) {
             return "registroDetalleOrden.jsp";
         }
