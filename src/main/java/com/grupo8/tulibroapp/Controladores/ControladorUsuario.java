@@ -114,6 +114,11 @@ public class ControladorUsuario {
     @GetMapping("/logout")
     public String logout(HttpSession session,
             HttpServletRequest request) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == 1) {
+            session.removeAttribute("userId");
+            return "redirect:/principal";
+        }
         session.removeAttribute("userId");
         String referer = request.getHeader("referer");
         return "redirect:" + referer;
@@ -122,21 +127,20 @@ public class ControladorUsuario {
     @GetMapping("/administrador")
     public String administrador(Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
+            List<Usuario> listaUsuario = servicioUsuario.findAll();
+            model.addAttribute("listaUsuario", listaUsuario);
+            model.addAttribute("listaLibro", listaLibro);
+            return "administrar.jsp";
         }
 
-        List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
-        List<Usuario> listaUsuario = servicioUsuario.findAll();
-        model.addAttribute("listaUsuario", listaUsuario);
-        model.addAttribute("listaLibro", listaLibro);
-        return "administrar.jsp";
     }
 }

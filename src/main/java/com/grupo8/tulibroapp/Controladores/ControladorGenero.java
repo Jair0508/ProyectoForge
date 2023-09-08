@@ -82,10 +82,6 @@ public class ControladorGenero {
     @GetMapping("/{generoId}/editar")
     public String editarGenero(@PathVariable("generoId") Long generoId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Genero genero = servicioGenero.findById(generoId);
-        model.addAttribute("genero", genero);
-        List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
-        List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
@@ -94,6 +90,10 @@ public class ControladorGenero {
             return "redirect:/principal";
 
         } else {
+            Genero genero = servicioGenero.findById(generoId);
+            model.addAttribute("genero", genero);
+            List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
+            List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);

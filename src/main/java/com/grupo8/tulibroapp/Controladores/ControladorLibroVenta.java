@@ -69,21 +69,20 @@ public class ControladorLibroVenta {
     public String formLibroGenero(@ModelAttribute("libro") LibroVenta libro,
             @ModelAttribute("genero") Genero genero, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        List<Genero> listaGeneros = servicioGenero.findAll();
-        List<Autor> listaAutores = servicioAutor.findAll();
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            List<Genero> listaGeneros = servicioGenero.findAll();
+            List<Autor> listaAutores = servicioAutor.findAll();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("listaGeneros", listaGeneros);
+            model.addAttribute("listaAutores", listaAutores);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "registroLibros.jsp";
         }
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("listaGeneros", listaGeneros);
-        model.addAttribute("listaAutores", listaAutores);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-        return "registroLibros.jsp";
 
     }
 
@@ -164,27 +163,26 @@ public class ControladorLibroVenta {
     @GetMapping("/{libroId}/editar")
     public String libroEditar(@PathVariable("libroId") Long libroId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        LibroVenta libro = servicioLibroVenta.findById(libroId);
-        Autor autor = servicioAutor.findById(libro.getAutor().getId());
-        Genero genero = servicioGenero.findById(libro.getGenero().getId());
-        List<Autor> listaAutor = servicioAutor.findAll();
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            LibroVenta libro = servicioLibroVenta.findById(libroId);
+            Autor autor = servicioAutor.findById(libro.getAutor().getId());
+            Genero genero = servicioGenero.findById(libro.getGenero().getId());
+            List<Autor> listaAutor = servicioAutor.findAll();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            List<Genero> listaGenero = servicioGenero.findAll();
+            model.addAttribute("listaAutor", listaAutor);
+            model.addAttribute("listaGenero", listaGenero);
+            model.addAttribute("libro", libro);
+            model.addAttribute("autor", autor);
+            model.addAttribute("genero", genero);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "editarLibro.jsp";
         }
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        List<Genero> listaGenero = servicioGenero.findAll();
-        model.addAttribute("listaAutor", listaAutor);
-        model.addAttribute("listaGenero", listaGenero);
-        model.addAttribute("libro", libro);
-        model.addAttribute("autor", autor);
-        model.addAttribute("genero", genero);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-        return "editarLibro.jsp";
     }
 
     @PutMapping("/{libroId}/editar")
