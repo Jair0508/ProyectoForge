@@ -35,7 +35,7 @@
         
         
             <div class="buttons-container">
-                <a class="button-link" href="javascript:history.back()" >Cancelar</a>
+                <a class="button-link" href="/libros/anexar" >Cancelar</a>
               <button class="button-link"  type="submit">Agregar</button>
             </div>
     </form:form>
