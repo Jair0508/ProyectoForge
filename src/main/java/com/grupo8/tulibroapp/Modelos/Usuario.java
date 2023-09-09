@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -56,6 +57,12 @@ public class Usuario extends ModeloBase {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "rol_id")
     private Rol rol;
+
+    @OneToMany(mappedBy = "remitente", fetch = FetchType.LAZY)
+    private List<Mensaje> mensajesEnviados;
+
+    @OneToMany(mappedBy = "destinatario", fetch = FetchType.LAZY)
+    private List<Mensaje> mensajesRecibidos;
 
     public void agregarLibro(LibroVenta libro) {
         libroVenta.add(libro);

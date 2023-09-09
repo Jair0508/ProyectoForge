@@ -3,6 +3,7 @@ package com.grupo8.tulibroapp.Controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +31,12 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/usuario")
 public class ControladorUsuario {
+
+    @Value("${rol_usuario}")
+    private String USER;
+
+    @Value("${rol_administrador}")
+    private String ADMIN;
 
     @Autowired
     private ServicioAutor servicioAutor;
@@ -124,6 +131,16 @@ public class ControladorUsuario {
     @GetMapping("/logout")
     public String logout(HttpSession session,
             HttpServletRequest request) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if(usuarioId == null){
+            return "redirect:/";
+        }
+
+        if (usuarioId == 1) {
+            session.removeAttribute("userId");
+            return "redirect:/principal";
+        }
         session.removeAttribute("userId");
         String referer = request.getHeader("referer");
         return "redirect:" + referer;
@@ -132,25 +149,23 @@ public class ControladorUsuario {
     @GetMapping("/administrador")
     public String administrador(Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
+            List<Usuario> listaUsuario = servicioUsuario.findAll();
+            List<Genero> listaGeneros = servicioGenero.findAll();
+            List<Autor> listaAutores = servicioAutor.findAll();
+            model.addAttribute("listaUsuario", listaUsuario);
+            model.addAttribute("listaLibro", listaLibro);
+            model.addAttribute("listaAutores", listaAutores);
+            model.addAttribute("listaGeneros", listaGeneros);
+            return "administrar.jsp";
         }
-
-        List<Autor> listaAutores = servicioAutor.findAll();
-        List<Genero> listaGeneros = servicioGenero.findAll();
-        List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
-        List<Usuario> listaUsuario = servicioUsuario.findAll();
-        model.addAttribute("listaUsuario", listaUsuario);
-        model.addAttribute("listaLibro", listaLibro);
-        model.addAttribute("listaAutores", listaAutores);
-        model.addAttribute("listaGeneros", listaGeneros);
-        return "administrar.jsp";
     }
 }

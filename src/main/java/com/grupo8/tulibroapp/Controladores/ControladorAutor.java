@@ -86,7 +86,7 @@ public class ControladorAutor {
         }
 
         if (usuarioId == null) {
-            return "redirect:/login";
+            return "redirect:/usuario/login";
         } else {
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("usuarioEmail", usuarioEmail);
@@ -120,11 +120,6 @@ public class ControladorAutor {
     public String editarAutor(@PathVariable("autorId") Long autorId, Model model, HttpSession session,
             RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Autor autor = servicioAutor.findById(autorId);
-        model.addAttribute("autor", autor);
-        List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
-        List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
@@ -132,6 +127,11 @@ public class ControladorAutor {
         } else if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         } else {
+            Autor autor = servicioAutor.findById(autorId);
+            model.addAttribute("autor", autor);
+            List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
+            List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);
             model.addAttribute("usuarioEmail", usuarioEmail);

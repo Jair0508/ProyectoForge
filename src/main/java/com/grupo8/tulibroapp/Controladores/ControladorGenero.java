@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
@@ -82,10 +81,6 @@ public class ControladorGenero {
     @GetMapping("/{generoId}/editar")
     public String editarGenero(@PathVariable("generoId") Long generoId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Genero genero = servicioGenero.findById(generoId);
-        model.addAttribute("genero", genero);
-        List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
-        List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
@@ -94,6 +89,10 @@ public class ControladorGenero {
             return "redirect:/principal";
 
         } else {
+            Genero genero = servicioGenero.findById(generoId);
+            model.addAttribute("genero", genero);
+            List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
+            List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);

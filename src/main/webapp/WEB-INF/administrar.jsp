@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/indexStyle.css">
       <link rel="stylesheet" href="/css/tablaStyle.css">
-      <title>Usuario</title>
+      <title>Administar</title>
     </head>
 
     <body>
@@ -25,6 +25,7 @@
           </ul>
 
           <div class="tables-container">
+            <c:if test="${not empty listaLibro}">
             <div class="tables">
             <table>
               <caption>
@@ -68,6 +69,7 @@
               </tbody>
             </table>
           </div>
+        </c:if>
           <div class="tables">
             <table>
               <caption>
@@ -97,6 +99,7 @@
               </tbody>
             </table>
           </div>
+          <c:if test="${not empty listaAutores}">
           <div class="tables">
             <table>
               <caption>
@@ -126,6 +129,8 @@
               </tbody>
             </table>
           </div>
+        </c:if>
+        <c:if test="${not empty listaGeneros}">
           <div class="tables">
             <table>
               <caption>
@@ -157,6 +162,7 @@
           </div>
           </div>
         </div>
+      </c:if>
         <script src="/javaScript/admin.js"></script>
     </body>
 
