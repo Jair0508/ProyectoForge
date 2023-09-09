@@ -13,7 +13,6 @@
                 <link rel="stylesheet" href="/css/formStyle.css">
             </head>
 
-<<<<<<< HEAD
             <body>
                 <div>
                     <%@ include file="nav.jsp" %>
@@ -21,36 +20,6 @@
                 <div class="formulario">
                     <h1 class="form-title">Agregar Autor</h1>
                     <form:form action="/autores/anexar/autor" method="post" modelAttribute="autor">
-=======
-<body>
-    <div>
-        <%@ include file="nav.jsp" %>
-      </div>
-      <div class="formulario">
-        <h1 class="form-title">Agregar Autor</h1>
-    <form:form action="/autores/anexar/autor" method="post" modelAttribute="autor">
-        
-            <form:label class="input-label" path="nombre">Nombre Autor</form:label>
-            <form:input  class="input-content" type="text" path="nombre" placeholder="Ingrese nombre de el autor" />
-            <form:errors class="errors" path="nombre" />
-      
-            <form:label class="input-label" path="descripcion">Biografia Autor</form:label>
-            <form:textarea class="input-content" type="text" path="descripcion" placeholder="Ingrese una pequeña biografia de el autor" />
-            <form:errors class="errors" path="descripcion" />
-       
-            <form:label class="input-label" path="frase">Frase Autor</form:label>
-            <form:textarea class="input-content" type="text" path="frase" placeholder="Ingrese alguna frase importante de el autor" />
-            <form:errors class="errors" path="frase" />
-        
-        
-            <div class="buttons-container">
-                <a class="button-link" href="/libros/anexar" >Cancelar</a>
-              <button class="button-link"  type="submit">Agregar</button>
-            </div>
-    </form:form>
-</div>
-</body>
->>>>>>> 3a056043cec4c607c8c7a9bf2501639ac81cfb95
 
                         <form:label class="input-label" path="nombre">Nombre Autor</form:label>
                         <form:input class="input-content" type="text" path="nombre"

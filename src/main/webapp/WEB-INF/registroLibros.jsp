@@ -64,7 +64,6 @@
         </datalist>
         <form:errors class="errors" path="genero.nombreGenero" />
 
-<<<<<<< HEAD
               <div class="buttons-container">
                 <c:if test="${not empty realizado}">
                   <a class="button-link" href="/usuario/administrador">Regresar</a>
@@ -79,17 +78,6 @@
               </div>
             </form:form>
           </div>
-=======
-        <div class="buttons-container">
-          <a class="button-link" href="/principal">Cancelar</a>
-          <button class="button-link" type="submit">Anexar</button>
-        </div>
-        <p class="checked">
-          <c:out value="${realizado}" />
-        </p>
-      </form:form>
-    </div>
->>>>>>> 3a056043cec4c607c8c7a9bf2501639ac81cfb95
 
 </body>
 
