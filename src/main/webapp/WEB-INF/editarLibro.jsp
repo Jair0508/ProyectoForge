@@ -51,19 +51,19 @@
           <button class="button-link" type="submit">Anexar</button>
         </div>
       </form:form>
-      <div>
-        <p>
+      <div class="buttons-container">
+        <p class="">
           <c:out value="${libro.autor.nombre}" />
         </p>
-        <a href="/autores/${autor.id}/editar">Editar Autor</a>
+        <a  href="/autores/${autor.id}/editar">Editar Autor</a>
       </div>
-      <div>
-        <p>
+      <div class="buttons-container">
+        <p class="">
           <c:out value="${libro.genero.nombreGenero}" />
         </p>
-        <a href="/generos/${genero.id}/editar">Editar Genero</a>
+        <a  href="/generos/${genero.id}/editar">Editar Genero</a>
       </div>
-      <a href="/libros/anexar">Agregar mas Libros</a>
+      <a  href="/libros/anexar">Agregar mas Libros</a>
     </div>
     <div>
       <%@ include file="footer.jsp" %>
