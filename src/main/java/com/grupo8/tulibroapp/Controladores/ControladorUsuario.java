@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.grupo8.tulibroapp.Modelos.Autor;
+import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
+import com.grupo8.tulibroapp.Servicio.ServicioAutor;
+import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
@@ -26,6 +30,12 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/usuario")
 public class ControladorUsuario {
+
+    @Autowired
+    private ServicioAutor servicioAutor;
+
+    @Autowired
+    private ServicioGenero servicioGenero;
 
     @Autowired
     private ServicioLibroVenta servicioLibroVenta;
@@ -133,10 +143,14 @@ public class ControladorUsuario {
             return "redirect:/usuario/login";
         }
 
+        List<Autor> listaAutores = servicioAutor.findAll();
+        List<Genero> listaGeneros = servicioGenero.findAll();
         List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
         List<Usuario> listaUsuario = servicioUsuario.findAll();
         model.addAttribute("listaUsuario", listaUsuario);
         model.addAttribute("listaLibro", listaLibro);
+        model.addAttribute("listaAutores", listaAutores);
+        model.addAttribute("listaGeneros", listaGeneros);
         return "administrar.jsp";
     }
 }

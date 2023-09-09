@@ -65,12 +65,17 @@
               <form:errors class="errors" path="genero.nombreGenero" />
 
               <div class="buttons-container">
-                <a class="button-link" href="javascript:history.back()">Cancelar</a>
-                <button class="button-link" type="submit">Anexar</button>
+                <c:if test="${not empty realizado}">
+                  <a class="button-link" href="/usuario/administrador">Regresar</a>
+                  <p class="checked">
+                    <c:out value="${realizado}" />
+                  </p>
+                </c:if>
+                <c:if test="${empty realizado}">
+                  <a class="button-link" href="javascript:history.back()">Cancelar</a>
+                </c:if>
+                <button class="button-link" type="submit">Agregar</button>
               </div>
-              <p class="checked">
-                <c:out value="${realizado}" />
-              </p>
             </form:form>
           </div>
 

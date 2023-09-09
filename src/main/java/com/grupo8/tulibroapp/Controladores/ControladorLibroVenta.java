@@ -218,23 +218,4 @@ public class ControladorLibroVenta {
         return "redirect:/libros/" + libroId + "/editar";
     }
 
-    @GetMapping("/lista/autores-generos")
-    public String anexarAutorYGenero(Model model, HttpSession session) {
-        Long usuarioId = (Long) session.getAttribute("userId");
-        List<Autor> listaAutores = servicioAutor.findAll();
-        List<Genero> listaGeneros = servicioGenero.findAll();
-
-        if (usuarioId != null && usuarioId != 1) {
-            return "redirect:/principal";
-        }
-
-        if (usuarioId == null) {
-            return "redirect:/usuario/login";
-        }
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-        model.addAttribute("listaAutores", listaAutores);
-        model.addAttribute("listaGeneros", listaGeneros);
-        return "tablaAutoresYGenero.jsp";
-    }
 }
