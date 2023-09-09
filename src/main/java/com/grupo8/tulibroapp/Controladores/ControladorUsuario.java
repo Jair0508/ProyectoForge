@@ -8,8 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -135,7 +137,7 @@ public class ControladorUsuario {
             HttpServletRequest request) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
-        if(usuarioId == null){
+        if (usuarioId == null) {
             return "redirect:/";
         }
 
@@ -170,6 +172,20 @@ public class ControladorUsuario {
             model.addAttribute("listaAutores", listaAutores);
             model.addAttribute("listaGeneros", listaGeneros);
             return "administrar.jsp";
+        }
+    }
+
+    @DeleteMapping("/eliminar/{userId}")
+    public String eliminarUser(@PathVariable("userId") Long userId, HttpSession session, HttpServletRequest request) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            servicioUsuario.delete(userId);
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
         }
     }
 }

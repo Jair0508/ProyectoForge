@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -250,4 +251,24 @@ public class ControladorLibroVenta {
         return "redirect:/libros/" + libroId + "/editar";
     }
 
+    @DeleteMapping("/eliminar/{libroId}")
+    public String eliminarLibroVenta(@PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes,
+            HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
+            if (libroVenta.getAutor() != null || libroVenta.getGenero() != null) {
+                redirectAttributes.addFlashAttribute("LibroError",
+                        "el genero y el autor no han sido removidos del libro " + libroVenta.getNombre());
+                return "redirect:/usuario/administrador";
+            }
+            servicioLibroVenta.delete(libroId);
+            return "redirect:/usuario/administrador";
+        }
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -207,5 +208,23 @@ public class ControladorAutor {
         servicioAutor.save(agregueAutor);
         redirectAttributes.addFlashAttribute("agregado", "Se agrego al autor");
         return "redirect:/autores/" + autorId + "/editar";
+    }
+
+    @DeleteMapping("/eliminar/{autorId}")
+    public String eliminarAutor(@PathVariable("autorId") Long autorId, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            Autor autor = servicioAutor.findById(usuarioId);
+            if (!autor.getLibroVentas().isEmpty()) {
+                return "redirect:/principal";
+            }
+            servicioAutor.delete(usuarioId);
+            return "redirect:/usuario/administrador";
+        }
     }
 }

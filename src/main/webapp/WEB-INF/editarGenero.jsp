@@ -49,7 +49,14 @@
                 <div class="tables-container">
                   <c:choose>
                     <c:when test="${empty libroNoNull}">
-                      <h1 class="LibroNoNull">Este Genero no tiene Libros</h1>
+                      <h1 class="LibroNoNull">Este Genero no tiene Libros
+                        <!-- boton de eliminar -->
+                        <form action="/generos/eliminar/${genero.id}" method="post">
+                          <input type="hidden" name="_method" value="delete" />
+                          <input type="submit" value="Delete" />
+                        </form>
+                      </h1>
+
                     </c:when>
                     <c:otherwise>
                       <table>
@@ -114,9 +121,9 @@
                 </p>
               </div>
             </div>
-            
+
             <%@ include file="footer.jsp" %>
-        
+
         </body>
 
         </html>

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -168,5 +169,24 @@ public class ControladorGenero {
         servicioGenero.save(agregarGenero);
         redirectAttributes.addFlashAttribute("agregado", "Se agrego al autor");
         return "redirect:/generos/" + generoId + "/editar";
+    }
+
+    @DeleteMapping("/eliminar/{generoId}")
+    public String eliminarGenero(@PathVariable("generoId") Long generoId, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        } else {
+            Genero genero = servicioGenero.findById(generoId);
+            if (!genero.getLibroVentas().isEmpty()) {
+                return "redirect:/principal";
+            }
+            servicioGenero.delete(generoId);
+            return "redirect:/usuario/administrador";
+        }
+
     }
 }
