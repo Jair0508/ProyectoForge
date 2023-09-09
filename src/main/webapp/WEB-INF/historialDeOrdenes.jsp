@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  <%@ include file="nav.jsp" %>
   <c:forEach var="ordenes" items="${listOrdenes}">
     <div>
       <h2>${ordenes.libroVenta.nombre}</h2>

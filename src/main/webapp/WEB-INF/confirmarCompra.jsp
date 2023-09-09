@@ -10,12 +10,15 @@
 </head>
 
 <body>
+
+  <%@ include file="nav.jsp" %>
+
     <h1>¿seguro que quieres comprar este producto? ${libro.nombre}</h1>
     <div>
         <a href="/orden/compra/${libro.id}">Si</a>
         <a href="/principal">No</a>
     </div>
-    <%@ include file="footer.jsp" %>
+  <%@ include file="footer.jsp" %>
 </body>
 
 </html>

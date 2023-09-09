@@ -87,8 +87,8 @@
                         </form:form>
                     </div>
 
+                    <%@ include file="footer.jsp" %>
                     <script src="/javaScript/InfoIntercambios.js"></script>
             </body>
-            <%@ include file="footer.jsp" %>
 
             </html>
