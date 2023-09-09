@@ -25,29 +25,29 @@
             <form:input class="input-content" type="text" path="nombre" />
             <form:errors class="errors" path="nombre" />
 
-            <form:label class="input-label" path="departamento">departamento</form:label>
+            <form:label class="input-label" path="departamento">Departamento</form:label>
             <form:input class="input-content" type="text" path="departamento" />
             <form:errors class="errors" path="departamento" />
 
-            <form:label class="input-label" path="municipio">municipio</form:label>
+            <form:label class="input-label" path="municipio">Municipio</form:label>
             <form:input class="input-content" type="text" path="municipio" />
             <form:errors class="errors" path="municipio" />
 
-            <form:label class="input-label" path="direccion">dirección</form:label>
+            <form:label class="input-label" path="direccion">Dirección</form:label>
             <form:input class="input-content" type="text" path="direccion" />
             <form:errors class="errors" path="direccion" />
 
-            <form:label class="input-label" path="detalle">detalle</form:label>
+            <form:label class="input-label" path="detalle">Detalle</form:label>
             <form:input class="input-content" type="text" path="detalle" />
             <form:errors class="errors" path="detalle" />
 
-            <form:label class="input-label" path="cantidad">cantidad</form:label>
+            <form:label class="input-label" path="cantidad">Cantidad</form:label>
             <form:input class="input-content" type="number" path="cantidad" />
             <form:errors class="errors" path="cantidad" />
 
             <div>
               <button type="submit">Anexar</button>
-              <a href="/principal">cancelar</a>
+              <a href="javascript:history.back()">Cancelar</a>
             </div>
           </form:form>
         </div>

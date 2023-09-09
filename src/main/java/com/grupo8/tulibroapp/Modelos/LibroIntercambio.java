@@ -7,6 +7,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +19,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class LibroIntercambio extends Libro {
-    
+
+    @Size(min=8, message = "No debe tener un minimo de 8 caracteres")
+    @NotNull
     private String detallesExtras;
 
     @Valid

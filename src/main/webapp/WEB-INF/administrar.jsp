@@ -29,7 +29,7 @@
             <div class="tables">
             <table>
               <caption>
-                <h2>Lista Libros:</h2>
+                <h2>Lista Libros Ventas:</h2>
               </caption>
               <thead>
                 <tr>

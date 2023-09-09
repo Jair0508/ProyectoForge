@@ -18,19 +18,19 @@
   <%@ include file="nav.jsp" %>
 
     <div class="formulario">
-      <h1 class="form-title">Agregar Libro</h1>
+      <h1 class="form-title">Agregar Libro Ventas</h1>
       <form:form action="/libros/anexar" method="post" modelAttribute="libro">
 
         <form:label class="input-label" path="nombre">Nombre</form:label>
         <form:input class="input-content" type="text" path="nombre" placeholder="Ingrese nombre del libro" />
         <form:errors class="errors" path="nombre" />
 
-        <form:label class="input-label" path="descripcion">descripción</form:label>
+        <form:label class="input-label" path="descripcion">Descripción</form:label>
         <form:textarea class="input-content" type="text" path="descripcion"
           placeholder="Ingrese descripcion del libro" />
         <form:errors class="errors" path="descripcion" />
 
-        <form:label class="input-label" path="precio">precio</form:label>
+        <form:label class="input-label" path="precio">Precio</form:label>
         <form:input class="input-content" type="number" min="1" step="0.01" path="precio"
           placeholder="Ingrese precio del libro" />
         <form:errors path="precio" />
@@ -40,11 +40,11 @@
           placeholder="Ingrese cantidad de libros" />
         <form:errors path="cantidad" />
 
-        <form:label class="input-label" path="autor">autor</form:label>
+        <form:label class="input-label" path="autor">Autor</form:label>
         <form:select class="input-content" path="autor">
-          <form:option value="">selecione</form:option>
+          <form:option value="">Selecione</form:option>
           <c:forEach var="autores" items="${listaAutores}">
-            <form:option value="${autores}">${autores.nombre}</form:option>
+            <form:option valuSe="${autores}">${autores.nombre}</form:option>
           </c:forEach>
         </form:select>
         <form:errors path="autor" />

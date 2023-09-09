@@ -31,10 +31,10 @@
   font-weight: bold;
 }
 
-#icon{
+#icon {
   display: flex;
-  justify-content:unset;
-  
+  justify-content: unset;
+
 }
 
 .tooltip {
@@ -70,4 +70,18 @@
   font-size: 1.2em;
   cursor: pointer;
   background-color: #ddd;
+}
+
+.Info {
+  display: inline;
+}
+
+#separar {
+  margin-top: 2%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#separar span{
+  color: yellowgreen;
 }

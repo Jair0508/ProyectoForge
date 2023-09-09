@@ -73,7 +73,7 @@
             </form:form>
           </div>
           <script src="/JavaScript/showPassword.js"></script>
-          <script src="/JavaScript/funcionalidadInfo.js"></script>
+          <script src="/JavaScript/InfoUsuario.js"></script>
       </body>
 
       </html>

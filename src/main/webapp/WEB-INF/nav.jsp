@@ -53,7 +53,18 @@
               </div>
             </div>
 
-            <a href="#">Intercambios</a>
+            <c:if test="${usuarioEmail.id == 1}">
+              <a href="#">Intercambios</a>
+            </c:if>
+            <c:if test="${usuarioEmail.id >= 2}">
+              <div class="dropdown">
+                <button class="dropbtn">Intercambios</button>
+                <div class="dropdown-content">
+                  <a href="/intercambios/libro/anexar">Publicar Para Intercambiar</a>
+                  <a href="/">Lista Libros Intercambios</a>
+                </div>
+              </div>
+            </c:if>
             <a href="#">¿Quienes somos?</a>
           </div>
         </div>
