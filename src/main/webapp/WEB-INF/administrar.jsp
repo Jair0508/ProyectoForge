@@ -26,7 +26,6 @@
 
       <div class="tables-container">
         <c:if test="${not empty listaLibro}">
-
           <table>
             <caption>
               <h2>Lista Libros:</h2>
