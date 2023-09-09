@@ -81,10 +81,9 @@
             <a href="/libros/${index}">${index}</a>
           </c:forEach>
         </div>
-        <div>
+        
           <%@ include file="footer.jsp" %>
-        </div>
-        <script src="/javaScript/alerts.js"></script>
+         <script src="/javaScript/alerts.js"></script>
     </body>
 
     </html>

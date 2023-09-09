@@ -60,8 +60,8 @@
           </div>
         </div>
 
-        <script src="/javaScript/alerts.js"></script>
         <%@ include file="footer.jsp" %>
+        <script src="/javaScript/alerts.js"></script>
     </body>
 
     </html>

@@ -69,4 +69,5 @@ public class ServicioLibroVenta extends ServicioBase<LibroVenta> {
     public List<LibroVenta> findByGenero(Genero genero) {
         return repositorioLibroVenta.findByGenero(genero);
     }
+    
 }

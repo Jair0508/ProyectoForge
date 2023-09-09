@@ -58,6 +58,9 @@ public class Usuario extends ModeloBase {
     @JoinColumn(name = "rol_id")
     private Rol rol;
 
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    private List<LibroIntercambio> librosIntercambio;
+
     @OneToMany(mappedBy = "remitente", fetch = FetchType.LAZY)
     private List<Mensaje> mensajesEnviados;
 

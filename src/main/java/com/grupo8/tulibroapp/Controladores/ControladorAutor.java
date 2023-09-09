@@ -44,6 +44,8 @@ public class ControladorAutor {
         Page<Autor> paginaAutor = servicioAutor.autorPorPage(pageNumber - 1);
         Long usuarioId = (Long) session.getAttribute("userId");
         int totalPages = paginaAutor.getTotalPages();
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaAutor", paginaAutor);
 
@@ -65,6 +67,8 @@ public class ControladorAutor {
         Page<LibroVenta> paginaLibrosPorAutor = servicioLibroVenta.obtenerLibroPorAutor(autorId, pageNumber, 2);
         Long usuarioId = (Long) session.getAttribute("userId");
         Autor autor = servicioAutor.findById(autorId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("paginaLibrosPorAutor", paginaLibrosPorAutor);
         model.addAttribute("autor", autor);
 
@@ -88,7 +92,9 @@ public class ControladorAutor {
         if (usuarioId == null) {
             return "redirect:/usuario/login";
         } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("usuarioEmail", usuarioEmail);
             return "registroAutor.jsp";
         }
@@ -132,6 +138,8 @@ public class ControladorAutor {
             List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
             List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);
             model.addAttribute("usuarioEmail", usuarioEmail);
@@ -155,6 +163,8 @@ public class ControladorAutor {
         if (result.hasErrors()) {
             List<LibroVenta> libroNoNull = servicioLibroVenta.findByAutor(autor);
             List<LibroVenta> libroNull = servicioLibroVenta.findByAutorIsNull();
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("libroNoNull", libroNoNull);
             model.addAttribute("libroNull", libroNull);

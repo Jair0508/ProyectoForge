@@ -15,7 +15,7 @@
         <a href="/orden/compra/${libro.id}">Si</a>
         <a href="/principal">No</a>
     </div>
-
+    <%@ include file="footer.jsp" %>
 </body>
 
 </html>

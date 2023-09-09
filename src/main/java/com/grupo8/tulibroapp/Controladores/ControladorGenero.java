@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.grupo8.tulibroapp.Modelos.Autor;
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
+import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
@@ -29,6 +31,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/generos")
 public class ControladorGenero {
+
+    @Autowired
+    private ServicioAutor servicioAutor;
 
     @Autowired
     private ServicioLibroVenta servicioLibroVenta;
@@ -44,6 +49,8 @@ public class ControladorGenero {
         Page<Genero> paginaGenero = servicioGenero.generoPorPage(pageNumber - 1);
         Long usuarioId = (Long) session.getAttribute("userId");
         int totalPages = paginaGenero.getTotalPages();
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaGenero", paginaGenero);
 
@@ -66,6 +73,8 @@ public class ControladorGenero {
         Page<LibroVenta> paginaLibrosPorGenero = servicioLibroVenta.obtenerLibrosPorGenero(generoId, pageNumber, 2);
         Long usuarioId = (Long) session.getAttribute("userId");
         Genero genero = servicioGenero.findById(generoId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("paginaLibrosPorGenero", paginaLibrosPorGenero);
         model.addAttribute("genero", genero);
 
@@ -89,6 +98,8 @@ public class ControladorGenero {
             return "redirect:/principal";
 
         } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            model.addAttribute("listaFrases", listaFrases);
             Genero genero = servicioGenero.findById(generoId);
             model.addAttribute("genero", genero);
             List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
@@ -115,9 +126,11 @@ public class ControladorGenero {
         }
 
         if (result.hasErrors()) {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             List<LibroVenta> libroNull = servicioLibroVenta.findByGeneroIsNull();
             List<LibroVenta> libroNoNull = servicioLibroVenta.findByGenero(genero);
             model.addAttribute("libroNoNull", libroNoNull);
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("libroNull", libroNull);
             model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("genero", genero);

@@ -24,6 +24,10 @@ public class LibroIntercambio extends Libro {
     @NotNull
     private String detallesExtras;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     @Valid
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "autor_id")

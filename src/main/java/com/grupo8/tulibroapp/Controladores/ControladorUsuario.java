@@ -51,7 +51,9 @@ public class ControladorUsuario {
     private ServicioUsuario servicioUsuario;
 
     @GetMapping("/registro")
-    public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario) {
+    public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         return "registroUsuario.jsp";
     }
 
@@ -149,6 +151,8 @@ public class ControladorUsuario {
     @GetMapping("/administrador")
     public String administrador(Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";

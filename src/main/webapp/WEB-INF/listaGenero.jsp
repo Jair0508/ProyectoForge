@@ -213,9 +213,9 @@
             <a href="/generos/${paginaGenero.number + 2}">Siguiente &#8250;</a>
           </c:if>
         </div>
-        <div>
+        
           <%@ include file="footer.jsp" %>
-        </div>
+        
         <script src="/javaScript/alerts.js"></script>
     </body>
 

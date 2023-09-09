@@ -117,9 +117,9 @@
                         </c:when>
                     </c:choose>
                 </div>
-                <div>
+                
                     <%@ include file="footer.jsp" %>
-                </div>
+                
                 <script src="/javaScript/alerts.js"></script>
         </body>
 

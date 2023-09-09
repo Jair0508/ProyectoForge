@@ -35,7 +35,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/libros")
 public class ControladorLibroVenta {
 
-     @Value("${rol_usuario}")
+    @Value("${rol_usuario}")
     private String USER;
 
     @Value("${rol_administrador}")
@@ -62,6 +62,9 @@ public class ControladorLibroVenta {
         // el -1 resta un pagina al tamaño del totalpage, lo cual qiota el que se
         // muestra vacio
 
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
+
         int totalPages = paginaLibros.getTotalPages();
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("paginaLibros", paginaLibros);
@@ -86,10 +89,12 @@ public class ControladorLibroVenta {
         } else if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             List<Genero> listaGeneros = servicioGenero.findAll();
             List<Autor> listaAutores = servicioAutor.findAll();
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             model.addAttribute("listaGeneros", listaGeneros);
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaAutores", listaAutores);
             model.addAttribute("usuarioEmail", usuarioEmail);
             return "registroLibros.jsp";
@@ -102,16 +107,19 @@ public class ControladorLibroVenta {
             RedirectAttributes redirectAttributes) {
         List<Genero> listaGeneros = servicioGenero.findAll();
         List<Autor> listaAutores = servicioAutor.findAll();
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
 
         if (libro.getAutor() == null || libro.getAutor().getId() == null) {
             FieldError error = new FieldError("autor", "autor", "Debe seleccionar un autor.");
             result.addError(error);
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
         }
 
         if (result.hasErrors()) {
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
@@ -122,6 +130,7 @@ public class ControladorLibroVenta {
             FieldError error = new FieldError("nombre", "nombre",
                     libro.getNombre() + " ya se encuentra registrado.");
             result.addError(error);
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
             return "registroLibros.jsp";
@@ -142,7 +151,9 @@ public class ControladorLibroVenta {
     public String showLibro(@PathVariable("libroId") Long libroId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("libro", libroVenta);
         return "libro.jsp";
@@ -174,14 +185,13 @@ public class ControladorLibroVenta {
     @GetMapping("/{libroId}/editar")
     public String libroEditar(@PathVariable("libroId") Long libroId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-       
 
         // Buscar Admin
         // Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         // Rol rolAdmin = servicioRol.findByNombreContaining(ADMIN);
         // //comparacion
         // if (usuarioEmail.getRol().getId() != rolAdmin.getId()) {
-        //     return "redirect:/principal";
+        // return "redirect:/principal";
         // }
 
         if (usuarioId == null) {
@@ -189,12 +199,14 @@ public class ControladorLibroVenta {
         } else if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             LibroVenta libro = servicioLibroVenta.findById(libroId);
             Autor autor = servicioAutor.findById(libro.getAutor().getId());
             Genero genero = servicioGenero.findById(libro.getGenero().getId());
             List<Autor> listaAutor = servicioAutor.findAll();
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             List<Genero> listaGenero = servicioGenero.findAll();
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaAutor", listaAutor);
             model.addAttribute("listaGenero", listaGenero);
             model.addAttribute("libro", libro);
@@ -213,6 +225,8 @@ public class ControladorLibroVenta {
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         model.addAttribute("usuarioEmail", usuarioEmail);
         LibroVenta editarLibro = servicioLibroVenta.findById(libroId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
 
         if (result.hasErrors()) {
             model.addAttribute("libro", libro);

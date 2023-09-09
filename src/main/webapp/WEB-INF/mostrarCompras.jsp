@@ -23,6 +23,7 @@
             <c:out value="${usuarioEmail.name}" />
         </h1>
     </div>
+    <%@ include file="footer.jsp" %>
 </body>
 
 </html>

@@ -1,11 +1,14 @@
 package com.grupo8.tulibroapp.Servicio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.grupo8.tulibroapp.Modelos.Autor;
+import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Repositorio.RepositorioAutor;
 
 @Service
@@ -25,5 +28,9 @@ public class ServicioAutor extends ServicioBase<Autor> {
         PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE);
         Page<Autor> autor = repositorioAutor.findAll(pageRequest);
         return autor;
+    }
+
+    public List<Autor> findAllRandomOrder() {
+        return repositorioAutor.findAllRandomOrder();
     }
 }

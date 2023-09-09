@@ -72,6 +72,7 @@
 
             </form:form>
           </div>
+          <%@ include file="footer.jsp" %>
           <script src="/JavaScript/showPassword.js"></script>
           <script src="/JavaScript/InfoUsuario.js"></script>
       </body>

@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.grupo8.tulibroapp.Modelos.Autor;
 import com.grupo8.tulibroapp.Modelos.DetalleOrden;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Usuario;
+import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioDetalleOrden;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
@@ -27,6 +29,9 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/orden")
 public class ControladorDetalleOrden {
+
+    @Autowired
+    private ServicioAutor servicioAutor;
 
     @Autowired
     private ServicioDetalleOrden servicioDetalleOrden;
@@ -43,7 +48,9 @@ public class ControladorDetalleOrden {
         if (usuarioId == null) {
             return "redirect:/registro";
         }
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         LibroVenta libro = servicioLibroVenta.findById(libroId);
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("libro", libro);
         return "confirmarCompra.jsp";
     }
@@ -57,6 +64,8 @@ public class ControladorDetalleOrden {
 
             return "redirect:/registro";
         }
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         return "registroDetalleOrden.jsp";
     }
 
@@ -88,6 +97,8 @@ public class ControladorDetalleOrden {
         Long usuarioId = (Long) session.getAttribute("userId");
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(usuarioId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
         model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("listOrdenes", listOrdenes);
         return "historialDeOrdenes.jsp";
