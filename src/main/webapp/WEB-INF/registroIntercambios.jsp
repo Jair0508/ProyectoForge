@@ -12,8 +12,6 @@
                 <link rel="stylesheet" href="/css/baseStyles.css">
                 <link rel="stylesheet" href="/css/formStyle.css">
                 <link rel="stylesheet" href="/css/tablaStyle.css">
-                <link rel="stylesheet"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
             </head>
 
             <body>
@@ -34,16 +32,7 @@
                                 placeholder="Ingrese descripcion del libro" />
                             <form:errors class="errors" path="descripcion" />
 
-                            <div id="info" class="input-group">
-                                <div class="Info">
-                                    <form:label class="input-label" path="detallesExtras">Detalles Extras</form:label>
-                                </div>
-                                <div class="Info input-group-prepend">
-                                    <span class="input-group-text">
-                                        <i class="fa fa-info-circle icon-info" id="password-tooltip-icon"></i>
-                                    </span>
-                                </div>
-                            </div>
+                            <form:label class="input-label" path="detallesExtras">Detalles Extras</form:label>
                             <form:textarea class="input-content" type="text" path="detallesExtras"
                                 placeholder="Ingrese descripcion del libro" />
                             <form:errors class="errors" path="detallesExtras" />
@@ -51,7 +40,8 @@
                             <form:label class="input-label" path="autor">Autor</form:label>
                             <form:select class="input-content" path="autor">
                                 <form:option value="">Selecione</form:option>
-                                <c:forEach var="autores" items="${listaAutores}">
+                                <c:forEach var="autores" items="${listaFrases}">
+                                    <form:option value="">Si no encuentra su Autor, Anexar en Detalles extras</form:option>
                                     <form:option value="${autores}">${autores.nombre}</form:option>
                                 </c:forEach>
                             </form:select>
@@ -61,6 +51,7 @@
                             <form:select class="input-content" path="genero">
                                 <form:option value="">Selecione</form:option>
                                 <c:forEach var="genero" items="${listaGenero}">
+                                    <form:option value="">Si no encuentra su Genero, Anexar en Detalles extras</form:option>
                                     <form:option value="${genero}">${genero.nombreGenero}</form:option>
                                 </c:forEach>
                             </form:select>
@@ -86,9 +77,7 @@
                             <a class="button" href="/intercambios/libros">Lista de Intercambios</a>
                         </form:form>
                     </div>
-
                     <%@ include file="footer.jsp" %>
-                    <script src="/javaScript/InfoIntercambios.js"></script>
             </body>
 
             </html>

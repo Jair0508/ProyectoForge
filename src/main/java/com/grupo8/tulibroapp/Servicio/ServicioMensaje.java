@@ -1,5 +1,7 @@
 package com.grupo8.tulibroapp.Servicio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +14,7 @@ public class ServicioMensaje extends ServicioBase<Mensaje>{
     @Autowired
     private RepositorioMensaje repositorioMensaje;
     
+    public List<Mensaje> findMensajesByRemitenteYDestinatario(Long remitenteId, Long destinatarioId) {
+        return repositorioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
+    }
 }

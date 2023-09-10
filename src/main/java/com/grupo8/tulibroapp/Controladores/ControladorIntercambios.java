@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.grupo8.tulibroapp.Modelos.Autor;
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroIntercambio;
+import com.grupo8.tulibroapp.Modelos.Mensaje;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
@@ -42,7 +43,7 @@ public class ControladorIntercambios {
     private ServicioGenero servicioGenero;
 
     @GetMapping("/libros")
-    public String lista(Model model, HttpSession session) {
+    public String lista(@ModelAttribute("mensaje") Mensaje mensaje, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
         if (usuarioId == null) {
@@ -51,7 +52,7 @@ public class ControladorIntercambios {
 
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        List<LibroIntercambio> listalibros = servicioLibroIntercambio.findAll();
+        List<LibroIntercambio> listalibros = servicioLibroIntercambio.findAllOrderByCreatedAtDesc();
         model.addAttribute("listalibros", listalibros);
         model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("listaFrases", listaFrases);
@@ -73,6 +74,7 @@ public class ControladorIntercambios {
             List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
             List<Genero> listaGenero = servicioGenero.findAll();
+            model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGenero", listaGenero);
             model.addAttribute("usuarioEmail", usuarioEmail);
         }

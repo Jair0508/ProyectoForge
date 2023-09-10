@@ -88,6 +88,48 @@ public class ControladorGenero {
         return "libreriaGenero.jsp";
     }
 
+    @GetMapping("/anexar/genero")
+    public String anexarGenero(@ModelAttribute("genero") Genero genero, Model model, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId != null && usuarioId != 1) {
+            return "redirect:/principal";
+        }
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("listaFrases", listaFrases);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "registroGenero.jsp";
+        }
+    }
+
+    @PostMapping("/anexar/genero")
+    public String generoAnexado(@Valid @ModelAttribute("genero") Genero genero, BindingResult reseult, Model model,
+            RedirectAttributes redirectAttributes, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+
+        if (reseult.hasErrors()) {
+            model.addAttribute("listaFrases", listaFrases);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "registroGenero.jsp";
+        }
+
+        Genero unicoGenero = servicioGenero.findByNombreGenero(genero.getNombreGenero());
+        if (unicoGenero != null) {
+            unicoGenero.setNombreGenero(genero.getNombreGenero());
+        }
+
+        redirectAttributes.addFlashAttribute("realizado", "Autor guardado");
+        servicioGenero.save(genero);
+        return "redirect:/generos/anexar/genero";
+    }
+
     @GetMapping("/{generoId}/editar")
     public String editarGenero(@PathVariable("generoId") Long generoId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");

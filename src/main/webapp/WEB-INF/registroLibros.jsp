@@ -38,7 +38,7 @@
               <form:label class="input-label" path="cantidad">cantidad</form:label>
               <form:input class="input-content" type="number" min="1" path="cantidad"
                 placeholder="Ingrese cantidad de libros" />
-              <form:errors path="cantidad" />
+              <form:errors  class="errors" path="cantidad" />
 
               <form:label class="input-label" path="autor">Autor</form:label>
               <form:select class="input-content" path="autor">
@@ -47,22 +47,22 @@
                   <form:option value="${autores}">${autores.nombre}</form:option>
                 </c:forEach>
               </form:select>
-              <form:errors path="autor" />
+              <form:errors  class="errors" path="autor" />
               <div class="buttons-container">
                 <a class="button-link" href="/autores/anexar/autor">Agregar Autor</a>
               </div>
 
-              <form:label class="input-label" path="genero.nombreGenero">Genero</form:label>
-              <form:input class="input-content" type="text" path="genero.nombreGenero"
-                placeholder="Ingrese genero del libro" list="genero" />
-              <datalist id="genero">
-                <c:forEach var="genero" items="${listaGeneros}">
-                  <option>
-                    <c:out value="${genero.nombreGenero}" />
-                  </option>
+              <form:label class="input-label" path="genero">Genero</form:label>
+              <form:select class="input-content" path="genero">
+                <form:option value="">Selecione</form:option>
+                <c:forEach var="generos" items="${listaGeneros}">
+                  <form:option value="${generos}">${generos.nombreGenero}</form:option>
                 </c:forEach>
-              </datalist>
-              <form:errors class="errors" path="genero.nombreGenero" />
+              </form:select>
+              <form:errors  class="errors" path="genero" />
+              <div class="buttons-container">
+                <a class="button-link" href="/generos/anexar/genero">Agregar Genero</a>
+              </div>
 
               <div class="buttons-container">
                 <c:if test="${not empty realizado}">

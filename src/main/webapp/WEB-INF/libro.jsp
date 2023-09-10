@@ -40,22 +40,23 @@
             </div>
 
             <div>
-              <c:if test="${not empty usuarioEmail}">
+              <c:if test="${usuarioEmail.id >= 2}">
                 <a class="button" href="/orden/confirmar/${libro.id}">comprar ahora</a>
                 <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
-                  <button class="button" type="submit">agregar a lista de deseos </button>
+                  <button class="button" type="submit">agregar a lista de deseos</button>
                 </form>
                 <p class="errors">
                   <c:out value="${agragadoInvalido}" />
                 </p>
               </c:if>
               <c:if test="${usuarioEmail == null}">
-                <a onclick="mostrarAlert()" href="">comprar ahora</a>
-                <form action="">
-                  <button class="button" onclick="mostrarAlert()">agregar a lista de deseos </button>
-                </form>
+                <button class="button" onclick="mostrarAlert()">agregar a lista de deseos </button>
               </c:if>
-
+              <c:if test="${usuarioEmail.id == 1}">
+                <div>
+                  <a class="button" href="/usuario/administrador">Administrar</a>
+                </div>
+              </c:if>
             </div>
           </div>
         </div>

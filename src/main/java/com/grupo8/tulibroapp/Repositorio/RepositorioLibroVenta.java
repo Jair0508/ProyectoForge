@@ -32,5 +32,4 @@ public interface RepositorioLibroVenta extends RepositorioBase<LibroVenta> {
 
     List<LibroVenta> findByGenero(Genero genero);
 
-    
 }

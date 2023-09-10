@@ -20,10 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.grupo8.tulibroapp.Modelos.Autor;
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
+import com.grupo8.tulibroapp.Modelos.Mensaje;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
+import com.grupo8.tulibroapp.Servicio.ServicioMensaje;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,8 +54,17 @@ public class ControladorUsuario {
     @Autowired
     private ServicioUsuario servicioUsuario;
 
+    @Autowired
+    private ServicioMensaje servicioMensaje;
+
     @GetMapping("/registro")
-    public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
+    public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if(usuarioId != null){
+            return "redirect:/";
+        }
+
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         model.addAttribute("listaFrases", listaFrases);
         return "registroUsuario.jsp";
@@ -62,7 +73,8 @@ public class ControladorUsuario {
     @PostMapping("/registro")
     public String registroUsuario(@Valid @ModelAttribute("usuario") Usuario usuario,
             BindingResult result,
-            HttpSession session) {
+            HttpSession session,
+            Model model) {
 
         // Verifica el Email sea unico
         Usuario unico = servicioUsuario.findByEmail(usuario.getEmail());
@@ -82,6 +94,8 @@ public class ControladorUsuario {
 
         // Validaciones Jakarta
         if (result.hasErrors()) {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            model.addAttribute("listaFrases", listaFrases);
             return "registroUsuario.jsp";
         }
 

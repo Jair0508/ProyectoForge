@@ -1,14 +1,20 @@
 package com.grupo8.tulibroapp.Repositorio;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.grupo8.tulibroapp.Modelos.Mensaje;
 
 public interface RepositorioMensaje extends RepositorioBase<Mensaje>{
     
-//     SELECT * FROM mensajes
-//  WHERE (remitente_id = 2
-//  AND destinatario_id = 1)
-//  OR (remitente_id = 1
-//  AND destinatario_id = 2)
-//  ORDER BY id ASC
+@Query("SELECT m FROM Mensaje m " +
+           "WHERE (m.remitente.id = :remitenteId AND m.destinatario.id = :destinatarioId) " +
+           "OR (m.remitente.id = :destinatarioId AND m.destinatario.id = :remitenteId) " +
+           "ORDER BY m.id ASC")
+    List<Mensaje> findMensajesByRemitenteYDestinatario(
+            @Param("remitenteId") Long remitenteId,
+            @Param("destinatarioId") Long destinatarioId);
 
 }

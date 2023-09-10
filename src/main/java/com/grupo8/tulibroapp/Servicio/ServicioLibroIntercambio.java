@@ -1,5 +1,7 @@
 package com.grupo8.tulibroapp.Servicio;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,9 @@ import com.grupo8.tulibroapp.Repositorio.RepositorioLibroIntercambio;
 public class ServicioLibroIntercambio  extends ServicioBase<LibroIntercambio>{
     
     @Autowired
-    RepositorioLibroIntercambio repositorioLibroIntercambio;
+    private RepositorioLibroIntercambio repositorioLibroIntercambio;
 
+    public List<LibroIntercambio> findAllOrderByCreatedAtDesc(){
+        return repositorioLibroIntercambio.findAllOrderByCreatedAtDesc();
+    }
 }

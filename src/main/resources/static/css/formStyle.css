@@ -1,6 +1,7 @@
 .formulario {
   text-align: center;
   margin: 2em auto;
+  margin-top: 1%;
   min-width: 450px;
   max-width: 700px;
   background-color: #fcfcf6ad;
@@ -8,7 +9,6 @@
   border-radius: 50px;
   box-sizing: border-box;
   padding: 10px 60px;
-
   .form-title {
     margin-block: 20px;
   }

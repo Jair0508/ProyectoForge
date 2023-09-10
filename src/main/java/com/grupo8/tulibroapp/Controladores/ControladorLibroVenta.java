@@ -119,6 +119,15 @@ public class ControladorLibroVenta {
             return "registroLibros.jsp";
         }
 
+        if (libro.getGenero() == null || libro.getGenero().getId() == null){
+            FieldError error = new FieldError("genero", "genero", "Debe seleccionar un genero.");
+            result.addError(error);
+            model.addAttribute("listaFrases", listaFrases);
+            model.addAttribute("listaGeneros", listaGeneros);
+            model.addAttribute("listaAutores", listaAutores);
+            return "registroLibros.jsp";
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGeneros", listaGeneros);
@@ -137,27 +146,26 @@ public class ControladorLibroVenta {
             return "registroLibros.jsp";
         }
 
-        Genero unicoGenero = servicioGenero.findByNombreGenero(libro.getGenero().getNombreGenero());
-        if (unicoGenero != null) {
-            libro.setGenero(unicoGenero);
-        }
-
         redirectAttributes.addFlashAttribute("realizado", "Libro guardado");
         servicioLibroVenta.save(libro);
-        servicioGenero.save(libro.getGenero());
         return "redirect:/libros/anexar";
     }
 
     @GetMapping("/{libroId}/libro")
     public String showLibro(@PathVariable("libroId") Long libroId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         LibroVenta libroVenta = servicioLibroVenta.findById(libroId);
         model.addAttribute("listaFrases", listaFrases);
-        model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("libro", libroVenta);
+        
+        if(usuarioId == null){
+            return "libro.jsp";
+        } else {
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);    
+        model.addAttribute("usuarioEmail", usuarioEmail);
         return "libro.jsp";
+        }
     }
 
     @PostMapping("/buscar")

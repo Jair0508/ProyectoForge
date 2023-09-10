@@ -8,6 +8,8 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/tablaStyle.css">
+      <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <title>Administar</title>
     </head>
 
@@ -22,6 +24,7 @@
           <ul id="menu" class="menu present">
             <li><a href="/libros/anexar">Anexar Libros</a></li>
             <li><a href="/autores/anexar/autor">Anexar Autor</a></li>
+            <li><a href="/generos/anexar/genero">Anexar Genero</a></li>
           </ul>
 
           <div class="tables-container">
@@ -54,18 +57,15 @@
                         <c:if test="${libro.autor != null && libro.genero != null}">
                           <a class="button" href="/libros/${libro.id}/editar">Editar</a>
                         </c:if>
-                        <c:if test="${libro.autor == null}">
-                          <p> Su Libro no dispone de autor.
-                          </p>
-                        </c:if>
-                        <c:if test="${libro.genero == null}">
-                          <p> Su Libro no dispone de genero.
-                          </p>
-                        </c:if>
+
                         <c:if test="${libro.genero == null && libro.autor == null}">
                           <form action="/libros/eliminar/${libro.id}" method="post">
                             <input type="hidden" name="_method" value="delete" />
-                            <input type="submit" value="Delete" />
+                            <p>
+                              Su Libro no dispone de genero y Autor, Puede <input class="button" type="submit" value="Borrar" /> o
+                              agregarle
+                              desde la tabla de generos/autor
+                            </p>
                           </form>
                         </c:if>
                       </td>
@@ -86,6 +86,7 @@
                 <tr>
                   <th>Nombre</th>
                   <th>Email</th>
+                  <th>Interacciones</th>
                   <th>Accion</th>
                 </tr>
               </thead>
@@ -97,6 +98,26 @@
                     </td>
                     <td>
                       <c:out value="${usuario.email}" />
+                    </td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="dropbtn">Interacciones</button>
+                        <div class="dropdownContent">
+                          <div class="container">
+                            <div class="interior">
+                              <a class="btn" href="#open-modal">Contactar</a>
+                            </div>
+                          </div>
+                          <div id="open-modal" class="modal-window">
+                            <div>
+                              <a href="#" title="Close" class="modal-close">Close</a>
+                              <div>
+                                hola
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td>
                       <a class="button" href="">Ver</a>

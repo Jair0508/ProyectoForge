@@ -104,18 +104,20 @@ public class ControladorAutor {
 
     @PostMapping("/anexar/autor")
     public String anexarAutor(@Valid @ModelAttribute("autor") Autor autor, BindingResult result, Model model,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, HttpSession session) {
+            Long usuarioId = (Long) session.getAttribute("userId");
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
 
         if (result.hasErrors()) {
+            model.addAttribute("listaFrases", listaFrases);
+            model.addAttribute("usuarioEmail", usuarioEmail);
             return "registroAutor.jsp";
         }
 
-        Autor unico = servicioAutor.findByNombre(autor.getNombre());
-        if (unico != null) {
-            FieldError error = new FieldError("nombre", "nombre",
-                    autor.getNombre() + " ya se encuentra registrado.");
-            result.addError(error);
-            return "registroAutor.jsp";
+        Autor unicoAutor = servicioAutor.findByNombre(autor.getNombre());
+        if (unicoAutor != null) {
+            unicoAutor.setNombre(autor.getNombre());
         }
 
         redirectAttributes.addFlashAttribute("realizado", "Autor guardado");

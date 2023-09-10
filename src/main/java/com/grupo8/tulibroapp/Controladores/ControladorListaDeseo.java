@@ -37,7 +37,7 @@ public class ControladorListaDeseo {
         Long usuarioId = (Long) session.getAttribute("userId");
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         model.addAttribute("listaFrases", listaFrases);
-        if (usuarioId == null) {
+        if (usuarioId == null || usuarioId == 1) {
             return "redirect:/usuario/login";
         } else if (id != usuarioId) {
             return "redirect:/lista_deseos/" + usuarioId;
@@ -52,7 +52,7 @@ public class ControladorListaDeseo {
     public String agregarLibro_ListaDeseos(@PathVariable("libroId") Long LibroId,
             HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId == null) {
+        if (usuarioId == null || usuarioId == 1) {
             return "redirect:/usuario/login";
         }
         Usuario usuario = servicioUsuario.findById(usuarioId);

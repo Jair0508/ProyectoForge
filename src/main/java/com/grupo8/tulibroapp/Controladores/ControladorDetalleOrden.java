@@ -48,6 +48,11 @@ public class ControladorDetalleOrden {
         if (usuarioId == null) {
             return "redirect:/registro";
         }
+
+        if(usuarioId == 1){
+            return "redirect:/principal";
+        }
+
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         LibroVenta libro = servicioLibroVenta.findById(libroId);
         model.addAttribute("listaFrases", listaFrases);
@@ -61,8 +66,10 @@ public class ControladorDetalleOrden {
             Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
-
             return "redirect:/registro";
+        }
+        if(usuarioId == 1){
+            return "redirect:/principal";
         }
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         model.addAttribute("listaFrases", listaFrases);
@@ -95,6 +102,12 @@ public class ControladorDetalleOrden {
     @GetMapping("/lista")
     public String historial_ordenes(HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/registro";
+        }
+        if(usuarioId == 1){
+            return "redirect:/principal";
+        }
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(usuarioId);
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
