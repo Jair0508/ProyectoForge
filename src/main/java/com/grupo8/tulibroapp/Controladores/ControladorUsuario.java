@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.grupo8.tulibroapp.Modelos.Autor;
+import com.grupo8.tulibroapp.Modelos.DetalleOrden;
 import com.grupo8.tulibroapp.Modelos.Genero;
 import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Modelos.Mensaje;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
+import com.grupo8.tulibroapp.Servicio.ServicioDetalleOrden;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
 import com.grupo8.tulibroapp.Servicio.ServicioMensaje;
@@ -55,7 +57,7 @@ public class ControladorUsuario {
     private ServicioUsuario servicioUsuario;
 
     @Autowired
-    private ServicioMensaje servicioMensaje;
+    private ServicioDetalleOrden servicioDetalleOrden;
 
     @GetMapping("/registro")
     public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
@@ -186,6 +188,40 @@ public class ControladorUsuario {
             model.addAttribute("listaAutores", listaAutores);
             model.addAttribute("listaGeneros", listaGeneros);
             return "administrar.jsp";
+        }
+    }
+
+    @GetMapping("/perfil/{userId}")
+    public String verPerfilUsuario(@PathVariable("userId") Long userId, HttpSession session, Model model) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null || userId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != userId && usuarioId != 1) {
+            return "redirect:/principal";
+
+        } else {
+            Usuario usuario = servicioUsuario.findById(userId);
+            List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
+            model.addAttribute("usuario", usuario);
+            model.addAttribute("listOrdenes", listOrdenes);
+            return "perfilUsuario.jsp";
+        }
+    }
+
+    @PostMapping("/editar/{userId}")
+    public String editarNombreUsuario(@PathVariable("userId") Long userId, @RequestParam("nombre") String nombre,
+            HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != userId && usuarioId != 1) {
+            return "redirect:/principal";
+
+        } else {
+            Usuario usuario = servicioUsuario.findById(userId);
+            usuario.setName(nombre);
+            servicioUsuario.update(usuario);
+            return "redirect:/usuario/perfil/" + userId;
         }
     }
 

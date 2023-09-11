@@ -120,15 +120,13 @@
                       </div>
                     </td>
                     <td>
-                      <a class="button" href="">Ver</a>
                       <c:if test="${usuario.id != 1}">
-                        /
+                      <a class="button" href="/usuario/perfil/${usuario.id}">Ver</a>
                         <form action="/usuario/eliminar/${usuario.id}" method="post">
                           <input type="hidden" name="_method" value="delete" />
-                          <input type="submit" value="Delete" />
+                          <input class="button" type="submit" value="Delete" />
                         </form>
                       </c:if>
-
                     </td>
                   </tr>
                 </c:forEach>

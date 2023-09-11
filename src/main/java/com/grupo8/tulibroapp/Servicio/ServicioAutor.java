@@ -8,7 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.grupo8.tulibroapp.Modelos.Autor;
-import com.grupo8.tulibroapp.Modelos.LibroVenta;
 import com.grupo8.tulibroapp.Repositorio.RepositorioAutor;
 
 @Service

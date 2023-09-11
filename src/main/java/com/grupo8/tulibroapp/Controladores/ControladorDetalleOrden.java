@@ -96,7 +96,7 @@ public class ControladorDetalleOrden {
 
         servicioLibroVenta.save(libro);
         servicioDetalleOrden.save(orden);
-        return "redirect:/principal";
+        return "redirect:/usuario/perfil/" + usuarioId;
     }
 
     @GetMapping("/lista")

@@ -9,7 +9,7 @@ import com.grupo8.tulibroapp.Modelos.Mensaje;
 import com.grupo8.tulibroapp.Repositorio.RepositorioMensaje;
 
 @Service
-public class ServicioMensaje extends ServicioBase<Mensaje>{
+public class ServicioMensaje extends ServicioBase<Mensaje> {
 
     @Autowired
     private RepositorioMensaje repositorioMensaje;
