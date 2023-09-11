@@ -104,7 +104,7 @@ public class ControladorDetalleOrden {
     public String GenerarRecivo(@PathVariable("ordenId") Long ordenId, Model model) {
         DetalleOrden orden = servicioDetalleOrden.findById(ordenId);
         model.addAttribute("orden", orden);
-        return "recivo.jsp";
+        return "recibo.jsp";
     }
 
     @GetMapping("/lista")

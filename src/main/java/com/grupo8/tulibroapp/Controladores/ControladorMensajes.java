@@ -88,12 +88,10 @@ public class ControladorMensajes {
         }
 
 
-        List<Mensaje> listaMensajes = servicioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
-         Set<Usuario> usuariosDestinatarios = listaMensajes.stream()
-            .map(Mensaje::getDestinatario)
-            .collect(Collectors.toSet());
-        model.addAttribute("usuariosDestinatarios", usuariosDestinatarios);
-        model.addAttribute("listaMensajes", listaMensajes);
+        List<Mensaje> mensajesRemitenteADestinatario = servicioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
+        List<Mensaje> mensajesDestinatarioARemitente = servicioMensaje.findMensajesByRemitenteYDestinatario(destinatarioId, remitenteId);
+        model.addAttribute("mensajesDestinatarioARemitente", mensajesDestinatarioARemitente);
+        model.addAttribute("mensajesRemitenteADestinatario", mensajesRemitenteADestinatario);
         return "mensaje.jsp";
     }
 

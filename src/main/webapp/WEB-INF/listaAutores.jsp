@@ -47,6 +47,9 @@
                       <c:out value="${autor.nombre}" />
                     </a>
                   </h2>
+                  <p>
+                    <c:out value="${autor.frase}" />
+                  </p>
                 </div>
               </div>
             </c:forEach>

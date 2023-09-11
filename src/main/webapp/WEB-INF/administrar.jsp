@@ -110,11 +110,23 @@
                               <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
                               <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
                               <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
-                                <a
-                                  href="/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}">
+                                <a href="javascript:void(0);" onclick="ventanaChat()"
+                                  >
                                   <c:out value="${nombreRemitente}" />
                                 </a>
                                 <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
+
+                                <script>
+                                  function ventanaChat() {
+                                    var url = "/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}";
+                                
+                                    var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+                                
+                                    var ventanaChat = window.open(url, "_blank", opcionesVentana);
+                                
+                                    ventanaChat.moveTo(360, 150);
+                                  }
+                                </script>
                               </c:if>
                             </c:forEach>
                           </div>

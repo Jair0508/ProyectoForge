@@ -184,7 +184,7 @@ public class ControladorUsuario {
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
-        } else if (usuarioId != null && usuarioId != 1) {
+        } else if (usuarioId != 1) {
             return "redirect:/principal";
         } else {
             model.addAttribute("listaMensajes", listaMensajes);
