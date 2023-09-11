@@ -40,8 +40,8 @@
                             <form:label class="input-label" path="autor">Autor</form:label>
                             <form:select class="input-content" path="autor">
                                 <form:option value="">Selecione</form:option>
+                                <form:option value="">Si no encuentra su Autor, Anexar en Detalles extras</form:option>
                                 <c:forEach var="autores" items="${listaFrases}">
-                                    <form:option value="">Si no encuentra su Autor, Anexar en Detalles extras</form:option>
                                     <form:option value="${autores}">${autores.nombre}</form:option>
                                 </c:forEach>
                             </form:select>
@@ -50,8 +50,8 @@
                             <form:label class="input-label" path="genero">Genero</form:label>
                             <form:select class="input-content" path="genero">
                                 <form:option value="">Selecione</form:option>
+                                <form:option value="">Si no encuentra su Genero, Anexar en Detalles extras</form:option>
                                 <c:forEach var="genero" items="${listaGenero}">
-                                    <form:option value="">Si no encuentra su Genero, Anexar en Detalles extras</form:option>
                                     <form:option value="${genero}">${genero.nombreGenero}</form:option>
                                 </c:forEach>
                             </form:select>

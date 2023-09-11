@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.grupo8.tulibroapp.Modelos.Mensaje;
+import com.grupo8.tulibroapp.Modelos.Usuario;
 
 public interface RepositorioMensaje extends RepositorioBase<Mensaje>{
     
@@ -16,5 +17,7 @@ public interface RepositorioMensaje extends RepositorioBase<Mensaje>{
     List<Mensaje> findMensajesByRemitenteYDestinatario(
             @Param("remitenteId") Long remitenteId,
             @Param("destinatarioId") Long destinatarioId);
+
+List<Mensaje> findByRemitenteAndDestinatario(Usuario remitente, Usuario destinatario);
 
 }

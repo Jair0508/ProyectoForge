@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/css/baseStyles.css">
       <link rel="stylesheet" href="/css/tablaStyle.css">
       <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       <title>Administar</title>
     </head>
 
@@ -62,7 +62,8 @@
                           <form action="/libros/eliminar/${libro.id}" method="post">
                             <input type="hidden" name="_method" value="delete" />
                             <p>
-                              Su Libro no dispone de genero y Autor, Puede <input class="button" type="submit" value="Borrar" /> o
+                              Su Libro no dispone de genero y Autor, Puede <input class="button" type="submit"
+                                value="Borrar" /> o
                               agregarle
                               desde la tabla de generos/autor
                             </p>
@@ -99,35 +100,35 @@
                     <td>
                       <c:out value="${usuario.email}" />
                     </td>
-                    <td>
-                      <div class="dropdown">
-                        <button class="dropbtn">Interacciones</button>
-                        <div class="dropdownContent">
-                          <div class="container">
-                            <div class="interior">
-                              <a class="btn" href="#open-modal">Contactar</a>
-                            </div>
-                          </div>
-                          <div id="open-modal" class="modal-window">
-                            <div>
-                              <a href="#" title="Close" class="modal-close">Close</a>
-                              <div>
-                                hola
-                              </div>
-                            </div>
+                    <c:if test="${usuario.id != 1}">
+                      <td>
+                        <div class="dropdown">
+                          <button class="dropbtn">Interacciones</button>
+                          <div class="dropdownContent">
+                            <c:set var="nombresMostrados" value="" />
+                            <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
+                              <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
+                              <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
+                              <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
+                                <a
+                                  href="/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}">
+                                  <c:out value="${nombreRemitente}" />
+                                </a>
+                                <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
+                              </c:if>
+                            </c:forEach>
                           </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <c:if test="${usuario.id != 1}">
-                      <a class="button" href="/usuario/perfil/${usuario.id}">Ver</a>
+                      </td>
+                      <td>
+                        <a class="button" href="/usuatio/perfil/${usuario.id}">Ver</a>
+
                         <form action="/usuario/eliminar/${usuario.id}" method="post">
                           <input type="hidden" name="_method" value="delete" />
                           <input class="button" type="submit" value="Delete" />
                         </form>
-                      </c:if>
-                    </td>
+                      </td>
+                    </c:if>
                   </tr>
                 </c:forEach>
               </tbody>

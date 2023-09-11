@@ -1,6 +1,8 @@
 package com.grupo8.tulibroapp.Controladores;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -77,7 +79,7 @@ public class ControladorMensajes {
         return "redirect:/intercambios/libros#open-modal";
     }
 
-    @GetMapping("/interacciones/usuario={remitenteId}/usuario={destinatarioId}")
+    @GetMapping("/interacciones/remitente={remitenteId}/destinatario={destinatarioId}")
     public String interacciones(Model model, HttpSession session,@PathVariable("remitenteId") Long remitenteId, @PathVariable("destinatarioId") Long destinatarioId){
         Long usuarioId = (Long) session.getAttribute("userId");
 
@@ -85,9 +87,14 @@ public class ControladorMensajes {
             return "redirect:/";
         }
 
+
         List<Mensaje> listaMensajes = servicioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
+         Set<Usuario> usuariosDestinatarios = listaMensajes.stream()
+            .map(Mensaje::getDestinatario)
+            .collect(Collectors.toSet());
+        model.addAttribute("usuariosDestinatarios", usuariosDestinatarios);
         model.addAttribute("listaMensajes", listaMensajes);
-        return "redirect:/usuario/administrador#open-modal";
+        return "mensaje.jsp";
     }
 
 }

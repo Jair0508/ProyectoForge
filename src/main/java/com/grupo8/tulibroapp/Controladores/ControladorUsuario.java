@@ -1,6 +1,7 @@
 package com.grupo8.tulibroapp.Controladores;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,11 +60,14 @@ public class ControladorUsuario {
     @Autowired
     private ServicioDetalleOrden servicioDetalleOrden;
 
+    @Autowired
+    private ServicioMensaje servicioMensaje;
+
     @GetMapping("/registro")
     public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
-        if(usuarioId != null){
+        if (usuarioId != null) {
             return "redirect:/";
         }
 
@@ -171,18 +175,20 @@ public class ControladorUsuario {
         Long usuarioId = (Long) session.getAttribute("userId");
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
         model.addAttribute("listaFrases", listaFrases);
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
+        List<Usuario> listaUsuario = servicioUsuario.findAll();
+        List<Genero> listaGeneros = servicioGenero.findAll();
+        List<Autor> listaAutores = servicioAutor.findAll();
+        List<Mensaje> listaMensajes = servicioMensaje.findAll();
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";
         } else if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         } else {
-            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("listaMensajes", listaMensajes);
             model.addAttribute("usuarioEmail", usuarioEmail);
-            List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
-            List<Usuario> listaUsuario = servicioUsuario.findAll();
-            List<Genero> listaGeneros = servicioGenero.findAll();
-            List<Autor> listaAutores = servicioAutor.findAll();
             model.addAttribute("listaUsuario", listaUsuario);
             model.addAttribute("listaLibro", listaLibro);
             model.addAttribute("listaAutores", listaAutores);

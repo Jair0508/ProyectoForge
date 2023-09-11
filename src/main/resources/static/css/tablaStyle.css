@@ -142,10 +142,15 @@ td, th {
 }
 
 .dropdown .dropbtn {
-  font-size: 1em;
+  font-size: 4em;
   color: black;
   padding: 14px 16px;
   background-color: inherit;
+}
+
+.dropdownContent a{
+  padding: 10px;
+  display: block;
 }
 
 .dropdownContent{
@@ -159,8 +164,12 @@ td, th {
   overflow-y: scroll;
 }
 
-.dropdown:hover .dropdownContent {
+.dropdown:hover .dropdownContent{
   display: block;
+}
+
+.dropdownContent a:hover {
+  background-color: #bbe0d2;
 }
 
 /* modal mensajes */
