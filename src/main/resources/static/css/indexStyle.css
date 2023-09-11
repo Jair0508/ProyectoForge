@@ -48,6 +48,11 @@
   }
 }
 
+.son-toMiddle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .cards-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -123,4 +128,20 @@ h4 {
   color: #6fa2dd;
   font-size: 1em;
   text-decoration: none;
+}
+
+
+/* Autor By Id */
+
+.autor-info {
+  display: flex;
+  align-items: baseline;
+  margin-top: 1em;
+  margin-bottom: 2em;
+  background-color: #ddd;
+}
+
+.autor-info h4 {
+  color: #94c0a0;
+  font-size: 1.3em;
 }
