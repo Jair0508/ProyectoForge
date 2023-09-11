@@ -34,6 +34,7 @@
                                     <th>detalle</th>
                                     <th>creado</th>
                                     <th>producto</th>
+                                    <th>Accion</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,12 @@
                                         </td>
                                         <td>
                                             <c:out value="${ordenes.libroVenta.nombre}" />
+                                        </td>
+                                        <td>
+
+                                            <input type="hidden" name="_method" value="delete" />
+                                            <input class="button" type="submit" value="cancelar" />
+                                            </form>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -79,6 +86,10 @@
                                         </td>
                                         <td>
                                             <c:out value="${libro.createdAt}" />
+                                        </td>
+                                        <td>
+                                            <a class="button" href="/intercambios/${libro.id}/editar">Editar</a>
+                                            <form action="/orden/cancelar/${ordenes.id}" method="post">
                                         </td>
                                     </tr>
                                 </c:forEach>

@@ -3,6 +3,7 @@ package com.grupo8.tulibroapp.Controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +50,7 @@ public class ControladorDetalleOrden {
             return "redirect:/registro";
         }
 
-        if(usuarioId == 1){
+        if (usuarioId == 1) {
             return "redirect:/principal";
         }
 
@@ -68,7 +69,7 @@ public class ControladorDetalleOrden {
         if (usuarioId == null) {
             return "redirect:/registro";
         }
-        if(usuarioId == 1){
+        if (usuarioId == 1) {
             return "redirect:/principal";
         }
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
@@ -96,7 +97,14 @@ public class ControladorDetalleOrden {
 
         servicioLibroVenta.save(libro);
         servicioDetalleOrden.save(orden);
-        return "redirect:/usuario/perfil/" + usuarioId;
+        return "redirect:/orden/recibo/" + orden.getId();
+    }
+
+    @GetMapping("/recibo/{ordenId}")
+    public String GenerarRecivo(@PathVariable("ordenId") Long ordenId, Model model) {
+        DetalleOrden orden = servicioDetalleOrden.findById(ordenId);
+        model.addAttribute("orden", orden);
+        return "recivo.jsp";
     }
 
     @GetMapping("/lista")
@@ -105,7 +113,7 @@ public class ControladorDetalleOrden {
         if (usuarioId == null) {
             return "redirect:/registro";
         }
-        if(usuarioId == 1){
+        if (usuarioId == 1) {
             return "redirect:/principal";
         }
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);

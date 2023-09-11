@@ -41,7 +41,7 @@
 
             <div>
               <c:if test="${usuarioEmail.id >= 2}">
-                <a class="button" href="/orden/confirmar/${libro.id}">comprar ahora</a>
+                <a href="javascript:void(0);" onclick="confirmarCompra(${libro.id})">comprar ahora</a>
                 <form action="/lista_deseos/anexar_libro/${libro.id}" method="post">
                   <button class="button" type="submit">agregar a lista de deseos</button>
                 </form>
@@ -62,7 +62,16 @@
         </div>
 
         <%@ include file="footer.jsp" %>
-        <script src="/javaScript/alerts.js"></script>
+          <script src="/javaScript/alerts.js"></script>
+          <script>
+            function confirmarCompra(libroId) {
+              var confirmacion = confirm("¿Seguro que quieres comprar este producto?");
+              if (confirmacion) {
+                // Redireccionar al enlace de compra con el ID del libro
+                window.location.href = "/orden/compra/" + libroId;
+              }
+            }
+          </script>
     </body>
 
     </html>
