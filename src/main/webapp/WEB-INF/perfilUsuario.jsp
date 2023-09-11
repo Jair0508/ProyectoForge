@@ -8,23 +8,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/baseStyles.css">
+  <link rel="stylesheet" href="/css/tablaStyle.css">
   <title>Document</title>
 </head>
 
 <body>
-  <div>
-    <%@ include file="nav.jsp" %>
-  </div>
+  <%@ include file="nav.jsp" %>
 
-  <div>
+  <div class="main-content">
     <h1>${usuario.name}</h1>
     <form action="/usuario/editar/${usuario.id}" method="post">
       <label>cambiar nombre:</label>
       <input name="nombre" type="text">
-      <button type="submit">enviar</button>
+      <button class="button" type="submit">enviar</button>
     </form>
 
-    <div>
+    <div class="tables-container">
       <table>
         <caption>
           <h2>tabla ordenes de compra:</h2>
@@ -59,9 +59,7 @@
           </c:forEach>
         </tbody>
       </table>
-    </div>
-
-    <div>
+      
       <table>
         <caption>
           <h2>tabla libros publicados por ${usuario.name}</h2>
@@ -82,19 +80,20 @@
               </td>
               <td>
                 <c:out value="${libro.descripcion}" />
-              </td>
-              <td>
-                <c:out value="${libro.createdAt}" />
-              </td>
-              <td>
-                <a class="button" href="/intercambios/${libro.id}/editar">Editar</a>
-                <form action="/orden/cancelar/${ordenes.id}" method="post">
+            </td>
+            <td>
+              <c:out value="${libro.createdAt}" />
+            </td>
+            <td>
+              <a class="button" href="/intercambios/${libro.id}/editar">Editar</a>
+              <form action="/orden/cancelar/${ordenes.id}" method="post">
               </td>
             </tr>
           </c:forEach>
         </tbody>
       </table>
     </div>
+
   </div>
 
 </body>
