@@ -206,9 +206,9 @@ public class ControladorUsuario {
             return "redirect:/principal";
 
         } else {
-            Usuario usuario = servicioUsuario.findById(userId);
+            Usuario usuarioEmail = servicioUsuario.findById(userId);
             List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
-            model.addAttribute("usuario", usuario);
+            model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("listOrdenes", listOrdenes);
             return "perfilUsuario.jsp";
         }
@@ -229,6 +229,19 @@ public class ControladorUsuario {
             servicioUsuario.update(usuario);
             return "redirect:/usuario/perfil/" + userId;
         }
+    }
+
+    @GetMapping("/quienesSomos")
+    public String informacionDeLosDesarroladores(HttpSession session, Model model) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
+        if (usuarioId != null) {
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "quienesSomos.jsp";
+        }
+        return "quienesSomos.jsp";
     }
 
     @DeleteMapping("/eliminar/{userId}")
