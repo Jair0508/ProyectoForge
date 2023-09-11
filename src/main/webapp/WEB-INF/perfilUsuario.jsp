@@ -25,7 +25,7 @@
     </form>
 
     <div class="tables-container">
-      <table>
+      <table class="tables">
         <caption>
           <h2>tabla ordenes de compra:</h2>
         </caption>
@@ -60,7 +60,7 @@
         </tbody>
       </table>
       
-      <table>
+      <table class="tables">
         <caption>
           <h2>tabla libros publicados por ${usuario.name}</h2>
         </caption>

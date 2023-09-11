@@ -29,7 +29,7 @@
 
           <div class="tables-container">
             <c:if test="${not empty listaLibro}">
-              <table>
+              <table class="tables">
                 <caption>
                   <h2>Lista Libros:</h2>
                 </caption>
@@ -78,7 +78,7 @@
               </p>
             </c:if>
 
-            <table>
+            <table class="tables">
               <caption>
                 <h2>Lista Usuarios:</h2>
               </caption>
@@ -135,7 +135,7 @@
 
             <c:if test="${not empty listaAutores}">
               <div class="tables">
-                <table>
+                <table class="tables">
                   <caption>
                     <h2>Lista Autor:</h2>
                   </caption>
@@ -164,7 +164,7 @@
             </c:if>
 
             <c:if test="${not empty listaGeneros}">
-              <table>
+              <table class="tables">
                 <caption>
                   <h2>Lista Genero:</h2>
                 </caption>

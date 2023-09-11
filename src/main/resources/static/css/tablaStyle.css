@@ -21,7 +21,7 @@
   justify-content: space-around;
 }
 
-table {
+.tables {
   width: 650px;
   margin-block: 1.5em;
   border-collapse: collapse;
