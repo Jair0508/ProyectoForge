@@ -18,7 +18,7 @@
       <body>
         <%@ include file="nav.jsp" %>
           <div id="table-trade" class="tables-container">
-            <table>
+            <table class="tables">
               <caption>
                 <h2>Libros Publicados:</h2>
               </caption>

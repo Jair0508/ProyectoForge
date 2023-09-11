@@ -70,7 +70,7 @@
               </h1>
             </c:when>
             <c:otherwise>
-              <table>
+              <table class="tables">
                 <caption>
                   <h2>Lista Libros de
                     <c:out value="${autor.nombre}" />:

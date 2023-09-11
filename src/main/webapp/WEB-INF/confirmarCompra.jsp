@@ -1,5 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,14 +13,15 @@
 </head>
 
 <body>
-
   <%@ include file="nav.jsp" %>
 
-    <h1>¿seguro que quieres comprar este producto? ${libro.nombre}</h1>
-    <div>
-        <a href="/orden/compra/${libro.id}">Si</a>
-        <a href="/principal">No</a>
-    </div>
+  <h1>¿Seguro que quieres comprar este producto?</h1>
+  <h3>${libro.nombre}</h3>
+  <div>
+    <a href="/orden/compra/${libro.id}">Si</a>
+    <a href="/principal">No</a>
+  </div>
+  
   <%@ include file="footer.jsp" %>
 </body>
 

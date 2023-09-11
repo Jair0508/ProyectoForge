@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -108,5 +109,63 @@ public class ControladorIntercambios {
         redirectAttributes.addFlashAttribute("realizado", "Libro guardado");
         servicioLibroIntercambio.save(libro);
         return "redirect:/intercambios/libro/anexar/" + usuarioId;
+    }
+
+    @GetMapping("/{libroId}/editar")
+    public String editarlibroIntercambio(@PathVariable("libroId") Long libroId, Model model, HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        LibroIntercambio libro = servicioLibroIntercambio.findById(libroId);
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        } else if (usuarioId != libro.getUsuario().getId() && usuarioId != 1) {
+            return "redirect:/principal";
+
+        } else {
+            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+            List<Autor> listaAutor = servicioAutor.findAll();
+            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+            List<Genero> listaGenero = servicioGenero.findAll();
+            model.addAttribute("listaFrases", listaFrases);
+            model.addAttribute("listaAutor", listaAutor);
+            model.addAttribute("listaGenero", listaGenero);
+            model.addAttribute("libro", libro);
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "editarLibroIntercambio.jsp";
+        }
+
+    }
+
+    @PutMapping("/{libroId}/editar")
+    public String libroIntercambioEdicion(@Valid @ModelAttribute("libro") LibroIntercambio libro, BindingResult result,
+            @PathVariable("libroId") Long libroId, RedirectAttributes redirectAttributes, Model model,
+            HttpSession session) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        LibroIntercambio editarLibro = servicioLibroIntercambio.findById(libroId);
+        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        model.addAttribute("listaFrases", listaFrases);
+
+        if (result.hasErrors()) {
+            model.addAttribute("libro", libro);
+            return "editarLibroIntercambio.jsp";
+        }
+        LibroIntercambio unicoLibro = servicioLibroIntercambio.findByNombre(libro.getNombre());
+        if (unicoLibro != null) {
+            unicoLibro.setNombre(libro.getNombre());
+        }
+
+        if (editarLibro != null) {
+
+            editarLibro.setNombre(libro.getNombre());
+            editarLibro.setDescripcion(libro.getDescripcion());
+            editarLibro.setDetallesExtras(libro.getDetallesExtras());
+            editarLibro.setAutor(libro.getAutor());
+            editarLibro.setGenero(libro.getGenero());
+
+            servicioLibroIntercambio.update(editarLibro);
+        }
+        redirectAttributes.addFlashAttribute("realizado", "Se actualizo Correctamente");
+        return "redirect:/intercambios/" + libroId + "/editar";
     }
 }
