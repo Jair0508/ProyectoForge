@@ -37,11 +37,17 @@
                 </g>
               </svg>
             </h1>
-            <form action="/usuario/editar/${usuario.id}" method="post">
-              <label>cambiar nombre:</label>
-              <input name="nombre" type="text">
-              <button class="button" type="submit">enviar</button>
-            </form>
+            <button id="openModalButton" class="button">Editar Usuario</button>
+            <div id="myModal" class="modal">
+              <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <form role="name" id="editForm" action="/usuario/editar/${usuario.id}" method="post">
+                  <label>Cambiar Nombre:</label>
+                  <input name="nombre" type="text">
+                  <button class="button" type="submit">enviar</button>
+                </form>
+              </div>
+            </div>
 
             <div class="tables-container">
               <table class="tables">
@@ -115,6 +121,7 @@
 
           </div>
 
+          <script src="/JavaScript/modal.js"></script>
       </body>
 
       </html>
