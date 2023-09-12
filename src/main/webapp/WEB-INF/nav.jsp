@@ -221,9 +221,16 @@
                 </svg>
               </div>
               <h3>
-                <a href="/usuario/perfil/${usuarioEmail.id}">
+                <c:choose>
+                  <c:when test="${usuarioEmail.id == 1}">
+                    <c:out value="${usuarioEmail.name}" />
+                  </c:when>
+                  <c:when test="${usuarioEmail.id >= 2}">
+                <a id="perfil" href="/usuario/perfil/${usuarioEmail.id}">
                   <c:out value="${usuarioEmail.name}" />
                 </a>
+              </c:when>
+              </c:choose>
               </h3>
               <div class="userLinks">
                 <c:choose>

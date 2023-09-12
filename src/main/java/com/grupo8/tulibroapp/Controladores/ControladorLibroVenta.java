@@ -3,7 +3,6 @@ package com.grupo8.tulibroapp.Controladores;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +25,6 @@ import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Servicio.ServicioAutor;
 import com.grupo8.tulibroapp.Servicio.ServicioGenero;
 import com.grupo8.tulibroapp.Servicio.ServicioLibroVenta;
-import com.grupo8.tulibroapp.Servicio.ServicioRol;
 import com.grupo8.tulibroapp.Servicio.ServicioUsuario;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,15 +33,6 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/libros")
 public class ControladorLibroVenta {
-
-    @Value("${rol_usuario}")
-    private String USER;
-
-    @Value("${rol_administrador}")
-    private String ADMIN;
-
-    @Autowired
-    private ServicioRol servicioRol;
 
     @Autowired
     private ServicioUsuario servicioUsuario;
@@ -194,14 +183,6 @@ public class ControladorLibroVenta {
     @GetMapping("/{libroId}/editar")
     public String libroEditar(@PathVariable("libroId") Long libroId, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-
-        // Buscar Admin
-        // Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        // Rol rolAdmin = servicioRol.findByNombreContaining(ADMIN);
-        // //comparacion
-        // if (usuarioEmail.getRol().getId() != rolAdmin.getId()) {
-        // return "redirect:/principal";
-        // }
 
         if (usuarioId == null) {
             return "redirect:/usuario/login";

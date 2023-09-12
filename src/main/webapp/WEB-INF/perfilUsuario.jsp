@@ -10,11 +10,40 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/baseStyles.css">
         <link rel="stylesheet" href="/css/tablaStyle.css">
-        <title>Document</title>
+        <link rel="stylesheet" href="/css/chatMenu.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>Perfil
+          <c:out value="${usuarioEmail.name}" />
+        </title>
       </head>
 
       <body>
         <%@ include file="nav.jsp" %>
+          <a id="open-hide" class="open-hide">Menu</a>
+          <ul id="menu" class="menu present">
+            <c:forEach var="mensaje" items="${listaMensajes}">
+              <c:set var="nombreRemitente" value="${mensaje.remitente.name}" />
+              <c:set var="destinatarioId" value="${mensaje.destinatario.id}" />
+              <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
+                <li>
+                  <a href="javascript:void(0);" onclick="ventanaChat()">
+                    <c:out value="${mensaje.destinatario.name}" />
+                  </a>
+                </li>
+                <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
+              </c:if>
+            </c:forEach>
+
+            <script>
+              function ventanaChat() {
+                var url = "/mensajes/interacciones/remitente=${usuarioEmail.id}/destinatario=${destinatarioId}";
+                var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+                var ventanaChat = window.open(url, "_blank", opcionesVentana);
+                ventanaChat.moveTo(360, 150);
+              }
+            </script>
+
+          </ul>
 
           <div class="main-content">
             <h1 style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
@@ -114,7 +143,7 @@
             </div>
 
           </div>
-
+          <script src="/javaScript/menu.js"></script>
       </body>
 
       </html>

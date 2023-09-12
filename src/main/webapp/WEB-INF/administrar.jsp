@@ -94,13 +94,13 @@
               <tbody>
                 <c:forEach var="usuario" items="${listaUsuario}">
                   <tr>
+                    <c:if test="${usuario.id != 1}">
                     <td>
                       <c:out value="${usuario.name}" />
                     </td>
                     <td>
                       <c:out value="${usuario.email}" />
                     </td>
-                    <c:if test="${usuario.id != 1}">
                       <td>
                         <div class="dropdown">
                           <button class="dropbtn">Interacciones</button>
@@ -205,7 +205,7 @@
         </div>
         </c:if>
         <%@ include file="footer.jsp" %>
-          <script src="/javaScript/admin.js"></script>
+          <script src="/javaScript/menu.js"></script>
     </body>
 
     </html>

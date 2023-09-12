@@ -1,7 +1,7 @@
 package com.grupo8.tulibroapp.Controladores;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -200,12 +200,23 @@ public class ControladorUsuario {
     @GetMapping("/perfil/{userId}")
     public String verPerfilUsuario(@PathVariable("userId") Long userId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
+        if (usuarioId == 1) {
+            return "redirect:/principal";
+        }
+
         if (usuarioId == null || userId == null) {
             return "redirect:/usuario/login";
         } else if (usuarioId != userId && usuarioId != 1) {
             return "redirect:/principal";
 
         } else {
+            List<Mensaje> listaMensajesRecibidos = servicioMensaje.findMensajesRecibidosPorUsuario(userId);
+            List<Mensaje> listaMensajesEnviados = servicioMensaje.findMensajesEnviadosPorUsuario(userId);
+            List<Mensaje> listaMensajes = new ArrayList<>(listaMensajesRecibidos);
+            listaMensajes.addAll(listaMensajesEnviados);
+
+            model.addAttribute("listaMensajes", listaMensajes);
+
             Usuario usuarioEmail = servicioUsuario.findById(userId);
             List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
             model.addAttribute("usuarioEmail", usuarioEmail);
@@ -218,7 +229,7 @@ public class ControladorUsuario {
     public String editarNombreUsuario(@PathVariable("userId") Long userId, @RequestParam("nombre") String nombre,
             HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId == null) {
+        if (usuarioId == null || usuarioId == 1) {
             return "redirect:/usuario/login";
         } else if (usuarioId != userId && usuarioId != 1) {
             return "redirect:/principal";

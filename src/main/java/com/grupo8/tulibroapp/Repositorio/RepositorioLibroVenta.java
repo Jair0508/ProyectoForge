@@ -17,7 +17,7 @@ public interface RepositorioLibroVenta extends RepositorioBase<LibroVenta> {
     LibroVenta findByNombreContainingIgnoreCase(String nombre);
 
     // Consulta Random
-    @Query(value = "SELECT * FROM libros_ventas ORDER BY RAND() LIMIT 4", nativeQuery = true)
+    @Query(value = "SELECT * FROM libros_ventas ORDER BY RAND() LIMIT 5", nativeQuery = true)
     List<LibroVenta> findAllRandomOrder();
 
     Page<LibroVenta> findByGeneroId(Long generoId, Pageable pageable);

@@ -27,7 +27,7 @@
     </div>
     <h3 id="middle-title">NUESTRA <span>LIBRERIA</span></h3>
     <div class="cards-container">
-      <c:forEach var="libro" items="${listaLibros}" begin="0" end="3">
+      <c:forEach var="libro" items="${listaLibros}" begin="0" end="4">
         <div class="book-card">
           <svg viewBox="0 0 24 24" width="120" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

@@ -10,6 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Interactuando con </title>
                 <link rel="stylesheet" href="/css/mensajeStyle.css">
+                <link rel="stylesheet" href="/css/baseStyles.css">
 
             </head>
 
@@ -17,28 +18,35 @@
 
                 <div class="chat-window">
                     <div class="message-area">
-                        <c:forEach var="mensaje" items="${mensajesRemitenteADestinatario}">
+                        <c:forEach var="remitente" items="${mensajesRemitenteADestinatario}">
                             <div class="message">
-                                <strong>${mensaje.remitente.name}</strong>: ${mensaje.contenido}
+                                <strong>${remitente.remitente.name}</strong>: ${remitente.contenido}
                             </div>
                         </c:forEach>
-                        <c:forEach var="mensaje" items="${mensajesDestinatarioARemitente}">
+                        <c:forEach var="destinatario" items="${mensajesDestinatarioARemitente}">
                             <div class="message">
-                                <strong>${mensaje.destinatario.name}</strong>: ${mensaje.contenido}
+                                <strong>${destinatario.destinatario.name}</strong>: ${destinatario.contenido}
                             </div>
-                        </c:forEach>
                     </div>
+
+                    <c:if test="${usuarioEmail.id == 1}">
+                        <p class="errors">Solo puede observar la tabla</p>
+                    </c:if>
+                    <c:if test="${usuarioEmail.id >= 2}">
+                        <div class="input-area">
+                            <form
+                                action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${destinatario.destinatario.id}"
+                                method="post">
+                                <input type="hidden" name="remitenteId" value="${usuario.id}" />
+                                <input type="hidden" name="destinatarioId" value="${destinatarioId}" />
+                                <input type="text" id="message-input" name="contenido"
+                                    placeholder="Escribe un mensaje" />
+                                <button type="submit" class="send-button">Enviar</button>
+                            </form>
+                        </div>
+                    </c:if>
                 </div>
-                
-                    <div class="input-area">
-                        <form action="/mensajes/enviar" method="post">
-                            <input type="hidden" name="remitenteId" value="${usuario.id}" />
-                            <input type="hidden" name="destinatarioId" value="${destinatarioId}" />
-                            <textarea type="text" id="message-input" name="contenido" placeholder="Escribe un mensaje"></textarea>
-                            <button type="submit" class="send-button">Enviar</button>
-                        </form>
-                    </div>
-                </div>
+                </c:forEach>
 
                 <script src="/javaScript/mensaje.js"></script>
 

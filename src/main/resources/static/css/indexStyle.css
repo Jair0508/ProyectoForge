@@ -54,9 +54,9 @@
 }
 
 .cards-container {
+  margin-left: 4%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  display: flex;
   justify-content: space-around;
   gap: 20px;
   margin-bottom: 20px;

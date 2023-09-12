@@ -1,8 +1,6 @@
 package com.grupo8.tulibroapp.Controladores;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,6 +80,7 @@ public class ControladorMensajes {
     @GetMapping("/interacciones/remitente={remitenteId}/destinatario={destinatarioId}")
     public String interacciones(Model model, HttpSession session,@PathVariable("remitenteId") Long remitenteId, @PathVariable("destinatarioId") Long destinatarioId){
         Long usuarioId = (Long) session.getAttribute("userId");
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
 
         if(usuarioId == null){
             return "redirect:/";
@@ -90,6 +89,7 @@ public class ControladorMensajes {
 
         List<Mensaje> mensajesRemitenteADestinatario = servicioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
         List<Mensaje> mensajesDestinatarioARemitente = servicioMensaje.findMensajesByRemitenteYDestinatario(destinatarioId, remitenteId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("mensajesDestinatarioARemitente", mensajesDestinatarioARemitente);
         model.addAttribute("mensajesRemitenteADestinatario", mensajesRemitenteADestinatario);
         return "mensaje.jsp";
