@@ -153,8 +153,7 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session,
-            HttpServletRequest request) {
+    public String logout(HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
         if (usuarioId == null) {
@@ -166,8 +165,7 @@ public class ControladorUsuario {
             return "redirect:/principal";
         }
         session.removeAttribute("userId");
-        String referer = request.getHeader("referer");
-        return "redirect:" + referer;
+        return "redirect:/";
     }
 
     @GetMapping("/administrador")
@@ -200,18 +198,19 @@ public class ControladorUsuario {
     @GetMapping("/perfil/{userId}")
     public String verPerfilUsuario(@PathVariable("userId") Long userId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId == 1) {
-            return "redirect:/principal";
-        }
 
         if (usuarioId == null || userId == null) {
             return "redirect:/usuario/login";
-        } else if (usuarioId != userId && usuarioId != 1) {
-            return "redirect:/principal";
+        }
 
-        } else {
+        if (usuarioId != userId && usuarioId == 1) {
+            return "redirect:/";
+        }
+    
             List<Mensaje> listaMensajesRecibidos = servicioMensaje.findMensajesRecibidosPorUsuario(userId);
             List<Mensaje> listaMensajesEnviados = servicioMensaje.findMensajesEnviadosPorUsuario(userId);
+            model.addAttribute("listaMensajesRecibidos", listaMensajesRecibidos);
+            model.addAttribute("listaMensajesEnviados", listaMensajesRecibidos);
             List<Mensaje> listaMensajes = new ArrayList<>(listaMensajesRecibidos);
             listaMensajes.addAll(listaMensajesEnviados);
 
@@ -221,12 +220,12 @@ public class ControladorUsuario {
             List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
             model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("listOrdenes", listOrdenes);
-            return "perfilUsuario.jsp";
-        }
+        
+        return "perfilUsuario.jsp";
     }
 
     @PostMapping("/editar/{userId}")
-    public String editarNombreUsuario(@PathVariable("userId") Long userId, @RequestParam("nombre") String nombre,
+    public String editarNombreUsuario(@PathVariable("userId") Long userId, @RequestParam("name") String name,
             HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null || usuarioId == 1) {
@@ -236,7 +235,7 @@ public class ControladorUsuario {
 
         } else {
             Usuario usuario = servicioUsuario.findById(userId);
-            usuario.setName(nombre);
+            usuario.setName(name);
             servicioUsuario.update(usuario);
             return "redirect:/usuario/perfil/" + userId;
         }

@@ -41,8 +41,8 @@ public class ControladorMensajes {
     @Autowired
     private ServicioMensaje servicioMensaje;
 
-    @PostMapping("/remitente/{remitenteId}/destinatario/{destinatarioId}")
-    public String mensajeEnviado(@Valid @ModelAttribute("mensaje") Mensaje mensaje, BindingResult result,
+    @PostMapping("/remitente/{remitenteId}/destinatario/{destinatarioId}/intercambios")
+    public String mensajeEnviadoIntercambios(@Valid @ModelAttribute("mensaje") Mensaje mensaje, BindingResult result,
             @PathVariable("destinatarioId") Long destinatarioId, HttpSession session, Model model,
             RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
@@ -74,7 +74,37 @@ public class ControladorMensajes {
 
         redirectAttributes.addFlashAttribute("realizado", "Mensaje enviado con exito");
         servicioMensaje.save(mensaje);
-        return "redirect:/intercambios/libros#open-modal";
+            return "redirect:/intercambios/libro";
+    }
+
+    @PostMapping("/remitente/{remitenteId}/destinatario/{destinatarioId}/perfil")
+    public String mensajeEnviadoPerfil(@Valid @ModelAttribute("mensaje") Mensaje mensaje, BindingResult result,
+            @PathVariable("destinatarioId") Long destinatarioId, HttpSession session, Model model,
+            RedirectAttributes redirectAttributes) {
+        Long usuarioId = (Long) session.getAttribute("userId");
+
+        if (usuarioId == null) {
+            return "redirect:/usuario/login";
+        }
+
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("error", "El campo no debe estar vacio y debe tener mas de 4 caracteres");
+            return "redirect:/intercambios/libros#open-modal";
+        }
+
+        // Guarda a quien envia
+        Usuario usuarioEnvia = new Usuario();
+        usuarioEnvia.setId(usuarioId);
+        mensaje.setRemitente(usuarioEnvia);
+
+        // Guarda a quien recibe
+        Usuario usuarioRecibe = new Usuario();
+        usuarioRecibe.setId(destinatarioId);
+        mensaje.setDestinatario(usuarioRecibe);
+
+        redirectAttributes.addFlashAttribute("realizado", "Mensaje enviado con exito");
+        servicioMensaje.save(mensaje);
+        return "redirect:/mensajes/interacciones/remitente="+ usuarioId + "/destinatario=" + destinatarioId;
     }
 
     @GetMapping("/interacciones/remitente={remitenteId}/destinatario={destinatarioId}")

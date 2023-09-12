@@ -21,29 +21,43 @@
         <%@ include file="nav.jsp" %>
           <a id="open-hide" class="open-hide">Menu</a>
           <ul id="menu" class="menu present">
-            <c:forEach var="mensaje" items="${listaMensajes}">
-              <c:set var="nombreRemitente" value="${mensaje.remitente.name}" />
-              <c:set var="destinatarioId" value="${mensaje.destinatario.id}" />
-              <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
-                <li>
-                  <a href="javascript:void(0);" onclick="ventanaChat()">
-                    <c:out value="${mensaje.destinatario.name}" />
-                  </a>
-                </li>
-                <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
-              </c:if>
-            </c:forEach>
-
-            <script>
-              function ventanaChat() {
-                var url = "/mensajes/interacciones/remitente=${usuarioEmail.id}/destinatario=${destinatarioId}";
-                var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-                var ventanaChat = window.open(url, "_blank", opcionesVentana);
-                ventanaChat.moveTo(360, 150);
-              }
-            </script>
-
+            <li>
+              <span>Mensajes Recibidos</span>
+              <ul>
+                <c:forEach var="mensaje" items="${listaMensajesRecibidos}">
+                  <li class="line">
+                    <a href="javascript:void(0);"
+                      onclick="ventanaChat('${usuarioEmail.id}', '${mensaje.remitente.id}')">
+                      <c:out value="${mensaje.remitente.name}" />
+                    </a>
+                  </li>
+                </c:forEach>
+              </ul>
+            </li>
+            <li>
+              <span>Mensajes Enviados</span>
+              <ul>
+                <c:forEach var="mensaje" items="${listaMensajesEnviados}">
+                  <li class="line">
+                    <a href="javascript:void(0);"
+                      onclick="ventanaChat('${usuarioEmail.id}', '${mensaje.destinatario.id}')">
+                      <c:out value="${mensaje.destinatario.name}" />
+                    </a>
+                  </li>
+                </c:forEach>
+              </ul>
+            </li>
           </ul>
+          <script>
+            function ventanaChat(usuarioId, destinatarioId) {
+              var url = "/mensajes/interacciones/remitente=" + usuarioId + "/destinatario=" + destinatarioId;
+              var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+
+              var ventanaChat = window.open(url, "_blank", opcionesVentana);
+              ventanaChat.moveTo(360, 150);
+            }
+          </script>
+
 
           <div class="main-content">
             <h1 style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
@@ -66,11 +80,22 @@
                 </g>
               </svg>
             </h1>
-            <form action="/usuario/editar/${usuario.id}" method="post">
-              <label>cambiar nombre:</label>
-              <input name="nombre" type="text">
-              <button class="button" type="submit">enviar</button>
+            <form action="/usuario/eliminar/${usuarioEmail.id}" method="post"
+              onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
+              <input type="hidden" name="_method" value="delete" />
+              <input class="button" type="submit" value="Delete" />
             </form>
+            <button id="openModalButton" class="button">Editar Usuario</button>
+            <div id="myModal" class="modal">
+              <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <form role="name" id="editForm" action="/usuario/editar/${usuarioEmail.id}" method="post">
+                  <label>Cambiar Nombre:</label>
+                  <input name="name" type="text">
+                  <button class="button" type="submit">Cargar</button>
+                </form>
+              </div>
+            </div>
 
             <div class="tables-container">
               <table class="tables">
@@ -98,9 +123,9 @@
                         <c:out value="${ordenes.libroVenta.nombre}" />
                       </td>
                       <td>
-
-                        <input type="hidden" name="_method" value="delete" />
-                        <input class="button" type="submit" value="cancelar" />
+                        <form action="/orden/cancelar/${ordenes.id}" method="post">
+                          <input type="hidden" name="_method" value="delete" />
+                          <input class="button" type="submit" value="cancelar" />
                         </form>
                       </td>
                     </tr>
@@ -134,7 +159,6 @@
                       </td>
                       <td>
                         <a class="button" href="/intercambios/${libro.id}/editar">Editar</a>
-                        <form action="/orden/cancelar/${ordenes.id}" method="post">
                       </td>
                     </tr>
                   </c:forEach>
@@ -144,6 +168,8 @@
 
           </div>
           <script src="/javaScript/menu.js"></script>
+
+          <script src="/javaScript/modal.js"></script>
       </body>
 
       </html>

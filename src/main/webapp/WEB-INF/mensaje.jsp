@@ -8,7 +8,7 @@
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Interactuando con </title>
+                <title>Mensajes</title>
                 <link rel="stylesheet" href="/css/mensajeStyle.css">
                 <link rel="stylesheet" href="/css/baseStyles.css">
 
@@ -17,6 +17,7 @@
             <body>
 
                 <div class="chat-window">
+                    <h1>Chat</h1>
                     <div class="message-area">
                         <c:forEach var="remitente" items="${mensajesRemitenteADestinatario}">
                             <div class="message">
@@ -35,13 +36,21 @@
                     <c:if test="${usuarioEmail.id >= 2}">
                         <div class="input-area">
                             <form
-                                action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${destinatario.destinatario.id}"
+                                action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${destinatario.destinatario.id}/perfil"
                                 method="post">
                                 <input type="hidden" name="remitenteId" value="${usuario.id}" />
                                 <input type="hidden" name="destinatarioId" value="${destinatarioId}" />
                                 <input type="text" id="message-input" name="contenido"
                                     placeholder="Escribe un mensaje" />
-                                <button type="submit" class="send-button">Enviar</button>
+                                    <div class="buttons-container">
+                                        <p class="checked">
+                                          <c:out value="${realizado}" />
+                                        </p>
+                                        <p class="errors">
+                                          <c:out value="${error}" />
+                                        </p>
+                                        <button class="send-button" type="submit">Enviar</button>
+                                      </div>
                             </form>
                         </div>
                     </c:if>

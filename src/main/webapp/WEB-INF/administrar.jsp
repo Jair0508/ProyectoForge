@@ -132,9 +132,7 @@
                         </div>
                       </td>
                       <td>
-                        <a class="button" href="/usuario/perfil/${usuario.id}">Ver</a>
-
-                        <form action="/usuario/eliminar/${usuario.id}" method="post">
+                        <form action="/usuario/eliminar/${usuario.id}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
                           <input type="hidden" name="_method" value="delete" />
                           <input class="button" type="submit" value="Delete" />
                         </form>

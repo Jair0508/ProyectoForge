@@ -65,7 +65,7 @@
                                 <a href="#" title="Close" class="modal-close">Close</a>
                                 <div>
                                   <h1 class="form-title">Enviar Mensaje</h1>
-                                  <form:form action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${libro.usuario.id}" method="post"
+                                  <form:form action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${libro.usuario.id}/intercambios" method="post"
                                     modelAttribute="mensaje">
 
                                     <form:label class="input-label" path="contenido">Contenido</form:label>
