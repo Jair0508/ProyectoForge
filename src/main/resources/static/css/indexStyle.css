@@ -73,6 +73,9 @@
   box-shadow: 0px 0px 15px #000000ca;
   min-height: 300px;
 
+  & a {
+    color: inherit;
+  }
 
   & h3 {
     color: #6fa2dd;
