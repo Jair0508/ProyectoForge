@@ -15,10 +15,3 @@ window.addEventListener("click", (event) => {
     modal.style.display = "none";
   }
 });
-
-const editForm = document.getElementById("editForm");
-editForm.addEventListener("submit", (event) => {
-
-  event.preventDefault();
-  modal.style.display = "none"; 
-});

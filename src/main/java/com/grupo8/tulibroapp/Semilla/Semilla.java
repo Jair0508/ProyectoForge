@@ -35,17 +35,17 @@ public class Semilla implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         List<Rol> roles = servicioRol.findAll();
-        if(roles.isEmpty()){
+        if (roles.isEmpty()) {
             creaRoles();
         }
 
         List<Usuario> usuarios = servicioUsuario.findAll();
-        if(usuarios.isEmpty()){
+        if (usuarios.isEmpty()) {
             creaAdmin();
         }
     }
 
-    public void creaAdmin(){
+    public void creaAdmin() {
         Usuario usuarios = new Usuario();
         usuarios.setEmail("admin@admin.com");
         usuarios.setName("Administrador");
@@ -59,7 +59,7 @@ public class Semilla implements ApplicationRunner {
         servicioUsuario.save(usuarios);
     }
 
-    public void creaRoles(){
+    public void creaRoles() {
         List<Rol> roles = new ArrayList<>();
         Rol rol = new Rol();
         rol.setNombre(prefix + USER);

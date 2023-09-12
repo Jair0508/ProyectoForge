@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Rol extends ModeloBase{
+public class Rol extends ModeloBase {
 
     @NotBlank
     @NotNull

@@ -146,7 +146,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <c:forEach var="libro" items="${usuario.librosIntercambio}">
+                  <c:forEach var="libro" items="${usuarioEmail.librosIntercambio}">
                     <tr>
                       <td>
                         <c:out value="${libro.nombre}" />

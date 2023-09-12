@@ -206,21 +206,21 @@ public class ControladorUsuario {
         if (usuarioId != userId && usuarioId == 1) {
             return "redirect:/";
         }
-    
-            List<Mensaje> listaMensajesRecibidos = servicioMensaje.findMensajesRecibidosPorUsuario(userId);
-            List<Mensaje> listaMensajesEnviados = servicioMensaje.findMensajesEnviadosPorUsuario(userId);
-            model.addAttribute("listaMensajesRecibidos", listaMensajesRecibidos);
-            model.addAttribute("listaMensajesEnviados", listaMensajesRecibidos);
-            List<Mensaje> listaMensajes = new ArrayList<>(listaMensajesRecibidos);
-            listaMensajes.addAll(listaMensajesEnviados);
 
-            model.addAttribute("listaMensajes", listaMensajes);
+        List<Mensaje> listaMensajesRecibidos = servicioMensaje.findMensajesRecibidosPorUsuario(userId);
+        List<Mensaje> listaMensajesEnviados = servicioMensaje.findMensajesEnviadosPorUsuario(userId);
+        model.addAttribute("listaMensajesRecibidos", listaMensajesRecibidos);
+        model.addAttribute("listaMensajesEnviados", listaMensajesRecibidos);
+        List<Mensaje> listaMensajes = new ArrayList<>(listaMensajesRecibidos);
+        listaMensajes.addAll(listaMensajesEnviados);
 
-            Usuario usuarioEmail = servicioUsuario.findById(userId);
-            List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
-            model.addAttribute("usuarioEmail", usuarioEmail);
-            model.addAttribute("listOrdenes", listOrdenes);
-        
+        model.addAttribute("listaMensajes", listaMensajes);
+
+        Usuario usuarioEmail = servicioUsuario.findById(userId);
+        List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
+        model.addAttribute("usuarioEmail", usuarioEmail);
+        model.addAttribute("listOrdenes", listOrdenes);
+
         return "perfilUsuario.jsp";
     }
 
@@ -262,9 +262,11 @@ public class ControladorUsuario {
         } else if (usuarioId != null && usuarioId != 1) {
             return "redirect:/principal";
         } else {
-            servicioUsuario.delete(userId);
+            Usuario usuario = servicioUsuario.findById(userId);
+            usuario.setEmail(null);
+            servicioUsuario.save(usuario);
             String referer = request.getHeader("referer");
-            return "redirect:" + referer;
+            return "redirect:/usuario/administrador";
         }
     }
 }

@@ -35,8 +35,8 @@ public class Usuario extends ModeloBase {
 
     @Email
     @Column(name = "email", unique = true)
-    @NotBlank(message = "No debe tener espacios en blanco")
-    @NotNull
+    // @NotBlank(message = "No debe tener espacios en blanco")
+    // @NotNull
     private String email;
 
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*\\d).{8,}$", message = "Solo 8 caracteres que contenga letras y numeros")
