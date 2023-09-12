@@ -23,6 +23,7 @@
 .block-side {
   display: inline-block;
   max-width: 400px;
+  margin-right: 4em;
   vertical-align: middle;
 }
 

@@ -56,6 +56,7 @@
 .cards-container {
   margin-left: 4%;
   display: grid;
+  justify-items: center;
   grid-template-columns: repeat(5, 1fr);
   justify-content: space-around;
   gap: 20px;
