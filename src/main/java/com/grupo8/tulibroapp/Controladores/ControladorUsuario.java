@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,12 +38,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/usuario")
 public class ControladorUsuario {
 
-    @Value("${rol_usuario}")
-    private String USER;
-
-    @Value("${rol_administrador}")
-    private String ADMIN;
-
     @Autowired
     private ServicioAutor servicioAutor;
 
@@ -67,7 +60,7 @@ public class ControladorUsuario {
     public String mostrarCrudUsuario(@ModelAttribute("usuario") Usuario usuario, Model model, HttpSession session) {
         Long usuarioId = (Long) session.getAttribute("userId");
 
-        if (usuarioId != null) {
+        if (usuarioId != null && usuarioId.equals(null)) {
             return "redirect:/";
         }
 
@@ -81,6 +74,12 @@ public class ControladorUsuario {
             BindingResult result,
             HttpSession session,
             Model model) {
+
+        if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
+            FieldError error = new FieldError("email", "email", "Campo no puede estar vacio");
+            result.addError(error);
+            return "registroUsuario.jsp";
+        }
 
         // Verifica el Email sea unico
         Usuario unico = servicioUsuario.findByEmail(usuario.getEmail());
@@ -135,6 +134,12 @@ public class ControladorUsuario {
             HttpServletRequest request,
             RedirectAttributes redirectAttributes) {
 
+        if (email == null || email.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "correo o contraseña inválidos");
+            String referer = request.getHeader("referer");
+            return "redirect:" + referer;
+        }
+
         boolean autenticado = servicioUsuario.authenticateUser(email, password);
         if (autenticado != false) {
             Usuario usuarioEmail = servicioUsuario.findByEmail(email);
@@ -175,7 +180,8 @@ public class ControladorUsuario {
         model.addAttribute("listaFrases", listaFrases);
         Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         List<LibroVenta> listaLibro = servicioLibroVenta.findAll();
-        List<Usuario> listaUsuario = servicioUsuario.findAll();
+        List<Usuario> listaUsuarioNotNull = servicioUsuario.findByEmailIsNotNull();
+        List<Usuario> listaUsuarioNull = servicioUsuario.findByEmailIsNull();
         List<Genero> listaGeneros = servicioGenero.findAll();
         List<Autor> listaAutores = servicioAutor.findAll();
         List<Mensaje> listaMensajes = servicioMensaje.findAll();
@@ -187,7 +193,8 @@ public class ControladorUsuario {
         } else {
             model.addAttribute("listaMensajes", listaMensajes);
             model.addAttribute("usuarioEmail", usuarioEmail);
-            model.addAttribute("listaUsuario", listaUsuario);
+            model.addAttribute("listaUsuarioNotNull", listaUsuarioNotNull);
+            model.addAttribute("listaUsuarioNull", listaUsuarioNull);
             model.addAttribute("listaLibro", listaLibro);
             model.addAttribute("listaAutores", listaAutores);
             model.addAttribute("listaGeneros", listaGeneros);
@@ -198,31 +205,28 @@ public class ControladorUsuario {
     @GetMapping("/perfil/{userId}")
     public String verPerfilUsuario(@PathVariable("userId") Long userId, HttpSession session, Model model) {
         Long usuarioId = (Long) session.getAttribute("userId");
-
+    
         if (usuarioId == null || userId == null) {
             return "redirect:/usuario/login";
         }
-
+    
         if (usuarioId != userId && usuarioId == 1) {
             return "redirect:/";
         }
-
-        List<Mensaje> listaMensajesRecibidos = servicioMensaje.findMensajesRecibidosPorUsuario(userId);
-        List<Mensaje> listaMensajesEnviados = servicioMensaje.findMensajesEnviadosPorUsuario(userId);
-        model.addAttribute("listaMensajesRecibidos", listaMensajesRecibidos);
-        model.addAttribute("listaMensajesEnviados", listaMensajesRecibidos);
-        List<Mensaje> listaMensajes = new ArrayList<>(listaMensajesRecibidos);
-        listaMensajes.addAll(listaMensajesEnviados);
-
-        model.addAttribute("listaMensajes", listaMensajes);
-
+    
         Usuario usuarioEmail = servicioUsuario.findById(userId);
         List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(userId);
+        
+        Usuario usuarioActual = servicioUsuario.findById(usuarioId);
+        List<Usuario> usuariosInteractuados = servicioMensaje.findUsuariosInteractuados(usuarioActual);
+        
         model.addAttribute("usuarioEmail", usuarioEmail);
         model.addAttribute("listOrdenes", listOrdenes);
-
+        model.addAttribute("usuariosInteractuados", usuariosInteractuados);
+    
         return "perfilUsuario.jsp";
     }
+    
 
     @PostMapping("/editar/{userId}")
     public String editarNombreUsuario(@PathVariable("userId") Long userId, @RequestParam("name") String name,
@@ -255,7 +259,8 @@ public class ControladorUsuario {
     }
 
     @DeleteMapping("/eliminar/{userId}")
-    public String eliminarUser(@PathVariable("userId") Long userId, HttpSession session, HttpServletRequest request) {
+    public String eliminarUser(@PathVariable("userId") Long userId, HttpSession session,
+            RedirectAttributes redirectAttributes) {
         Long usuarioId = (Long) session.getAttribute("userId");
         if (usuarioId == null) {
             return "redirect:/usuario/login";
@@ -265,7 +270,6 @@ public class ControladorUsuario {
             Usuario usuario = servicioUsuario.findById(userId);
             usuario.setEmail(null);
             servicioUsuario.save(usuario);
-            String referer = request.getHeader("referer");
             return "redirect:/usuario/administrador";
         }
     }

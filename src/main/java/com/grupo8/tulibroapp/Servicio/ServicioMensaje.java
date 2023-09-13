@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.grupo8.tulibroapp.Modelos.Mensaje;
+import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Repositorio.RepositorioMensaje;
 
 @Service
@@ -17,13 +18,4 @@ public class ServicioMensaje extends ServicioBase<Mensaje> {
     public List<Mensaje> findMensajesByRemitenteYDestinatario(Long remitenteId, Long destinatarioId) {
         return repositorioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
     }
-
-    public List<Mensaje> findMensajesRecibidosPorUsuario(Long usuarioId) {
-        return repositorioMensaje.findMensajesRecibidosPorUsuario(usuarioId);
-    }
-
-    public List<Mensaje> findMensajesEnviadosPorUsuario(Long usuarioId) {
-        return repositorioMensaje.findMensajesEnviadosPorUsuario(usuarioId);
-    }
-
 }

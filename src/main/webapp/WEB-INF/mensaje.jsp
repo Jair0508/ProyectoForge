@@ -15,50 +15,60 @@
             </head>
 
             <body>
+                <div class="container">
+                    <h1>CHAT INTERCAMBIOS</h1>
+                    <h2>
+                        <c:choose>
+                            <c:when test="${mensaje.id == remitente.id}">
+                                <span class="user_uno">
+                                    <c:out value="${remitente.name}" />
+                                </span>
+                                <span class="user_dos">
+                                    <c:out value="${destinatario.name}" />
+                                </span>
+                            </c:when>
+                            <c:otherwise>
+                                <span class="user_uno">
+                                    <c:out value="${destinatario.name}" />
+                                </span>
+                                <span class="user_dos">
+                                    <c:out value="${remitente.name}" />
+                                </span>
+                            </c:otherwise>
+                        </c:choose>
 
-                <div class="chat-window">
-                    <h1>Chat</h1>
-                    <div class="message-area">
-                        <c:forEach var="remitente" items="${mensajesRemitenteADestinatario}">
-                            <div class="message">
-                                <strong>${remitente.remitente.name}</strong>: ${remitente.contenido}
-                            </div>
-                        </c:forEach>
-                        <c:forEach var="destinatario" items="${mensajesDestinatarioARemitente}">
-                            <div class="message">
-                                <strong>${destinatario.destinatario.name}</strong>: ${destinatario.contenido}
-                            </div>
+                    </h2>
+
+
+                    <div class="chat-box">
+                        <ul class="message-list">
+                            <c:forEach var="mensaje" items="${mensajes}" varStatus="loop">
+
+                                <c:set var="messageColorClass"
+                                    value="${(mensaje.id == mensaje.remitente.id) ? 'message-content' : ((mensaje.id != mensaje.destinatario.id) ? 'message-content_dos' : '')}" />
+
+
+                                <li class="message">
+                                    <span class="message-content ${messageColorClass}">
+                                        <c:out value="${mensaje.contenido}" />
+                                        <p class="time">
+                                            <c:out value="${mensaje.createdAt}" />
+                                        </p>
+                                    </span>
+                                </li>
+                            </c:forEach>
+                        </ul>
                     </div>
+                    <div class="message-input">
+                        <form action="/mensajes/usuarios/${remitente.id}/${destinatario.id}/perfil" method="post">
+                            <input type="hidden" name="remitenteId" value="${remitente.id}" />
+                            <input type="hidden" name="destinatarioId" value="${destinatario.id}" />
+                            <input type="text" name="contenido" placeholder="Escribe un mensaje" required />
+                            <button type="submit">Enviar</button>
+                        </form>
 
-                    <c:if test="${usuarioEmail.id == 1}">
-                        <p class="errors">Solo puede observar la tabla</p>
-                    </c:if>
-                    <c:if test="${usuarioEmail.id >= 2}">
-                        <div class="input-area">
-                            <form
-                                action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${destinatario.destinatario.id}/perfil"
-                                method="post">
-                                <input type="hidden" name="remitenteId" value="${usuario.id}" />
-                                <input type="hidden" name="destinatarioId" value="${destinatarioId}" />
-                                <input type="text" id="message-input" name="contenido"
-                                    placeholder="Escribe un mensaje" />
-                                    <div class="buttons-container">
-                                        <p class="checked">
-                                          <c:out value="${realizado}" />
-                                        </p>
-                                        <p class="errors">
-                                          <c:out value="${error}" />
-                                        </p>
-                                        <button class="send-button" type="submit">Enviar</button>
-                                      </div>
-                            </form>
-                        </div>
-                    </c:if>
+                    </div>
                 </div>
-                </c:forEach>
-
-                <script src="/javaScript/mensaje.js"></script>
-
             </body>
 
             </html>

@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Mensaje extends ModeloBase{
     
-    @Size(min = 4, message = "El minimo al enviar debe ser 4 caracteres")
+    @Size(min = 1)
     @NotBlank(message = "No debe tener mensajes en blanco")
     @NotNull
     private String contenido;

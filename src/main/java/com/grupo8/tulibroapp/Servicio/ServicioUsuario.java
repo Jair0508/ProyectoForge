@@ -2,6 +2,9 @@ package com.grupo8.tulibroapp.Servicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 import org.mindrot.jbcrypt.BCrypt;
 import com.grupo8.tulibroapp.Modelos.Usuario;
 import com.grupo8.tulibroapp.Repositorio.RepositorioUsuario;
@@ -32,6 +35,14 @@ public class ServicioUsuario extends ServicioBase<Usuario>{
                 return false;
             }
         }
+    }
+
+    public List<Usuario> findByEmailIsNotNull() {
+        return repositorioUsuario.findByEmailIsNotNull();
+    }
+
+    public List<Usuario> findByEmailIsNull() {
+        return repositorioUsuario.findByEmailIsNull();
     }
 
 }

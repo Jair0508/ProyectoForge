@@ -79,69 +79,139 @@
               </p>
             </c:if>
 
-            <table class="tables">
-              <caption>
-                <h2>Lista Usuarios:</h2>
-              </caption>
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Interacciones</th>
-                  <th>Accion</th>
-                </tr>
-              </thead>
-              <tbody>
-                <c:forEach var="usuario" items="${listaUsuario}">
+            <c:if test="${not empty listaLibroNotNull}">
+              <table class="tables">
+                <caption>
+                  <h2>Lista Usuarios Activos:</h2>
+                </caption>
+                <thead>
                   <tr>
-                    <c:if test="${usuario.id != 1}">
-                    <td>
-                      <c:out value="${usuario.name}" />
-                    </td>
-                    <td>
-                      <c:out value="${usuario.email}" />
-                    </td>
-                      <td>
-                        <div class="dropdown">
-                          <button class="dropbtn">Interacciones</button>
-                          <div class="dropdownContent">
-                            <c:set var="nombresMostrados" value="" />
-                            <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
-                              <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
-                              <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
-                              <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
-                                <a href="javascript:void(0);" onclick="ventanaChat()">
-                                  <c:out value="${nombreRemitente}" />
-                                </a>
-                                <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
-
-                                <script>
-                                  function ventanaChat() {
-                                    var url = "/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}";
-
-                                    var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-
-                                    var ventanaChat = window.open(url, "_blank", opcionesVentana);
-
-                                    ventanaChat.moveTo(360, 150);
-                                  }
-                                </script>
-                              </c:if>
-                            </c:forEach>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <form action="/usuario/eliminar/${usuario.id}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
-                          <input type="hidden" name="_method" value="delete" />
-                          <input class="button" type="submit" value="Delete" />
-                        </form>
-                      </td>
-                    </c:if>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Interacciones</th>
+                    <th>Accion</th>
                   </tr>
-                </c:forEach>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  <c:forEach var="usuario" items="${listaUsuarioNotNull}">
+                    <tr>
+                      <c:if test="${usuario.id != 1}">
+                        <td>
+                          <c:out value="${usuario.name}" />
+                        </td>
+                        <td>
+                          <c:out value="${usuario.email}" />
+                        </td>
+                        <td>
+                          <div class="dropdown">
+                            <button class="dropbtn">Interacciones</button>
+                            <div class="dropdownContent">
+                              <c:set var="nombresMostrados" value="" />
+                              <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
+                                <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
+                                <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
+                                <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
+                                  <a href="javascript:void(0);" onclick="ventanaChat()">
+                                    <c:out value="${nombreRemitente}" />
+                                  </a>
+                                  <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
+
+                                  <script>
+                                    function ventanaChat() {
+                                      var url = "/mensajes/usuarios/${usuario.id}/${destinatarioId}";
+
+                                      var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+
+                                      var ventanaChat = window.open(url, "_blank", opcionesVentana);
+
+                                      ventanaChat.moveTo(360, 150);
+                                    }
+                                  </script>
+                                </c:if>
+                              </c:forEach>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <form action="/usuario/eliminar/${usuario.id}" method="post"
+                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
+                            <input type="hidden" name="_method" value="delete" />
+                            <input class="button" type="submit" value="Delete" />
+                          </form>
+                        </td>
+                      </c:if>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
+            </c:if>
+
+            <c:if test="${not empty listaUsuarioNull}">
+              <table class="tables">
+                <caption>
+                  <h2>Lista Usuarios Restringidos:</h2>
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Interacciones</th>
+                    <th>Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <c:forEach var="usuario" items="${listaUsuarioNull}">
+                    <tr>
+                      <c:if test="${usuario.id != 1}">
+                        <td>
+                          <c:out value="${usuario.name}" />
+                        </td>
+                        <td>
+                          NO PRESENTE
+                        </td>
+                        <td>
+                          <div class="dropdown">
+                            <button class="dropbtn">Interacciones</button>
+                            <div class="dropdownContent">
+                              <c:set var="nombresMostrados" value="" />
+                              <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
+                                <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
+                                <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
+                                <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
+                                  <a href="javascript:void(0);" onclick="ventanaChat()">
+                                    <c:out value="${nombreRemitente}" />
+                                  </a>
+                                  <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
+
+                                  <script>
+                                    function ventanaChat() {
+                                      var url = "/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}";
+
+                                      var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+
+                                      var ventanaChat = window.open(url, "_blank", opcionesVentana);
+
+                                      ventanaChat.moveTo(360, 150);
+                                    }
+                                  </script>
+                                </c:if>
+                              </c:forEach>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <form action="/usuario/eliminar/${usuario.id}" method="post"
+                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar tu cuenta? Esta acción no se puede deshacer.')">
+                            <input type="hidden" name="_method" value="delete" />
+                            <input class="button" type="submit" value="Delete" />
+                          </form>
+                        </td>
+                      </c:if>
+                    </tr>
+                  </c:forEach>
+                </tbody>
+              </table>
+            </c:if>
 
             <c:if test="${not empty listaAutores}">
               <div class="tables">

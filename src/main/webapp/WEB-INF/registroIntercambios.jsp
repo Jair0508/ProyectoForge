@@ -59,7 +59,7 @@
 
                             <div class="buttons-container">
                                 <c:if test="${not empty realizado}">
-                                    <a class="button-link" href="/intercambios/lista">Regresar</a>
+                                    <a class="button-link" href="/intercambios/libros">Regresar</a>
                                     <p class="checked">
                                         <c:out value="${realizado}" />
                                     </p>

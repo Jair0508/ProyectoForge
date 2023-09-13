@@ -24,41 +24,30 @@
             <li>
               <span>Mensajes Recibidos</span>
               <ul>
-                <c:forEach var="mensaje" items="${listaMensajesRecibidos}">
-                  <li class="line">
-                    <a href="javascript:void(0);"
-                      onclick="ventanaChat('${usuarioEmail.id}', '${mensaje.remitente.id}')">
-                      <c:out value="${mensaje.remitente.name}" />
+                <li><strong>Usuarios Interactuados:</strong></li>
+                <c:forEach var="usuario" items="${usuariosInteractuados}">
+                  <li>
+                    <a href="javascript:void(0);" onclick="ventanaChat('${usuarioEmail.id}', '${usuario.id}')">
+                      <c:out value="${usuario.name}" />
                     </a>
                   </li>
                 </c:forEach>
-              </ul>
-            </li>
-            <li>
-              <span>Mensajes Enviados</span>
-              <ul>
-                <c:forEach var="mensaje" items="${listaMensajesEnviados}">
-                  <li class="line">
-                    <a href="javascript:void(0);"
-                      onclick="ventanaChat('${usuarioEmail.id}', '${mensaje.destinatario.id}')">
-                      <c:out value="${mensaje.destinatario.name}" />
-                    </a>
-                  </li>
-                </c:forEach>
+                
+                <script>
+                  function ventanaChat(usuarioEmailId, usuarioId) {
+                    var url = "/mensajes/usuarios/" + usuarioEmailId + "/" + usuarioId;
+                
+                    var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+                
+                    var ventanaChat = window.open(url, "_blank", opcionesVentana);
+                
+                    ventanaChat.moveTo(360, 150);
+                  }
+                </script>
+                
               </ul>
             </li>
           </ul>
-          <script>
-            function ventanaChat(usuarioId, destinatarioId) {
-              var url = "/mensajes/interacciones/remitente=" + usuarioId + "/destinatario=" + destinatarioId;
-              var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-
-              var ventanaChat = window.open(url, "_blank", opcionesVentana);
-              ventanaChat.moveTo(360, 150);
-            }
-          </script>
-
-
           <div class="main-content">
             <h1 style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
               ${usuarioEmail.name}

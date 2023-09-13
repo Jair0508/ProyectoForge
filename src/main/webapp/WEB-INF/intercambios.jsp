@@ -64,15 +64,17 @@
                               <div>
                                 <a href="#" title="Close" class="modal-close">Close</a>
                                 <div>
+
                                   <h1 class="form-title">Enviar Mensaje</h1>
-                                  <form:form action="/mensajes/remitente/${usuarioEmail.id}/destinatario/${libro.usuario.id}/intercambios" method="post"
-                                    modelAttribute="mensaje">
-
-                                    <form:label class="input-label" path="contenido">Contenido</form:label>
-                                    <form:textarea class="input-content" type="text" path="contenido"
-                                      placeholder="Ingrese su mensaje" />
-                                    <form:errors class="errors" path="contenido" />
-
+                                  <form action="/mensajes/usuarios/${usuarioEmail.id}/${libro.usuario.id}/intercambios"
+                                    method="post">
+                                    <p class="input-label">Contenido</p>
+                                    <input class="input-content" type="hidden" name="remitenteId"
+                                      value="${usuarioEmail.id}" />
+                                    <input class="input-content" type="hidden" name="destinatarioId"
+                                      value="${libro.usuario.id}" />
+                                    <input class="input-content" type="text" name="contenido"
+                                      placeholder="Escribe un mensaje" required />
                                     <div class="buttons-container">
                                       <p class="checked">
                                         <c:out value="${realizado}" />
@@ -82,7 +84,7 @@
                                       </p>
                                       <button class="button-link" type="submit">Enviar</button>
                                     </div>
-                                  </form:form>
+                                  </form>
                                 </div>
                               </div>
                             </div>
