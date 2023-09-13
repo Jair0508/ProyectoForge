@@ -39,7 +39,7 @@
                     </td>
                     <td>
                         <c:out value="${libro.usuario.name}" /><br>
-                        <span id="email"><c:out value="${libro.usuario.email}" /></span>
+                        <span id="emailIntercambios"><c:out value="${libro.usuario.email}" /></span>
                     </td>
                     <td>
                       <c:out value="${libro.detallesExtras}" />
