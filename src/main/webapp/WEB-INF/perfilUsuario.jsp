@@ -40,7 +40,7 @@
                     var screenWidth = window.screen.width;
                     var screenHeight = window.screen.height;
 
-                    var widthPercentage = 60; 
+                    var widthPercentage = 70; 
                     var heightPercentage = 75; 
 
                     var popupWidth = (screenWidth * widthPercentage) / 100;

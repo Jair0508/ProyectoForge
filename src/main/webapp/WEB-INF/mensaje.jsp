@@ -15,7 +15,6 @@
             </head>
 
             <body>
-                <div class="container">
                     <c:if test="${usuarioEmail.id >= 2}">
                         <h1>CHAT INTERCAMBIOS</h1>
                         <h2>
@@ -62,7 +61,6 @@
                                 <button type="submit">Enviar</button>
                             </form>
                         </div>
-                </div>
                 </c:if>
                 <c:if test="${usuarioEmail.id == 1}">
                     <h1>CHAT ENTRE USUARIOS</h1>
