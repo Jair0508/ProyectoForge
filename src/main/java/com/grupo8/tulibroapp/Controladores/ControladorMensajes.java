@@ -71,7 +71,7 @@ public class ControladorMensajes {
 
         redirectAttributes.addFlashAttribute("realizado", "Mensaje enviado con exito");
         servicioMensaje.save(mensaje);
-        return "redirect:/intercambios/libros";
+        return "redirect:/intercambios/libros#open-modal";
     }
 
     @PostMapping("/usuarios/{remitenteId}/{destinatarioId}/perfil")

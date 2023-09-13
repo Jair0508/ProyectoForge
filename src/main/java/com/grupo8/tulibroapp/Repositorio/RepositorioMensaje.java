@@ -29,4 +29,6 @@ public interface RepositorioMensaje extends RepositorioBase<Mensaje> {
 
         List<Mensaje> findByDestinatarioAndRemitente(Usuario destinatario, Usuario remitente);
 
+        
+
 }

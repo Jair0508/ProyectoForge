@@ -32,19 +32,28 @@
                     </a>
                   </li>
                 </c:forEach>
-                
+
                 <script>
                   function ventanaChat(usuarioEmailId, usuarioId) {
                     var url = "/mensajes/usuarios/" + usuarioEmailId + "/" + usuarioId;
-                
-                    var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-                
+
+                    var screenWidth = window.screen.width;
+                    var screenHeight = window.screen.height;
+
+                    var widthPercentage = 60; 
+                    var heightPercentage = 75; 
+
+                    var popupWidth = (screenWidth * widthPercentage) / 100;
+                    var popupHeight = (screenHeight * heightPercentage) / 100;
+
+                    var opcionesVentana = "width=" + popupWidth + ",height=" + popupHeight + ",toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
+
                     var ventanaChat = window.open(url, "_blank", opcionesVentana);
-                
+
                     ventanaChat.moveTo(360, 150);
                   }
                 </script>
-                
+
               </ul>
             </li>
           </ul>

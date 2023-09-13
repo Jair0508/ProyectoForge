@@ -1,6 +1,5 @@
 package com.grupo8.tulibroapp.Controladores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,14 +183,11 @@ public class ControladorUsuario {
         List<Usuario> listaUsuarioNull = servicioUsuario.findByEmailIsNull();
         List<Genero> listaGeneros = servicioGenero.findAll();
         List<Autor> listaAutores = servicioAutor.findAll();
-        List<Mensaje> listaMensajes = servicioMensaje.findAll();
-
         if (usuarioId == null) {
             return "redirect:/usuario/login";
         } else if (usuarioId != 1) {
             return "redirect:/principal";
         } else {
-            model.addAttribute("listaMensajes", listaMensajes);
             model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("listaUsuarioNotNull", listaUsuarioNotNull);
             model.addAttribute("listaUsuarioNull", listaUsuarioNull);

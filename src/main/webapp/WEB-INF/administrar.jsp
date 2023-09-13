@@ -79,7 +79,7 @@
               </p>
             </c:if>
 
-            <c:if test="${not empty listaLibroNotNull}">
+            <c:if test="${not empty listaUsuarioNotNull}">
               <table class="tables">
                 <caption>
                   <h2>Lista Usuarios Activos:</h2>
@@ -104,33 +104,44 @@
                         </td>
                         <td>
                           <div class="dropdown">
-                            <button class="dropbtn">Interacciones</button>
-                            <div class="dropdownContent">
-                              <c:set var="nombresMostrados" value="" />
-                              <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
-                                <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
-                                <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
-                                <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
-                                  <a href="javascript:void(0);" onclick="ventanaChat()">
-                                    <c:out value="${nombreRemitente}" />
-                                  </a>
-                                  <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
-
-                                  <script>
-                                    function ventanaChat() {
-                                      var url = "/mensajes/usuarios/${usuario.id}/${destinatarioId}";
-
-                                      var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-
-                                      var ventanaChat = window.open(url, "_blank", opcionesVentana);
-
-                                      ventanaChat.moveTo(360, 150);
-                                    }
-                                  </script>
-                                </c:if>
-                              </c:forEach>
+                            <div class="dropdown">
+                              <select onchange="mostrarConversacion(this, '${usuario.id}')">
+                                <option value="" disabled selected>Selecciona una conversación</option>
+                                <c:set var="tempSet" value="" />
+                                <c:forEach var="mensajeEnviado" items="${usuario.mensajesEnviados}">
+                                  <c:set var="nombreRemitente" value="${mensajeEnviado.destinatario.name}" />
+                                  <c:set var="remitenteId" value="${mensajeEnviado.destinatario.id}" />
+                                  <c:if test="${not tempSet.contains(nombreRemitente)}">
+                                    <option value="${remitenteId}">
+                                      <c:out value="${nombreRemitente}" />
+                                    </option>
+                                    <c:set var="tempSet" value="${tempSet}${nombreRemitente}" />
+                                  </c:if>
+                                </c:forEach>
+                                <c:forEach var="mensajeRecibido" items="${usuario.mensajesRecibidos}">
+                                  <c:set var="nombreRemitente" value="${mensajeRecibido.remitente.name}" />
+                                  <c:set var="remitenteId" value="${mensajeRecibido.remitente.id}" />
+                                  <c:if test="${not tempSet.contains(nombreRemitente)}">
+                                    <option value="${remitenteId}">
+                                      <c:out value="${nombreRemitente}" />
+                                    </option>
+                                    <c:set var="tempSet" value="${tempSet}${nombreRemitente}" />
+                                  </c:if>
+                                </c:forEach>
+                              </select>
                             </div>
                           </div>
+                          <script>
+                            function mostrarConversacion(selectElement, userId) {
+                              var destinatarioId = selectElement.value;
+                              if (destinatarioId) {
+                                var url = "/mensajes/usuarios/" + userId + "/" + destinatarioId;
+
+                                // Redirigir al usuario al URL del chat
+                                window.location.href = url;
+                              }
+                            }
+                          </script>
                         </td>
                         <td>
                           <form action="/usuario/eliminar/${usuario.id}" method="post"
@@ -167,37 +178,48 @@
                           <c:out value="${usuario.name}" />
                         </td>
                         <td>
-                          NO PRESENTE
+                          <c:out value="${usuario.email}" />
                         </td>
                         <td>
                           <div class="dropdown">
-                            <button class="dropbtn">Interacciones</button>
-                            <div class="dropdownContent">
-                              <c:set var="nombresMostrados" value="" />
-                              <c:forEach var="destinatario" items="${usuario.mensajesRecibidos}">
-                                <c:set var="nombreRemitente" value="${destinatario.remitente.name}" />
-                                <c:set var="destinatarioId" value="${destinatario.remitente.id}" />
-                                <c:if test="${not nombresMostrados.contains(nombreRemitente)}">
-                                  <a href="javascript:void(0);" onclick="ventanaChat()">
-                                    <c:out value="${nombreRemitente}" />
-                                  </a>
-                                  <c:set var="nombresMostrados" value="${nombresMostrados}${nombreRemitente}," />
-
-                                  <script>
-                                    function ventanaChat() {
-                                      var url = "/mensajes/interacciones/remitente=${usuario.id}/destinatario=${destinatarioId}";
-
-                                      var opcionesVentana = "width=600,height=400,toolbar=no,location=no,menubar=no,resizable=no,scrollbars=no";
-
-                                      var ventanaChat = window.open(url, "_blank", opcionesVentana);
-
-                                      ventanaChat.moveTo(360, 150);
-                                    }
-                                  </script>
-                                </c:if>
-                              </c:forEach>
+                            <div class="dropdown">
+                              <select onchange="mostrarConversacion(this, '${usuario.id}')">
+                                <option value="" disabled selected>Selecciona una conversación</option>
+                                <c:set var="tempSet" value="" />
+                                <c:forEach var="mensajeEnviado" items="${usuario.mensajesEnviados}">
+                                  <c:set var="nombreRemitente" value="${mensajeEnviado.destinatario.name}" />
+                                  <c:set var="remitenteId" value="${mensajeEnviado.destinatario.id}" />
+                                  <c:if test="${not tempSet.contains(nombreRemitente)}">
+                                    <option value="${remitenteId}">
+                                      <c:out value="${nombreRemitente}" />
+                                    </option>
+                                    <c:set var="tempSet" value="${tempSet}${nombreRemitente}" />
+                                  </c:if>
+                                </c:forEach>
+                                <c:forEach var="mensajeRecibido" items="${usuario.mensajesRecibidos}">
+                                  <c:set var="nombreRemitente" value="${mensajeRecibido.remitente.name}" />
+                                  <c:set var="remitenteId" value="${mensajeRecibido.remitente.id}" />
+                                  <c:if test="${not tempSet.contains(nombreRemitente)}">
+                                    <option value="${remitenteId}">
+                                      <c:out value="${nombreRemitente}" />
+                                    </option>
+                                    <c:set var="tempSet" value="${tempSet}${nombreRemitente}" />
+                                  </c:if>
+                                </c:forEach>
+                              </select>
                             </div>
                           </div>
+                          <script>
+                            function mostrarConversacion(selectElement, userId) {
+                              var destinatarioId = selectElement.value;
+                              if (destinatarioId) {
+                                var url = "/mensajes/usuarios/" + userId + "/" + destinatarioId;
+
+                                // Redirigir al usuario al URL del chat
+                                window.location.href = url;
+                              }
+                            }
+                          </script>
                         </td>
                         <td>
                           <form action="/usuario/eliminar/${usuario.id}" method="post"

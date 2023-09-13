@@ -53,6 +53,27 @@ body {
   margin-top: 5%;
 }
 
+.button-link {
+  text-decoration: none;
+  margin-inline: 1em;
+  margin-top: 1%;
+  font-size: 1em;
+  font-weight: bold;
+  color: black;
+  padding: 5px 20px;
+  border-radius: 50px;
+  background-color: #dddddd7d;
+  transition: all 0.3s ease-in-out;
+  border-left: 2px solid #ddd;
+  border-right: 2px solid #ddd;
+}
+
+.button-link:hover {
+  font-size: 1.2em;
+  cursor: pointer;
+  background-color: #ddd;
+}
+
 /*Estilo de frase*/
 
 #contenedor-frase {

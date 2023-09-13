@@ -18,4 +18,10 @@ public class ServicioMensaje extends ServicioBase<Mensaje> {
     public List<Mensaje> findMensajesByRemitenteYDestinatario(Long remitenteId, Long destinatarioId) {
         return repositorioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
     }
+
+    public List<Usuario> findUsuariosInteractuados(Usuario usuarioActual) {
+        return repositorioMensaje.findUsuariosInteractuados(usuarioActual);
+    }
+
+    
 }
