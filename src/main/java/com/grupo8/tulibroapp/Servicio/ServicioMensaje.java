@@ -14,7 +14,7 @@ public class ServicioMensaje extends ServicioBase<Mensaje> {
 
     @Autowired
     private RepositorioMensaje repositorioMensaje;
-    
+
     public List<Mensaje> findMensajesByRemitenteYDestinatario(Long remitenteId, Long destinatarioId) {
         return repositorioMensaje.findMensajesByRemitenteYDestinatario(remitenteId, destinatarioId);
     }
@@ -22,6 +22,4 @@ public class ServicioMensaje extends ServicioBase<Mensaje> {
     public List<Usuario> findUsuariosInteractuados(Usuario usuarioActual) {
         return repositorioMensaje.findUsuariosInteractuados(usuarioActual);
     }
-
-    
 }

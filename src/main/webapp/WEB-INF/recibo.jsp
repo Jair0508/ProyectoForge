@@ -1,9 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/baseStyles.css">
+    <link rel="stylesheet" href="/css/indexStyle.css">
     <title>Recivo</title>
     <style>
         body {
@@ -72,10 +76,12 @@
             <p><strong>Total a Pagar:</strong> $${orden.precioTotal}</p>
         </div>
     </div>
-    <div>
-        <a href="/principal">regresar</a>
-        <a href="javascript:window.print();">Imprimir</a>
+    <div id="middle-title" style="font-size: 1.5em;">
+        <a class="button" href="/principal">regresar</a>
+        <a class="button" href="javascript:window.print();">Imprimir</a>
     </div>
+
+    <%@ include file="footer.jsp" %>
 </body>
 
 </html>
