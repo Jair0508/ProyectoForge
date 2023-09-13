@@ -38,9 +38,8 @@
                       <c:out value="${libro.nombre}" />
                     </td>
                     <td>
-                      <a class="button" href="">
-                        <c:out value="${libro.usuario.name}" />
-                      </a>
+                        <c:out value="${libro.usuario.name}" /><br>
+                        <span id="email"><c:out value="${libro.usuario.email}" /></span>
                     </td>
                     <td>
                       <c:out value="${libro.detallesExtras}" />

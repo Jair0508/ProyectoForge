@@ -19,7 +19,7 @@ public class ServicioGenero extends ServicioBase<Genero> {
         return nombre;
     }
 
-    private static final int PAGE_SIZE =15; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
+    private static final int PAGE_SIZE = 5; // aqui se implementaas los cambios del contenido, si ver 5 libros o 3
 
     public Page<Genero> generoPorPage(int pageNumber) {
         PageRequest pageRequest = PageRequest.of(pageNumber, PAGE_SIZE);

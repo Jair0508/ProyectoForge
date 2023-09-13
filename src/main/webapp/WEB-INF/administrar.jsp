@@ -160,7 +160,7 @@
             <c:if test="${not empty listaUsuarioNull}">
               <table class="tables">
                 <caption>
-                  <h2>Lista Usuarios Restringidos:</h2>
+                  <h2>Lista Usuarios Inhabilitado:</h2>
                 </caption>
                 <thead>
                   <tr>
