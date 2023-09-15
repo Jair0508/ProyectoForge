@@ -80,7 +80,7 @@
             </c:if>
 
             <c:if test="${not empty listaUsuarioNotNull}">
-              <table class="tables">
+              <table class="tables scroll-table">
                 <caption>
                   <h2>Lista Usuarios Activos:</h2>
                 </caption>
@@ -158,7 +158,7 @@
             </c:if>
 
             <c:if test="${not empty listaUsuarioNull}">
-              <table class="tables">
+              <table class="tables scroll-table">
                 <caption>
                   <h2>Lista Usuarios Inhabilitado:</h2>
                 </caption>
@@ -237,7 +237,7 @@
 
             <c:if test="${not empty listaAutores}">
               <div class="tables">
-                <table class="tables">
+                <table class="tables scroll-table">
                   <caption>
                     <h2>Lista Autor:</h2>
                   </caption>
@@ -266,7 +266,7 @@
             </c:if>
 
             <c:if test="${not empty listaGeneros}">
-              <table class="tables">
+              <table class="tables scroll-table">
                 <caption>
                   <h2>Lista Genero:</h2>
                 </caption>

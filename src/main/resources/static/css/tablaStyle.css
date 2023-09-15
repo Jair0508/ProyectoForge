@@ -21,13 +21,17 @@
   justify-content: space-around;
 }
 
-.tables {
-  width: 650px;
-  margin-block: 1.5em;
+/* ... Tu CSS existente ... */
+
+/* Agrega desplazamiento vertical a las tablas */
+.tables-container table {
+  width: 100%;
   border-collapse: collapse;
   & caption {
     margin-bottom: 1em;
-  };
+  }
+  max-height: 10px; /* Ajusta la altura máxima según tus necesidades */
+  overflow-y: auto; /* Agrega desplazamiento vertical */
 }
 
 th {
@@ -45,6 +49,9 @@ td, th {
     color: inherit;
   }
 }
+
+/* ... Tu CSS existente ... */
+
 
 .button {
   text-decoration: none;

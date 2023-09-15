@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="/css/baseStyles.css">
         <link rel="stylesheet" href="/css/tablaStyle.css">
         <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
+        <link rel="stylesheet" href="/css/popoverEmail.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       </head>
 
@@ -38,8 +39,14 @@
                       <c:out value="${libro.nombre}" />
                     </td>
                     <td>
-                        <c:out value="${libro.usuario.name}" /><br>
-                        <span id="emailIntercambios"><c:out value="${libro.usuario.email}" /></span>
+                      <div class="popover__wrapper">
+                        <a href="#">
+                          <h2 class="popover__title"><c:out value="${libro.usuario.name}" /><br></h2>
+                        </a>
+                        <div class="popover__content">
+                          <p class="popover__message"><c:out value="${libro.usuario.email}" /></p>
+                        </div>
+                      </div>
                     </td>
                     <td>
                       <c:out value="${libro.detallesExtras}" />
