@@ -7,16 +7,13 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <link rel="stylesheet" href="/css/baseStyles.css">
-      <link rel="stylesheet" href="/css/tablaStyle.css">
-      <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <link rel="stylesheet" href="/css/administrarStyle.css">
       <title>Administar</title>
     </head>
 
     <body>
       <%@ include file="nav.jsp" %>
 
-        <div class="main-content">
           <h1 id="panel">
             Panel de administracion
           </h1>
@@ -27,11 +24,11 @@
             <li><a href="/generos/anexar/genero">Anexar Genero</a></li>
           </ul>
 
-          <div class="tables-container">
+          <div id="centrarTablas">
             <c:if test="${not empty listaLibro}">
-              <table class="tables">
+              <table>
                 <caption>
-                  <h2>Lista Libros:</h2>
+                  <h2 id="tituloTablas">Lista Libros:</h2>
                 </caption>
                 <thead>
                   <tr>
@@ -80,7 +77,7 @@
             </c:if>
 
             <c:if test="${not empty listaUsuarioNotNull}">
-              <table class="tables scroll-table">
+              <table>
                 <caption>
                   <h2>Lista Usuarios Activos:</h2>
                 </caption>
@@ -136,8 +133,6 @@
                               var destinatarioId = selectElement.value;
                               if (destinatarioId) {
                                 var url = "/mensajes/usuarios/" + userId + "/" + destinatarioId;
-
-                                // Redirigir al usuario al URL del chat
                                 window.location.href = url;
                               }
                             }
@@ -158,7 +153,7 @@
             </c:if>
 
             <c:if test="${not empty listaUsuarioNull}">
-              <table class="tables scroll-table">
+              <table>
                 <caption>
                   <h2>Lista Usuarios Inhabilitado:</h2>
                 </caption>
@@ -214,8 +209,6 @@
                               var destinatarioId = selectElement.value;
                               if (destinatarioId) {
                                 var url = "/mensajes/usuarios/" + userId + "/" + destinatarioId;
-
-                                // Redirigir al usuario al URL del chat
                                 window.location.href = url;
                               }
                             }
@@ -236,8 +229,8 @@
             </c:if>
 
             <c:if test="${not empty listaAutores}">
-              <div class="tables">
-                <table class="tables scroll-table">
+              <div>
+                <table>
                   <caption>
                     <h2>Lista Autor:</h2>
                   </caption>
@@ -266,7 +259,7 @@
             </c:if>
 
             <c:if test="${not empty listaGeneros}">
-              <table class="tables scroll-table">
+              <table>
                 <caption>
                   <h2>Lista Genero:</h2>
                 </caption>
@@ -291,9 +284,8 @@
                   </c:forEach>
                 </tbody>
               </table>
-          </div>
-        </div>
         </c:if>
+      </div>
         <%@ include file="footer.jsp" %>
           <script src="/javaScript/menu.js"></script>
     </body>

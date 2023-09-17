@@ -18,3 +18,25 @@
   display: flex;
   justify-content: space-between;
 }
+
+/* Estilo Frase */
+
+#contenedor-frase {
+  text-align: center;
+  padding: 2px;
+  display: inline-block;
+}
+
+.frase-con-autor {
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(35, 33, 33, 0.7);
+  margin-bottom: 5px;
+  font-family: 'Arial', sans-serif;
+}
+
+.autor {
+  font-size: 10px;
+  color: #777;
+  font-family: 'Arial', sans-serif;
+}
