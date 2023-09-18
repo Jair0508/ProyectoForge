@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generos</title>
   <link rel="stylesheet" href="/css/baseStyles.css">
-  <link rel="stylesheet" href="/css/indexStyle.css">
+  <link rel="stylesheet" href="/css/libreriaStyle.css">
   <link rel="stylesheet" href="/css/paginacionStyle.css">
 </head>
 
@@ -18,14 +18,13 @@
   <%@ include file="nav.jsp" %>
 
     <div class="main-content">
-      <h3 id="middle-title">GENEROS DE NUESTRA <span>LIBRERIA</span></h3>
+      <h3 id="title">GENEROS DE NUESTRA <span>LIBRERIA</span></h3>
 
       <div class="cards-container">
         <c:forEach var="genero" items="${paginaGenero.content}" begin="0" end="3">
-          <div class="gender-card">
-            <a href="/generos/${genero.id}/libros?page=0">${genero.nombreGenero}</a>
-            <svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 256 256" xml:space="preserve" fill="#85bea2">
+          <div class="book-card">
+            <h3><a class="links" href="/generos/${genero.id}/libros?page=0">${genero.nombreGenero}</a></h3>
+            <svg version="1.2" width="180" baseProfile="tiny" id="Layer_1" viewBox="0 0 256 256" fill="#85bea2">
               <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
               <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC"
                 stroke-width="1.024">
@@ -191,7 +190,6 @@
           </div>
         </c:forEach>
       </div>
-
     </div>
     <div class="pagination">
       <c:if test="${paginaGenero.number > 0}">

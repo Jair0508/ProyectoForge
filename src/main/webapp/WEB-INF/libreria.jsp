@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Libros</title>
       <link rel="stylesheet" href="/css/baseStyles.css">
-      <link rel="stylesheet" href="/css/indexStyle.css">
+      <link rel="stylesheet" href="/css/libreriaStyle.css">
       <link rel="stylesheet" href="/css/paginacionStyle.css">
     </head>
 
@@ -18,7 +18,7 @@
       <%@ include file="nav.jsp" %>
 
         <div class="main-content">
-          <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
+          <h3 id="title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
           <div class="cards-container">
             <c:forEach var="libro" items="${paginaLibros.content}">
               <div class="book-card">

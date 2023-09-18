@@ -11,7 +11,7 @@
     <c:out value="${genero.nombreGenero}" />
   </title>
   <link rel="stylesheet" href="/css/baseStyles.css">
-  <link rel="stylesheet" href="/css/indexStyle.css">
+  <link rel="stylesheet" href="/css/libreriaStyle.css">  
   <link rel="stylesheet" href="/css/paginacionStyle.css">
 </head>
 
@@ -20,7 +20,7 @@
   <%@ include file="nav.jsp" %>
 
     <div class="main-content">
-      <h3 id="middle-title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
+      <h3 id="title">LO NUEVO EN NUESTRA <span>LIBRERIA</span></h3>
       <div class="cards-container">
         <c:forEach items="${paginaLibrosPorGenero.content}" var="libro" begin="0" end="4">
           <div class="book-card">
@@ -44,7 +44,7 @@
             </svg>
             <div>
               <h3>
-                <a href="/libros/${libro.id}/libro">
+                <a class="links" href="/libros/${libro.id}/libro">
                   <c:out value="${libro.nombre}" />
                 </a>
               </h3>
@@ -66,7 +66,7 @@
                 </p>
               </c:if>
               <c:if test="${usuarioEmail == null}">
-                <button onclick="mostrarAlert()">agregar a lista de deseos </button>
+                <button class="button" onclick="mostrarAlert()">agregar a lista de deseos </button>
               </c:if>
               <c:if test="${usuarioEmail.id == 1}">
                 <div>
