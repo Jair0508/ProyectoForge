@@ -10,18 +10,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Intercambios</title>
         <link rel="stylesheet" href="/css/baseStyles.css">
-        <link rel="stylesheet" href="/css/tablaStyle.css">
-        <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
-        <link rel="stylesheet" href="/css/popoverEmail.css">
+        <link rel="stylesheet" href="/css/intercambiosStyle.css">
+        <!-- <link rel="stylesheet" href="/css/intercambiosModalStyle.css">
+        <link rel="stylesheet" href="/css/popoverEmail.css"> -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       </head>
 
       <body>
         <%@ include file="nav.jsp" %>
-          <div id="table-trade" class="tables-container">
+          <div class="tables-container">
             <table class="tables">
               <caption>
-                <h2>Libros Publicados:</h2>
+                <h2>Libros <span>Publicados</span>:</h2>
               </caption>
               <thead>
                 <tr>
@@ -39,17 +39,10 @@
                       <c:out value="${libro.nombre}" />
                     </td>
                     <td>
-                      <div class="popover__wrapper">
-                        <a href="#">
-                          <h2 class="popover__title"><c:out value="${libro.usuario.name}" /><br></h2>
-                        </a>
-                        <div class="popover__content">
-                          <p class="popover__message"><c:out value="${libro.usuario.email}" /></p>
-                        </div>
-                      </div>
+                      <c:out value="${libro.usuario.name}" />
                     </td>
                     <td>
-                      <c:out value="${libro.detallesExtras}" />
+                    
                     </td>
                     <td>
                       <c:out value="${libro.createdAt}" />

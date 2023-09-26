@@ -1,0 +1,284 @@
+/* Tablas */
+
+.tables-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+h2 {
+    margin: 3%;
+}
+
+table {
+    height: 15%;
+    border-collapse: collapse;
+    width: 80%;
+    border: 1px solid #eee;
+    box-shadow: inset 0px -1px 0px #eee,
+        0px 5px 5px -5px rgba(0, 0, 0, .1);
+}
+
+thead {
+    background-color: #fff;
+    position: relative;
+}
+
+thead tr {
+    display: flex;
+    justify-content: space-around;
+}
+
+th,
+td {
+    font-size: medium;
+    padding: 5px;
+}
+
+tbody {
+    background-color: #bbe0d2a9;
+    display: block;
+    overflow-y: scroll;
+    height: calc(40vh - 1px);
+}
+
+tbody tr {
+    border: 1px solid #333;
+    display: flex;
+    justify-content:space-between;
+}
+
+
+.button {
+    padding: 2%;
+    text-decoration: none;
+    background-color: transparent;
+    color: #248b63;
+    font-weight: bold;
+    font-family: 'Comfortaa';
+    border-radius: 50px;
+    font-size: 1em;
+}
+
+.button:hover {
+    background-color: #ddd;
+}
+
+/* Titulos */
+
+span {
+    color: #248b63;
+}
+
+/* Modal */
+
+.modal-window {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+
+    &:target {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &>div {
+        width: 400px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 2em;
+        background: white;
+        box-shadow: 0px 0px 15px #000000ca;
+    }
+
+    header {
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 150%;
+        margin: 0 0 15px;
+    }
+}
+
+.modal-close {
+    border-radius: 10%;
+    background-color: #bbe0d2;
+    color: #1c1a1a;
+    line-height: 25px;
+    font-size: 80%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 35px;
+    text-decoration: none;
+
+    &:hover {
+        background-color: rgb(136, 32, 32);
+        color: white;
+    }
+}
+
+
+.container {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-window {
+    &>div {
+        border-radius: 1rem;
+    }
+}
+
+.modal-window div:not(:last-of-type) {
+    margin-bottom: 15px;
+}
+
+
+
+small {
+    color: lightgray;
+}
+
+.btn {
+    text-decoration: none;
+    margin-inline: 1em;
+    margin-bottom: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    color: black;
+    padding: 3px;
+    border-radius: 50px;
+    background-color: transparent;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+
+
+.btn:hover {
+    background-color: #aeb3b1;
+}
+
+/* Formulario dentro de Modal*/
+
+.form-title {
+    margin-block: 20px;
+}
+
+.input-content {
+    background-color: #ddd;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-size: 1em;
+    padding: 5px 20px;
+    text-align: inherit;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-weight: bold;
+}
+
+.errors {
+    color: #ffffff;
+    background-color: #fd8585;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+    padding-inline: 8px;
+    border-radius: 50px;
+}
+
+.checked {
+    color: #ffffff;
+    background-color: #59d03e;
+    max-width: 80%;
+    margin: 0 auto;
+    display: block;
+    padding-inline: 8px;
+    border-radius: 50px;
+}
+
+.button-link {
+    background-color: #bbe0d2;
+    padding: 2%;
+    border-radius: 15%;
+}
+
+.button-link:hover {
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #aeb3b1;
+}
+
+/* Poppover Email */
+
+a {
+    text-decoration: none;
+}
+
+.popover__title {
+    font-size: medium;
+    text-decoration: none;
+    color: rgb(228, 68, 68);
+    text-align: center;
+}
+
+.popover__wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.popover__content {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    left: -150px;
+    transform: translate(0, 10px);
+    background-color: #bfbfbf;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    width: auto;
+}
+
+.popover__content:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    right: calc(50% - 70px);
+    top: -8px;
+    border-style: solid;
+    border-width: 0 10px 10px 10px;
+    border-color: transparent transparent #bfbfbf transparent;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.popover__wrapper:hover .popover__content {
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    transform: translate(5, 5px);
+    transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.popover__message {
+    text-align: center;
+}

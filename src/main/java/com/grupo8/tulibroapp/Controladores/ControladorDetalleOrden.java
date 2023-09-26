@@ -42,23 +42,6 @@ public class ControladorDetalleOrden {
     @Autowired
     private ServicioUsuario servicioUsuario;
 
-    @GetMapping("/confirmar/{libro}")
-    public String showConfirmarCompra(@PathVariable("libro") Long libroId, HttpSession session, Model model) {
-        Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId == null) {
-            return "redirect:/registro";
-        }
-
-        if (usuarioId == 1) {
-            return "redirect:/principal";
-        }
-
-        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
-        LibroVenta libro = servicioLibroVenta.findById(libroId);
-        model.addAttribute("listaFrases", listaFrases);
-        model.addAttribute("libro", libro);
-        return "confirmarCompra.jsp";
-    }
 
     @GetMapping("/compra/{libroId}")
     public String crudDestalleOrden(@ModelAttribute("detalleOrden") DetalleOrden orden,
@@ -104,24 +87,6 @@ public class ControladorDetalleOrden {
         DetalleOrden orden = servicioDetalleOrden.findById(ordenId);
         model.addAttribute("orden", orden);
         return "recibo.jsp";
-    }
-
-    @GetMapping("/lista")
-    public String historial_ordenes(HttpSession session, Model model) {
-        Long usuarioId = (Long) session.getAttribute("userId");
-        if (usuarioId == null) {
-            return "redirect:/registro";
-        }
-        if (usuarioId == 1) {
-            return "redirect:/principal";
-        }
-        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-        List<DetalleOrden> listOrdenes = servicioDetalleOrden.getDetalleOrdenesByUsuarioId(usuarioId);
-        List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
-        model.addAttribute("listaFrases", listaFrases);
-        model.addAttribute("usuarioEmail", usuarioEmail);
-        model.addAttribute("listOrdenes", listOrdenes);
-        return "historialDeOrdenes.jsp";
     }
 
     @DeleteMapping("/cancelar/{ordenId}")
