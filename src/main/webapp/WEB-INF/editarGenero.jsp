@@ -13,8 +13,7 @@
             <c:out value="${genero.nombreGenero}" />
           </title>
           <link rel="stylesheet" href="/css/baseStyles.css">
-          <link rel="stylesheet" href="/css/formStyle.css">
-          <link rel="stylesheet" href="/css/tablaStyle.css">
+          <link rel="stylesheet" href="/css/editarGeneroStyle.css">
         </head>
 
         <body>
@@ -22,7 +21,7 @@
             <div>
               <div class="formulario">
                 <h1 class="form-title">Editar Genero:
-                  <c:out value="${genero.nombreGenero}" />
+                  <span><c:out value="${genero.nombreGenero}" /></span>
                 </h1>
                 <form:form action="/generos/${genero.id}/editar" method="post" modelAttribute="genero">
                   <input type="hidden" name="_method" value="put">
@@ -42,7 +41,7 @@
                   </p>
 
                 </form:form>
-                <a class="button" href="/libros/anexar">Agregar mas Autores</a>
+                <a class="button" href="/generos/anexar/genero">Agregar mas Generos</a>
               </div>
 
               <div class="main-content">
@@ -61,8 +60,8 @@
                     <c:otherwise>
                       <table class="tables">
                         <caption>
-                          <h2>Lista Libros de
-                            <c:out value="${genero.nombreGenero}" />:
+                          <h2>Lista Libros de:
+                            <span><c:out value="${genero.nombreGenero}" /></span>
                           </h2>
                         </caption>
                         <thead>
@@ -110,15 +109,15 @@
                           </div>
                         </c:otherwise>
                       </c:choose>
+                      <p class="warning">
+                        <c:out value="${removido}" />
+                      </p>
+                      <p class="checked">
+                        <c:out value="${agregado}" />
+                      </p>
                     </form>
                   </div>
                 </div>
-                <p class="warning">
-                  <c:out value="${removido}" />
-                </p>
-                <p class="checked">
-                  <c:out value="${agregado}" />
-                </p>
               </div>
             </div>
 

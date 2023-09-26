@@ -71,16 +71,13 @@ public class ControladorIntercambios {
 
         if (id != usuarioId && id == null) {
             return "redirect:/principal";
-        } else {
-            List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
-            Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
-            List<Genero> listaGenero = servicioGenero.findAll();
-            model.addAttribute("listaFrases", listaFrases);
-            model.addAttribute("listaGenero", listaGenero);
-            model.addAttribute("usuarioEmail", usuarioEmail);
         }
         List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
+        List<Genero> listaGenero = servicioGenero.findAll();
         model.addAttribute("listaFrases", listaFrases);
+        model.addAttribute("listaGenero", listaGenero);
+        model.addAttribute("usuarioEmail", usuarioEmail);
         return "registroIntercambios.jsp";
     }
 
@@ -92,6 +89,7 @@ public class ControladorIntercambios {
             return "redirect:/usuario/login";
         }
 
+        Usuario usuarioEmail = servicioUsuario.findById(usuarioId);
         if (result.hasErrors()) {
             List<Autor> listaFrases = servicioAutor.findAllRandomOrder();
             List<Genero> listaGeneros = servicioGenero.findAll();
@@ -99,7 +97,8 @@ public class ControladorIntercambios {
             model.addAttribute("listaFrases", listaFrases);
             model.addAttribute("listaGeneros", listaGeneros);
             model.addAttribute("listaAutores", listaAutores);
-            return "registroLibros.jsp";
+            model.addAttribute("usuarioEmail", usuarioEmail);
+            return "registroIntercambios.jsp";
         }
 
         Usuario usuario = new Usuario();

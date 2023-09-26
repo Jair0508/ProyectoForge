@@ -10,8 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Registro - Libros Intercambios</title>
                 <link rel="stylesheet" href="/css/baseStyles.css">
-                <link rel="stylesheet" href="/css/formStyle.css">
-                <link rel="stylesheet" href="/css/tablaStyle.css">
+                <link rel="stylesheet" href="/css/editarLibroIntercambio.css">
             </head>
 
             <body>

@@ -54,6 +54,14 @@ tbody tr {
   justify-content: space-around;
 }
 
+.reducir{
+  text-align: start;
+  width: 20%;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
 .button {
   text-decoration: none;
   background-color: transparent;

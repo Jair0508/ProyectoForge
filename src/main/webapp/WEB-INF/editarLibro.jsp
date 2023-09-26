@@ -13,15 +13,14 @@
             <c:out value="${libro.nombre}" />
           </title>
           <link rel="stylesheet" href="/css/baseStyles.css">
-          <link rel="stylesheet" href="/css/formStyle.css">
-          <link rel="stylesheet" href="/css/tablaStyle.css">
+          <link rel="stylesheet" href="/css/editarLibroStyle.css">
         </head>
 
         <body>
           <%@ include file="nav.jsp" %>
             <div class="formulario">
               <h1 class="form-title">Editar Libro:
-                <c:out value="${libro.nombre}" />
+                <span><c:out value="${libro.nombre}" /></span>
               </h1>
               <form:form action="/libros/${libro.id}/editar" method="post" modelAttribute="libro">
                 <input type="hidden" name="_method" value="put">

@@ -32,7 +32,7 @@
                 </caption>
                 <thead>
                   <tr>
-                    <th>Titulo</th>
+                    <th class="reducir">Titulo</th>
                     <th>Precio</th>
                     <th>Cantidad</th>
                     <th>Accion</th>
@@ -41,8 +41,8 @@
                 <tbody>
                   <c:forEach var="libro" items="${listaLibro}">
                     <tr>
-                      <td>
-                        <c:out value="${libro.nombre}" />
+                      <td class="reducir">
+                          <c:out value="${libro.nombre}" />
                       </td>
                       <td>
                         <c:out value="${libro.precio}" />
@@ -83,7 +83,7 @@
                 </caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
+                    <th class="reducir">Nombre</th>
                     <th>Email</th>
                     <th>Interacciones</th>
                     <th>Accion</th>
@@ -93,7 +93,7 @@
                   <c:forEach var="usuario" items="${listaUsuarioNotNull}">
                     <tr>
                       <c:if test="${usuario.id != 1}">
-                        <td>
+                        <td class="reducir">
                           <c:out value="${usuario.name}" />
                         </td>
                         <td>
@@ -159,7 +159,7 @@
                 </caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
+                    <th class="reducir">Nombre</th>
                     <th>Email</th>
                     <th>Interacciones</th>
                     <th>Accion</th>
@@ -169,7 +169,7 @@
                   <c:forEach var="usuario" items="${listaUsuarioNull}">
                     <tr>
                       <c:if test="${usuario.id != 1}">
-                        <td>
+                        <td class="reducir">
                           <c:out value="${usuario.name}" />
                         </td>
                         <td>
@@ -236,7 +236,7 @@
                   </caption>
                   <thead>
                     <tr>
-                      <th>Nombre</th>
+                      <th class="reducir">Nombre</th>
                       <th>fecha de Registro</th>
                       <th>Accion</th>
                     </tr>
@@ -244,7 +244,7 @@
                   <tbody>
                     <c:forEach var="autor" items="${listaAutores}">
                       <tr>
-                        <td>
+                        <td class="reducir">
                           <c:out value="${autor.nombre}" />
                         </td>
                         <td>
@@ -265,7 +265,7 @@
                 </caption>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
+                    <th class="reducir">Nombre</th>
                     <th>fecha de Registro</th>
                     <th>Accion</th>
                   </tr>
@@ -273,7 +273,7 @@
                 <tbody>
                   <c:forEach var="genero" items="${listaGeneros}">
                     <tr>
-                      <td>
+                      <td class="reducir">
                         <c:out value="${genero.nombreGenero}" />
                       </td>
                       <td>

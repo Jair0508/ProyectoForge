@@ -22,6 +22,7 @@ body {
 /* Mensajes Flash */
 
 .errors {
+  text-align: center;
   color: #ffffff;
   background-color: #fd8585;
   max-width: 80%;
@@ -32,6 +33,7 @@ body {
 }
 
 .checked {
+  text-align: center;
   color: #ffffff;
   background-color: #59d03e;
   max-width: 80%;
@@ -42,6 +44,7 @@ body {
 }
 
 .warning {
+  text-align: center;
   color: #ffffff;
   background-color: #dfca3f;
   max-width: 80%;
