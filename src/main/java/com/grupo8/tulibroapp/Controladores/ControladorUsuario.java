@@ -182,11 +182,13 @@ public class ControladorUsuario {
         List<Usuario> listaUsuarioNull = servicioUsuario.findByEmailIsNull();
         List<Genero> listaGeneros = servicioGenero.findAll();
         List<Autor> listaAutores = servicioAutor.findAll();
+        List<DetalleOrden> listaOrdenes = servicioDetalleOrden.findAll();
         if (usuarioId == null) {
             return "redirect:/usuario/login";
         } else if (usuarioId != 1) {
             return "redirect:/principal";
         } else {
+            model.addAttribute("listaOrdenes", listaOrdenes);
             model.addAttribute("usuarioEmail", usuarioEmail);
             model.addAttribute("listaUsuarioNotNull", listaUsuarioNotNull);
             model.addAttribute("listaUsuarioNull", listaUsuarioNull);
